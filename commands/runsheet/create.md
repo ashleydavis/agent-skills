@@ -2,7 +2,7 @@ Interview the human and create a new runsheet as a local markdown file under `ru
 
 Follow the runsheet style guide available in `~/notes`. Do not invent a parallel style.
 
-Easy-to-miss voice rules from that guide: no “cutover” (say **version bump** for version-update procedures), never write “worked example”, do not open by calling this the analog of another runsheet (link siblings from Resources), do not cite completed tickets (use `PROJ-123` in commands).
+Easy-to-miss voice rules from that guide: no “cutover” (say **version bump** for version-update procedures), no “fleet” (say distributions, shared defaults, or defaults PR), never write “worked example”, do not open by calling this the analog of another runsheet (link siblings from Resources), do not cite completed tickets (use `PROJ-123` in commands).
 
 ## Steps
 
