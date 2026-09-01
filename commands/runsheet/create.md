@@ -2,6 +2,8 @@ Interview the human and create a new runsheet as a local markdown file under `ru
 
 Follow the runsheet style guide available in `~/notes`. Do not invent a parallel style.
 
+Easy-to-miss voice rules from that guide: no “cutover” (say **version bump** for version-update procedures), never write “worked example”, do not open by calling this the analog of another runsheet (link siblings from Resources), do not cite completed tickets (use `PROJ-123` in commands).
+
 ## Steps
 
 1. **Interview (ask only what you still need).** Gather enough to draft a complete runsheet. Prefer one short questionnaire, then fill gaps. Cover procedure name, what the operator is doing, environments, repos/tools, tickets, inputs, Before/During/After steps, rollback, exceptions, related resources, roles if more than one acts, and whether it supersedes an older page. Do not invent ticket types, workflows, or approvals the human did not confirm.

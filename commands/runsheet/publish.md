@@ -2,6 +2,8 @@ Publish a local runsheet markdown file under `runsheets/` to Confluence. Updates
 
 Follow the runsheet style guide available in `~/notes` for how to publish (including TOC, titles, comments, and links).
 
+If this was requested as part of a review, wait until the human says the review is finished. Do not publish mid-review.
+
 **Do not use Python** (or other local converters) for this. Strip the metadata comment yourself, call the Atlassian MCP, then fix TOC and links with a second HTML update. No markdown→HTML scripts.
 
 ## Steps
