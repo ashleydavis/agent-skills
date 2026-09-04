@@ -17,3 +17,4 @@ Easy-to-miss voice rules from that guide: no “cutover” (say **version bump**
 ## Hard stops
 
 - Never use em dashes in the draft. Use a period, comma, colon, or parentheses instead.
+- Never reference a local file or directory that other people cannot open, anywhere in the runsheet: not `docs/plans/…`, not a ticket working directory, not `~/…`, not `file://`. Exception: the target is itself a draft that will be published online (another runsheet, a ticket draft, a Confluence draft). Then the local link may appear only with a `TODO: replace with the published URL` note right next to it, and it must be rewritten to the live `https://` URL after that draft is published.

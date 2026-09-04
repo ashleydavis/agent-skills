@@ -26,5 +26,6 @@ Draft a Jira ticket comment as a local markdown file for review. Post nothing.
 - Never invent a ticket key, a PR link, or work that was not done.
 - Never put secrets, credentials, internal hostnames or account ids in the draft.
 - Every URL uses `[label](url)`. No bare URLs, no URLs in backticks.
+- Never reference a local file or directory that other people cannot open: not `docs/plans/…`, not a ticket working directory, not `~/…`, not `file://`. Exception: the target is itself a draft that will be published online (a ticket draft, a runsheet, a Confluence draft). Then the local link may appear only with a `TODO: replace with the published URL` note right next to it, and it must be rewritten to the live `https://` URL after that draft is published.
 - Never put the comment body in a code fence, in the draft file or when showing it in the reply.
 - Never use em dashes in the draft. Use a period, comma, colon, or parentheses instead.
