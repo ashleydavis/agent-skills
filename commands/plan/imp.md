@@ -1,6 +1,6 @@
 Implement the current plan.
 
-0. **Choose the plan** — if a specific plan is obvious from the conversation context, use that. Otherwise list the 5 most recent files in `docs/plans/new/` (by modification time) and present them as a numbered menu for the user to choose from. Wait for the user's selection before continuing.
+0. **Choose the plan** — if a specific plan is obvious from the conversation context, use that. Otherwise present every plan in `docs/plans/new/` as a numbered menu, newest first by modification time. Do not truncate the list: the user cannot choose a plan you did not show them, and a plan sitting in `new/` is a plan waiting to be implemented however old it is. Read the top of each file (its heading and Overview) and give every plan a description of one short sentence saying what it does, on the row beside its number. Mark any plan whose Issues section still has unchecked items (`- [ ]`), since step 3 will refuse to implement it. A filename is not a description, so a menu of bare filenames is not a menu. Wait for the user's selection before continuing.
 
 1. **Choose working location** — present the user with:
    ```

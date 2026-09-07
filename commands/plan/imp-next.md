@@ -2,7 +2,7 @@ Implement the next step of the current plan.
 
 This command is for plans that have been broken into discrete step files (via `/plan:break`). It implements one step at a time, marks it complete in the plan's checklist, and records what was done in the step file's Summary section.
 
-0. **Choose the plan** — if a specific plan is obvious from the conversation context, use that. Otherwise list the 5 most recent files in `docs/plans/new/` (by modification time) and present them as a numbered menu for the user to choose from. Wait for the user's selection before continuing.
+0. **Choose the plan** — if a specific plan is obvious from the conversation context, use that. Otherwise present every plan in `docs/plans/new/` as a numbered menu, newest first by modification time. Do not truncate the list: the user cannot choose a plan you did not show them, and a plan sitting in `new/` is a plan waiting to be implemented however old it is. Read the top of each file (its heading and Overview) and give every plan a description of one short sentence saying what it does, on the row beside its number. Say how many of its steps are already checked off. A filename is not a description, so a menu of bare filenames is not a menu. Wait for the user's selection before continuing.
 
 1. **Read the plan and find the next step** — read the chosen plan file from `docs/plans/new/`. Locate the `## Implementation Steps` checklist at the top of the file. Find the first unchecked item (`- [ ]`). If every item is already checked (`- [x]`), stop and tell the user the plan is fully implemented.
 
