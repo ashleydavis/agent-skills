@@ -1,6 +1,6 @@
 Implement the current plan.
 
-0. **Choose the plan** — if a specific plan is obvious from the conversation context, use that. Otherwise present every plan in `docs/plans/new/` as a numbered menu, newest first by modification time. Do not truncate the list: the user cannot choose a plan you did not show them, and a plan sitting in `new/` is a plan waiting to be implemented however old it is. Read the top of each file (its heading and Overview) and give every plan a description of one short sentence saying what it does, on the row beside its number. Mark any plan whose Issues section still has unchecked items (`- [ ]`), since step 3 will refuse to implement it. A filename is not a description, so a menu of bare filenames is not a menu. Wait for the user's selection before continuing.
+0. **Choose the plan** — if a specific plan is obvious from the conversation context, use that. Otherwise present every plan in `docs/plans/new/` as a numbered menu, newest first by modification time. Do not truncate the list: the user cannot choose a plan you did not show them, and a plan sitting in `new/` is a plan waiting to be implemented however old it is. Read the top of each file (its heading and Overview) and give every plan a description of one short sentence saying what it does, on the row beside its number. Mark any plan whose section headed `Issues` or `Open issues` still has unchecked items (`- [ ]`), since step 3 will refuse to implement it. Unchecked items in any other section are progress tracking and never count. A filename is not a description, so a menu of bare filenames is not a menu. Wait for the user's selection before continuing.
 
 1. **Choose working location** — present the user with:
    ```
@@ -15,7 +15,7 @@ Implement the current plan.
 
 2. **Read the plan** — read the chosen plan file from `docs/plans/new/`.
 
-3. **Check for open issues** — look at the top of the plan file for an issues section with checkboxes. If any unchecked items (`- [ ]`) exist, stop and report them to the user before proceeding. Only continue if all issues are checked off (`- [x]`).
+3. **Check for open issues** — look for a section headed `Issues` or `Open issues`. Only unchecked items (`- [ ]`) inside that section block implementation: if any exist, stop and report them to the user before proceeding. Unchecked items in any other section (a progress or parity checklist, for example) are progress tracking, so ignore them. Never count `- [ ]` across the whole file. If the plan has no such section, there is nothing to check, so continue to step 4.
 
 4. **Create a todo list** — use TodoWrite to break the plan into discrete tasks, then work through them one by one, marking each complete as you go.
 
