@@ -16,6 +16,8 @@ The notes always go in a section headed `## Handover`, in one fixed place that d
 - **There is a plan with no step files.** Put the section in the plan document.
 - **There is no current plan.** This command does nothing. Handover notes are only read by the plan commands (`/plan:imp`, `/plan:continue`), so without a plan there is no place the next agent will look, and a note anywhere else will not be read. Write nothing, and tell the human there is no current plan to hand over through.
 
+The `## Handover` section is temporary: it is replaced at the next handover and deleted when the next agent has used it. So it holds only what describes the state of the work right now (where it stands, what is part done, traps the next agent will meet straight away, what was inferred). It never holds anything that is true of a particular later phase or step of the plan, such as a lesson, a constraint or a decision that a future phase must follow. That is a change to the plan, and goes in the text of the phase or step it concerns, so it is still there when that phase is reached and is not deleted with the handover. If you learned something that changes what a later phase should do, edit that phase.
+
 If the document already has a `## Handover` section, replace it with the new notes. It describes where the work stands now, so it is rewritten on each handover and never appended to. Notes in it that are still true and still needed stay, in the new text. Anything finished or out of date goes.
 
 The plan commands that start the next piece of work (`/plan:imp`, `/plan:continue`) read this section first.
