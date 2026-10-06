@@ -12,7 +12,7 @@ Finish only what would be left broken or misleading if you stopped mid-way: an e
 
 Prefer a document that already exists over a new one:
 
-- **A plan with step files.** Put what was achieved and what is next in the step file's Summary, in the same voice as the rest of it. Do not tick a checklist item that is not actually done. If a step is part done, say which parts and which are outstanding.
+- **A plan with step files.** Put what was achieved and what is next in the step file's Summary, in the same voice as the rest of it. Do not tick a checklist item that is not actually done. If a step is part done, say which parts and which are outstanding. Notes for the next agent (where the work stands, traps, what was inferred) go in the file of the next unchecked step, under a "Handover from step N" heading above its Summary, because that is the file the next agent reads. They do not go in the file of the step you just finished.
 - **A plan or design document with no step files.** Add or update a short section near the work it describes.
 - **A runbook, a runsheet, or a document that records a baseline or a position.** Update it if the work moved that position, so it is not left claiming something untrue.
 - **Nothing suitable exists.** Write one file under `docs/`, named for the work rather than for the handover, and say at the top that it is a working note rather than a finished document.
