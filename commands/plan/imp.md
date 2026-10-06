@@ -13,7 +13,7 @@ Implement the current plan.
 
    Understand the consequences, because YOU have repeatedly broken this rule: if you make ANY change to the main repo when you were supposed to be on the worktree, those changes will be summarily reverted without asking you and without consulting you. Your work will be thrown away. And if you keep violating this rule and continue making changes to the main repo, your process will be summarily terminated. Reverted changes and a terminated process is the guaranteed outcome of working in the main repo when the worktree was chosen. Use the worktree.
 
-2. **Read the plan** — read the chosen plan file from `docs/plans/new/`.
+2. **Read the plan** — read the chosen plan file from `docs/plans/new/`. If it has a `## Handover` section, read it first: it holds the notes the previous agent left for whoever picks the work up (decisions, traps, what is part done). Treat what it says as what the previous agent believed, and check anything you rely on.
 
 3. **Check for open issues** — look for a section headed `Issues` or `Open issues`. Only unchecked items (`- [ ]`) inside that section block implementation: if any exist, stop and report them to the user before proceeding. Unchecked items in any other section (a progress or parity checklist, for example) are progress tracking, so ignore them. Never count `- [ ]` across the whole file. If the plan has no such section, there is nothing to check, so continue to step 4.
 

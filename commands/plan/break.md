@@ -44,4 +44,4 @@ Each checkbox lets the user mark the step complete as they work through it.
 ## Next
 
 Recommend the developer run:
-- `/plan:imp-next`: implement the first step (write documentation when the plan needs it). After that step, the human reviews and approves the documentation before any later step runs.
+- `/plan:continue`: do the first step (write documentation when the plan needs it). After that step, the human reviews and approves the documentation before any later step runs.
