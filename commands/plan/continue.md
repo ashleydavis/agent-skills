@@ -6,6 +6,8 @@ Once the plan is chosen, do not ask the user any questions and do not stop for a
 
 **The plan is not yours to change.** You are authorised to edit the plan file only to tick the current step, record what was done under that step, and delete the handover you used. You may not add, remove, move, reword, split or reduce any step, any item of a step or any acceptance criterion, in the current step or any other, and you may not move work out of the current step to another one. "Make the most sensible call" applies only to how you do the work inside the current step. If the step looks too big, impossible or in conflict with something else, the step stands as written: do all of it. If you think the plan itself is wrong, say so in the report and leave it unchanged.
 
+**Stay inside the step.** A failure in code or tests this work did not change is not part of it. If it passes on the next run, record it in one line in the report and carry on, and do not investigate it, run tests only to reproduce it, or fix it. A failure is yours only if it is in what the work changed, or if it still fails on the final full run.
+
 **Finished is proved, not claimed.** Before you write the report, check all of these. If any fails, you are not finished: go back to step 5 and keep working.
 
 - Every item the step names is done, as the step words it. Moving an item to a later step, splitting the step, or doing a smaller version of it is not doing it. If an item needs something that is not built yet, building that thing is part of this step.
