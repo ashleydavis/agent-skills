@@ -18,6 +18,8 @@ Once the plan is chosen, do not ask the user any questions and do not stop for a
 
    Say which step or piece of work you are doing before you start it. Do not ask the user to confirm it.
 
+   Then print a goal for the user to set, in a fenced block, so that a goal can hold you to finishing. Write it for this step: name the plan and the step, and say it is met only when every sub-bullet, group and part of the step is written, every new or changed function has a unit test that was watched failing first, `/verify` passes, the step's summary is recorded, its checklist item is ticked and the handover is cleared. Say that a step being large, a part waiting on code that is not written yet, or a stop instruction inside the step does not meet the goal, and that stopping with any part undone is a failure. Print it once, then carry on working: do not wait for the user to set it.
+
 4. **Create a todo list** — use TodoWrite to break the step or piece of work into discrete tasks, then work through them one by one, marking each complete as you go. Work in the directory and branch the session is already in. Do not create a worktree.
 
 5. **Write tests** — add or update unit tests and smoke tests for every new or changed function as described in the step or plan.
