@@ -5,7 +5,7 @@ Implement the current plan.
 1. **Print the goal and stop** — do this right after the plan is chosen, before reading anything. Print the goal in a fenced block, with one line asking the user to set it. Use no tool in that message. Never say you printed it unless you did. The text is exactly this, with the plan's name in place of "the plan":
 
    ```
-   Implement the plan to completion. Satisfy all acceptance criteria for the plan. Implement all unit and smoke tests required and make sure they pass. STOPPING IS NOT ALLOWED FOR ANY REASON UNTIL THE PLAN IS COMPLETED AND ALL TESTS ARE PASSING.
+   Implement the plan to completion. Satisfy all acceptance criteria for the plan. Implement all unit and smoke tests required and make sure they pass. Run the project's full test command after your last edit and make sure every test passes. STOPPING IS NOT ALLOWED FOR ANY REASON UNTIL THE PLAN IS COMPLETED AND ALL TESTS ARE PASSING.
    ```
 
    After printing it, stop. Do nothing else until the user has set the goal and told you to go on. From then on, stopping is banned until the plan is done.
@@ -31,7 +31,7 @@ Implement the current plan.
 
 7. **Write tests** — add or update unit tests and smoke tests for every new or changed function as described in the plan.
 
-8. **Verify** — once all steps are done, run `/verify` to confirm the full test suite and compile checks pass.
+8. **Verify** — once all steps are done, run the project's canonical full test command, exactly as the project's instructions give it (plain, with no flags that skip suites), and read the result. Do not run a subset in its place. Any failure is yours to fix: fix the cause and run the whole command again until it is green. Any later edit means running it again.
 
 9. **Move the plan** — move the plan file (and the plans "steps" directory if it has one) from `docs/plans/new/` to `docs/plans/done/`.
 
@@ -41,5 +41,4 @@ Implement the current plan.
 
 Recommend the developer run:
 - After a write-documentation step, wait for the human to approve the docs (and revise remaining plan steps if they changed the docs) before continuing implementation.
-- `/verify`: run all quality checks once implementation is complete.
 - `/commit:detz`: once checks pass, produce a commit message.

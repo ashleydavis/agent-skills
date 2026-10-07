@@ -7,7 +7,7 @@ Start the plan if it has not been started, or resume it if it is part done, and 
 1. **Print the goal and stop** — do this right after the plan is chosen, before reading anything. Print the goal in a fenced block, with one line asking the user to set it. Use no tool in that message. Never say you printed it unless you did. The text is exactly this, with the plan's name in place of "the plan":
 
    ```
-   Implement the plan to completion. Satisfy all acceptance criteria for the plan. Implement all unit and smoke tests required and make sure they pass. STOPPING IS NOT ALLOWED FOR ANY REASON UNTIL THE PLAN IS COMPLETED AND ALL TESTS ARE PASSING.
+   Implement the plan to completion. Satisfy all acceptance criteria for the plan. Implement all unit and smoke tests required and make sure they pass. Run the project's full test command after your last edit and make sure every test passes. STOPPING IS NOT ALLOWED FOR ANY REASON UNTIL THE PLAN IS COMPLETED AND ALL TESTS ARE PASSING.
    ```
 
    After printing it, stop. Do nothing else until the user has set the goal and told you to go on. From then on, stopping is banned until the plan is done.
@@ -27,11 +27,11 @@ Start the plan if it has not been started, or resume it if it is part done, and 
    - When it has a step file (e.g. `docs/plans/<plan-name>/<N>-<slug>.md`), read it, and read its `## Handover` section first if it has one.
    - Use TodoWrite to break it into discrete tasks and work through them one by one, marking each complete as you go. Work in the directory and branch the session is already in. Do not create a worktree.
    - Add or update unit tests and smoke tests for every new or changed function as described in the step or plan.
-   - Run `/verify`. If it fails, find the cause, fix it and run it again, until it passes. A step is not done while it fails.
+   - Run the project's canonical full test command, exactly as the project's instructions give it (plain, with no flags that skip suites). If it fails, find the cause, fix it and run the whole command again, until it passes. A step is not done while it fails.
    - Record it. When the plan has step files, replace the empty `## Summary` placeholder at the bottom of the step file with a concise account of what was actually done: files changed, key decisions, anything that diverged from the step's instructions, and anything deferred. When it has no step files, record it in the plan where the plan keeps its own progress. When the plan has steps, change the `- [ ]` for the step to `- [x]`. Do not tick an item that is not actually done.
    - Delete the `## Handover` section you read for this step (in the step file, the plan file, or both), because it describes a state the work has now moved past.
 
-6. **Complete the plan** — when nothing remains and every item in the checklist is `- [x]`, run `/verify` once more over the whole change, and fix whatever it reports. Then move the plan file and its steps directory from `docs/plans/new/` to `docs/plans/done/`.
+6. **Complete the plan** — when nothing remains and every item in the checklist is `- [x]`, run the project's canonical full test command once more over the whole change, and fix whatever it reports. Then move the plan file and its steps directory from `docs/plans/new/` to `docs/plans/done/`.
 
 7. **Report** — only now, summarise what was done across the whole plan, flag anything that was skipped or deferred and why, and say that the plan has been moved to `docs/plans/done/`.
 
