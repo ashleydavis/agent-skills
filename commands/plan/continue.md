@@ -47,4 +47,3 @@ Once the plan is chosen, do not ask the user any questions and do not stop for a
 Recommend the developer run:
 - `/plan:continue`: do the next step, until the plan is finished. After a write-documentation step, do not run this until the human has approved the documentation (and remaining steps have been revised if they changed the docs).
 - `/plan:handover`: if you stopped before the step was done.
-- `/verify`: once the plan is finished.
