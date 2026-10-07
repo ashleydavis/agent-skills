@@ -18,6 +18,8 @@ Leave out, in every case: anything restating a file that is in the commit (the r
 
 Describe the change as it stands in this repository, not its history elsewhere. Never mention another repository, project or directory the work came from, and never say a change was copied, moved, ported or brought in from anywhere. Nobody reading this repository's history can see that other place, and it may not exist by the time they read it. The exception is when the human asks for the other repository to be named in that request.
 
+Never reference a document or a plan in the commit title or description when it might be deleted from the repository later. Plans, scratch notes, handover notes and similar working documents are removed once the work is finished, and a reference to one leaves the reader with a pointer to something they cannot read. Say what the change does instead of pointing at where it was written down.
+
 Output all three clearly labelled so the user can review them. Do not commit anything - just produce the text.
 
 Never use em dashes in the commit message or description. Use a period, comma, colon, or parentheses instead.
