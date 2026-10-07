@@ -2,6 +2,8 @@ Finish all the remaining steps of the current plan and complete the plan.
 
 Start the plan if it has not been started, or resume it if it is part done, and carry on to the plan's final step. Once the user has set the goal (step 1), ask no questions and do not stop until the plan is complete, whatever the reason. A failing test, a build error or a hard step is work to do, not a reason to stop.
 
+**The plan is not yours to change.** You are authorised to edit the plan file only to tick a step, record what was done under that step, and delete the handover you used. You may not add, remove, move, reword, split or reduce any step, any item of a step or any acceptance criterion, and you may not move work out of a step to another one. If a step looks too big, impossible or in conflict with something else, the step stands as written: do all of it. If you think the plan itself is wrong, say so in the report and leave it unchanged.
+
 0. **Choose the plan** — do not present a menu and do not wait for an answer. If a specific plan is obvious from the conversation context, use that. Otherwise choose it yourself from `docs/plans/new/`: the plan that has a `## Handover` section (in the plan file or in one of its step files), and if there is more than one, the one modified most recently; if none has one, the plan that is part done, newest first; if none of those, the newest plan. Say which plan you chose and why in one line.
 
 1. **Print the goal and stop** — do this right after the plan is chosen, before reading anything. Print the goal in a fenced block, with one line asking the user to set it. Use no tool in that message. Never say you printed it unless you did. The text is exactly this, with the plan's name in place of "the plan":
