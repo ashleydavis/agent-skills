@@ -26,7 +26,8 @@ The one thing that ends the loop early is genuinely needing the human: a decisio
 ## Rules for this work
 
 - All work happens in a git worktree. Never change the main checkout, and never commit to the branch it is on.
-- You may commit and push from the worktree as often as you need. Pushing is how you get a workflow run.
+- You may commit and push from the worktree as often as you need while the workflow is failing. Pushing is how you get a workflow run.
+- That authorisation ends the moment the workflow has passed. After the green run you do not commit, push, dispatch another run or touch git state in any other way, whatever else you find. Anything further needs the human to say so in a message of their own.
 - One problem, one commit. Do not bundle two fixes together, however small the second one is. When a run later goes red, you need to be able to say which change did what.
 - Every fix is the smallest change that addresses the cause you found. Do not tidy up around it, do not rename things, do not "improve" code you happened to read on the way.
 - Comment every change with why it was needed and what it fixes. Name the failure: which job, which test, what the log said. A future reader has no access to the run you were looking at, so the comment is the only record of why the code is written that way.
@@ -145,6 +146,6 @@ This is the loop, and most of the work happens on the second and third time roun
 
 ## Finish
 
-- Tell the human which run passed and on which commit.
+- Tell the human which run passed and on which commit. Your authorisation to commit and push is rescinded from that point, so nothing is committed or pushed after this report.
 - List each fix in one line: what failed, and what you changed.
 - Say plainly which failures you could not explain, and what you did about them. A bug you found while looking for a cause is not the same as the cause, and must not be reported as one.
