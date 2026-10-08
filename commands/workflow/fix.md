@@ -1,10 +1,10 @@
 ---
-description: Fix the failing CI workflow run at the link given. Works in a worktree, one problem per commit, and proves each fix by getting the workflow green several times in a row.
+description: Fix the failing CI workflow run at the link given. Works in a worktree, one problem per commit, and proves the fixes by getting the workflow green on the final commit.
 ---
 
 # Fix a failing workflow run
 
-A CI workflow run has failed. The human gives you the link to it: `$ARGUMENTS`. Find out why it failed, fix the cause, and prove the fix by running the workflow again until it passes several times in a row.
+A CI workflow run has failed. The human gives you the link to it: `$ARGUMENTS`. Find out why it failed, fix the cause, and prove the fix by running the workflow again until it passes.
 
 The run may have failed for a reason that is always there, or for one that only shows up now and again. You will not know which until you have read it, so do not assume either.
 
@@ -12,14 +12,14 @@ The commands below are for GitHub Actions through the `gh` CLI. If this project'
 
 ## When this is finished
 
-The job is not done when you have made a fix. It is done when the workflow has passed **five times in a row** on the same commit, unless the human names a different number.
+The job is not done when you have made a fix. It is done when the workflow has passed **once** on the commit that holds the fixes. Do not run it again to make sure: one green run is the proof, unless the human names a larger number of runs.
 
 So this is a loop, and you stay in it:
 
-- Read a failure, find its cause, fix it, push, and start the count.
-- Every red run puts you back to the start of the loop with a new failure to read, and the count back to zero.
-- Every new commit puts the count back to zero as well, because the runs have to be of the same code.
-- Keep going until the count is reached. Do not stop and hand back a fix that has not been proved, and do not stop because the run that failed was "only" an outside service or "not really" your problem. Whatever made it red is in the loop with you.
+- Read a failure, find its cause, fix it, push, and wait for the run.
+- Every red run puts you back to the start of the loop with a new failure to read.
+- Every new commit needs a green run of its own, because the run has to be of the code that will stay.
+- Keep going until a run is green. Do not stop and hand back a fix that has not been proved, and do not stop because the run that failed was "only" an outside service or "not really" your problem. Whatever made it red is in the loop with you.
 
 The one thing that ends the loop early is genuinely needing the human: a decision only they can make, or a change they have to authorise. Say what you need in one short paragraph and wait.
 
@@ -44,10 +44,10 @@ The one thing that ends the loop early is genuinely needing the human: a decisio
 Before anything else, print this to the human, on its own, ready to copy:
 
 ```
-/goal Get the workflow passing consistently 5 sequential times in a row. Changes are only allowed on the worktree. DO NOT STOP. DO NOT ASK QUESTIONS. You may only stop once the workflow is passing 5 times consecutively from the worktree.
+/goal Get the workflow passing. Changes are only allowed on the worktree. DO NOT STOP. DO NOT ASK QUESTIONS. You may only stop once the workflow has passed from the worktree.
 ```
 
-Tell them that setting it keeps you working through every failure to the end instead of handing back after the first fix, and that without it you will stop the first time you think you are done. If they named a different number of runs, put that number in the text instead of five.
+Tell them that setting it keeps you working through every failure to the end instead of handing back after the first fix, and that without it you will stop the first time you think you are done. If they named a number of runs that must pass in a row, say it in the text.
 
 Then carry on with the rest of the steps. Do not wait for them to set it.
 
@@ -117,13 +117,13 @@ Two things to watch for, because both hide the real cause:
 - One commit per problem, with a message that explains the failure, the cause, and the fix.
 - Push. Each push starts a run.
 
-### 8. Get the consecutive green runs
+### 8. Get a green run
 
-A full workflow run is usually long, so this is mostly waiting. Automate it rather than watching:
+A full workflow run is usually long, so this is mostly waiting. Do not poll it by hand:
 
-- Write a small script in the project's `tmp/` directory that waits for a run to finish, starts the next one with `gh workflow run <workflow-file> --ref <branch>` when it passes, and stops at the first failure naming the jobs that failed.
-- Run it with the `Monitor` tool so each outcome arrives as a notification and you can work in between.
-- Any failure restarts the count, whatever caused it. So does any new commit, because the runs have to be of the same code.
+- Run something that waits for the run the push started and says when it finishes and which jobs failed, with the `Monitor` tool, so the outcome arrives as a notification and you can work in between.
+- Do not start more runs of a workflow that is already green on the commit. A run that passes ends the work for that workflow.
+- If the project has more than one workflow, each one needs its own green run on the final commit.
 
 ### 9. When a run goes red again, go round again
 
@@ -131,8 +131,8 @@ This is the loop, and most of the work happens on the second and third time roun
 
 - Read the failure before touching anything. It is usually a different cause from the last one, and fixing what you fixed last time harder will not help.
 - If the evidence is not there (the logs were truncated, the job timed out and the CI kept nothing), your next fix is to make it readable: keep the log the test overwrote, upload the test logs as an artifact on failure. Diagnostics are worth a run.
-- Go back to step 4 with the new cause, fix it, push, and start counting again from zero.
-- Repeat until the workflow has passed the required number of times in a row. Report only then.
+- Go back to step 4 with the new cause, fix it, push, and wait for the next run.
+- Repeat until the workflow has passed. Report only then.
 
 ## Things that will waste your time if you do not know them
 
@@ -145,6 +145,6 @@ This is the loop, and most of the work happens on the second and third time roun
 
 ## Finish
 
-- Tell the human how many consecutive green runs you got and on which commit.
+- Tell the human which run passed and on which commit.
 - List each fix in one line: what failed, and what you changed.
 - Say plainly which failures you could not explain, and what you did about them. A bug you found while looking for a cause is not the same as the cause, and must not be reported as one.
