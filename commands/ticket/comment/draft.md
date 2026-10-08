@@ -14,7 +14,7 @@ Draft a Jira ticket comment as a local markdown file for review. Post nothing.
 
    **Write the body as ordinary markdown. Never wrap it in a code fence.** A fenced body is displayed as source rather than rendered, so the links, headings and bullets the human is meant to be reviewing are unreadable, and editing it means editing inside a block. The header block already marks where the body starts, so nothing needs to fence it off.
 
-   Keep the body concise and Jira ready: what changed, why it matters for this ticket, and links to PRs and docs. Omit secrets, credentials, internal hostnames, account ids, and anything else that does not belong in a ticket comment.
+   Keep the body concise and Jira ready: what changed, why it matters for this ticket, and links to PRs and docs. Report what was done, nothing else. No "still to do", "next steps", "remaining", "follow-ups" or any other list of work not yet done, unless the human asks for one in that turn. Omit secrets, credentials, internal hostnames, account ids, and anything else that does not belong in a ticket comment.
 
    **Clickable links (required):** Atlassian markdown does not reliably auto-link bare URLs. Every URL must use markdown link form `[label](url)`, for example `[some-repo#28](https://github.com/some-org/some-repo/pull/28)`. Never paste a bare `https://...` URL. Never wrap a URL in backticks, that makes it unclickable.
 
@@ -24,6 +24,7 @@ Draft a Jira ticket comment as a local markdown file for review. Post nothing.
 
 - Never post anything to Jira from this command.
 - Never invent a ticket key, a PR link, or work that was not done.
+- Never add a "still to do", "next steps" or other list of remaining work unless the human asks for it in that turn.
 - Never put secrets, credentials, internal hostnames or account ids in the draft.
 - Every URL uses `[label](url)`. No bare URLs, no URLs in backticks.
 - Never reference a local file or directory that other people cannot open: not `docs/plans/…`, not a ticket working directory, not `~/…`, not `file://`. Exception: the target is itself a draft that will be published online (a ticket draft, a runsheet, a Confluence draft). Then the local link may appear only with a `TODO: replace with the published URL` note right next to it, and it must be rewritten to the live `https://` URL after that draft is published.
