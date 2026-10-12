@@ -11,7 +11,7 @@ Start the plan if it has not been started, or resume it if it is part done, and 
 1. **Print the goal and stop** — do this right after the plan is chosen, before reading anything. Print the goal in a fenced block, with one line asking the user to set it. Use no tool in that message. Never say you printed it unless you did. The text is exactly this, with the plan's name in place of "the plan":
 
    ```
-   Implement the plan to completion. Satisfy all acceptance criteria for the plan. Implement all unit and smoke tests required and make sure they pass. Run the project's full test command after your last edit and make sure every test passes. STOPPING IS NOT ALLOWED FOR ANY REASON UNTIL THE PLAN IS COMPLETED AND ALL TESTS ARE PASSING.
+   Do the plan. You are finished only when all of these are shown in the transcript after your last edit: the project's full test command ran and exited 0; the plan file shows every step as `- [x]` and is in `docs/plans/done/`; every step file has a filled `## Summary` and no `## Handover`. Never stop before then. Ask no questions. When something blocks you, solve it, and if it needs a decision, make it yourself and record it in the summary.
    ```
 
    After printing it, stop. Do nothing else until the user has set the goal and told you to go on. From then on, stopping is banned until the plan is done.
