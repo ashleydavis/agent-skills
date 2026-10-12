@@ -30,8 +30,9 @@ If the document records a baseline or a position that the work moved, update tha
 
 The code and the diff speak for themselves. These do not, so write them down:
 
-- **Decisions and why.** Especially where you considered another option and rejected it, and where the human overruled something. A later agent that does not know a decision was made will make it again, differently.
-- **Anything deliberately not done.** Deferred, out of scope, or blocked, and what it is waiting on. Say who decided, if it was the human.
+- **Decisions and why.** Especially where you considered another option and rejected it. A later agent that does not know a decision was made will make it again, differently.
+- **Anything deliberately not done.** Deferred, out of scope, or blocked, and what it is waiting on.
+- **Never record what the human asked for, said, decided, approved, rejected or overruled.** The notes state the fact, the rule or the decision as it stands ("Staging is not part of this plan", "`ignore_changes` is not permitted"), never who said it. No "the human wants", "the human decided", "at the human's request" or "the human rejected". Who instructed what is not the next agent's business, and it reads as an instruction the next agent can argue with.
 - **Traps.** Something that looks like a defect but is correct, something that will fail for a reason other than the obvious one, a check that reports a change on purpose. This is the most valuable thing you can leave.
 - **Anything you inferred rather than confirmed.** A value read out of code rather than seen at runtime, an assumption a later step will test.
 
