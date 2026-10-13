@@ -12,15 +12,15 @@ Once the plan is chosen, do not ask the user any questions and do not stop for a
 
 - Every item the step names is done, as the step words it. Moving an item to a later step, splitting the step, or doing a smaller version of it is not doing it. If an item needs something that is not built yet, building that thing is part of this step.
 - The last run of the project's full test command (step 7) was green, and you read its output in this session after your last edit. A run before your last edit does not count, and neither does a narrower set of tests than the full command.
-- Every test you wrote was watched failing before it passed.
+- Every test you wrote was watched failing before it passed, at the time you wrote it (see step 6). This is a record of what you did, not something to do now: if a test was not watched failing as you wrote it, say so in the report. Never run mutation runs, or break the code to check tests, once the tests are written.
 - The step is ticked off.
 
 0. **Choose the plan** — if a specific plan is obvious from the conversation context, use that. Otherwise present every plan in `docs/plans/new/` as a numbered menu, newest first by modification time. Do not truncate the list: the user cannot choose a plan you did not show them, and a plan sitting in `new/` is a plan waiting to be worked on however old it is. Read the top of each file (its heading and Overview) and give every plan a description of one short sentence saying what it does, on the row beside its number. Say whether it has not been started, is part done (how many of its steps are checked off, when it has steps) or is finished. A filename is not a description, so a menu of bare filenames is not a menu. Wait for the user's selection before continuing.
 
-1. **Print the goal and stop** — do this right after the plan is chosen, before reading anything. Print the goal in a fenced block, with one line asking the user to set it. Use no tool in that message. Never say you printed it unless you did. The text is exactly this, but write "the next step of" and the plan's name in place of "the step", because you do not know the step yet:
+1. **Print the goal and stop** — do this right after the plan is chosen, before reading anything. Print the goal in a fenced block, with one line asking the user to set it. Use no tool in that message. Never say you printed it unless you did. The text is exactly this, with the plan's name written in place of `<plan>`. Never write "the next step" or any other wording that moves: a goal is checked again every time you try to stop, so once this step is done "the next step" means the following one and the goal can never be met. The step is fixed by the line `Doing step <N>: <title>` that you print in step 4, and that line is what the goal points at:
 
    ```
-   Do the step. You are finished only when all of these are shown in the transcript after your last edit: the project's full test command ran and exited 0; the plan file shows that step as `- [x]`; the step file has a filled `## Summary` and no `## Handover`. Never stop before then. Ask no questions. When something blocks you, solve it, and if it needs a decision, make it yourself and record it in the summary.
+   Do exactly one step of <plan>: the step named on the line `Doing step <N>: <title>` that you print before starting work. When that one step meets every condition below you are finished, and no other step is part of this goal. You are finished only when all of these are shown in the transcript after your last edit: the project's full test command ran and exited 0; the plan file shows that step as `- [x]`; the step file has a filled `## Summary` and no `## Handover`. Never stop before then. Ask no questions. When something blocks you, solve it, and if it needs a decision, make it yourself and record it in the summary.
    ```
 
    After printing it, stop. Do nothing else until the user has set the goal and told you to go on. From then on, stopping is banned until the step is done.
@@ -35,11 +35,11 @@ Once the plan is chosen, do not ask the user any questions and do not stop for a
    - **The plan has no steps.** Decide from the plan, its handover notes, the plan's own checklists and the state of the code and the git history what is done and what is left. If nothing has been done, start at the beginning. If it is part done, pick up where the notes and the code say it left off, as best you can. If everything the plan asks for is done, the plan is finished: report that and stop.
    - **Nothing has been started.** Start the plan and do its first step, or its first piece of work when it has no steps.
 
-   Say which step or piece of work you are doing before you start it. Do not ask the user to confirm it.
+   Say which step or piece of work you are doing before you start it, on one line in exactly this form: `Doing step <N>: <title>` (for a plan with no steps, `Doing: <what>`). The goal points at that line, so print it as its own line. Do not ask the user to confirm it.
 
 5. **Create a todo list** — use TodoWrite to break the step or piece of work into discrete tasks, then work through them one by one, marking each complete as you go. Work in the directory and branch the session is already in. Do not create a worktree.
 
-6. **Write tests** — add or update unit tests and smoke tests for every new or changed function as described in the step or plan.
+6. **Write tests** — add or update unit tests and smoke tests for every new or changed function as described in the step or plan. Watch each test fail while you write it: break the code it covers, see it go red, put the code back, then move to the next test. Do this per test, as you go. Once the tests are written, never run mutation runs or break code to check them: that is banned.
 
 7. **Verify** — once all tasks are done, run the project's canonical full test command, exactly as the project's instructions give it (for a project whose `CLAUDE.md` names one, such as `bun run tev`, that one, plain and with no flags that skip suites), and read the result. Do not run a subset in its place, and do not assemble your own sequence of smaller commands. If it is longer than your command limit, start it in the background and wait for it inside the turn. Any failure is yours to fix, whoever wrote the code: fix the cause, then run the whole command again, and repeat until it is green. A suite that cannot run on this machine is named in the report with the reason, and never counted as passing. After this step, any further edit means running it again.
 
