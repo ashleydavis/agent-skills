@@ -9,7 +9,7 @@ Implement the current plan.
 1. **Print the goal and stop** — do this right after the plan is chosen, before reading anything. Print the goal in a fenced block, with one line asking the user to set it. Use no tool in that message. Never say you printed it unless you did. The text is exactly this, with the plan's name in place of "the plan":
 
    ```
-   Do the plan. You are finished only when all of these are shown in the transcript after your last edit: the project's full test command ran and exited 0; the plan file shows every step as `- [x]` and is in `docs/plans/done/`; every step file has a filled `## Summary` and no `## Handover`. Never stop before then. Ask no questions. When something blocks you, solve it, and if it needs a decision, make it yourself and record it in the summary.
+   Do the plan. You are finished only when all of these are shown in the transcript after your last edit: the tests ran and passed; the plan file shows every step as `- [x]` and is in `docs/plans/done/`; every step file has a filled `## Summary` and no `## Handover`. Never stop before then. Run all tests related to code that was changed, there is no need to run all tests unless all code has changed. Do not force all tests to run. Do not use the --force argument on test scripts. Ask no questions. When something blocks you, solve it, and if it needs a decision, make it yourself and record it in the summary.
    ```
 
    After printing it, stop. Do nothing else until the user has set the goal and told you to go on. From then on, stopping is banned until the plan is done.
@@ -35,7 +35,7 @@ Implement the current plan.
 
 7. **Write tests** — add or update unit tests and smoke tests for every new or changed function as described in the plan.
 
-8. **Verify** — once all steps are done, run the project's canonical full test command, exactly as the project's instructions give it (plain, with no flags that skip suites), and read the result. Do not run a subset in its place. Any failure is yours to fix: fix the cause and run the whole command again until it is green. Any later edit means running it again.
+8. **Verify** — once all steps are done, run the tests and read the result. Run all tests related to code that was changed, there is no need to run all tests unless all code has changed. Do not force all tests to run. Do not use the --force argument on test scripts. Any failure is yours to fix: fix the cause and run the tests again until they pass. Any later edit means running it again.
 
 9. **Move the plan** — move the plan file (and the plans "steps" directory if it has one) from `docs/plans/new/` to `docs/plans/done/`.
 
