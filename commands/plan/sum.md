@@ -1,6 +1,6 @@
 Summarise the current plan. 
 
-Use the plan from the current conversation, or read the most recent 5 files in `docs/plans/new/` and ask the user which to use.
+Use the plan from the current conversation. If there is none and `docs/plans/new/` holds exactly one plan, use that one without asking, and say which plan it is in one line. Otherwise read the most recent 5 files in `docs/plans/new/` and ask the user which to use.
 
 Produce two things:
 
