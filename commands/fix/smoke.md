@@ -25,5 +25,4 @@ Report what was fixed and why.
 ## Next
 
 Recommend the developer run:
-- `/verify`: confirm all quality checks pass.
 - `/commit:detz`: once green, produce a commit message.

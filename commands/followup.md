@@ -28,5 +28,4 @@ After completing the todo list, summarise what was added or changed.
 ## Next
 
 Recommend the developer run:
-- `/verify`: run all quality checks.
 - `/commit:detz`: once checks pass, produce a commit message.

@@ -16,8 +16,3 @@ Action every categorised note in `docs/notes.md`, according to its category.
 6. **Verify** whatever the notes changed in code or configuration, by whatever the project uses: compile, lint, tests. Report failures rather than working around them.
 
 7. **Report**, in one short list: what was done, where each moved note went, what was left, and anything you had to ask about.
-
-## Next
-
-Recommend the developer run:
-- `/verify`: if any note changed code.
