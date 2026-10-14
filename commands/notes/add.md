@@ -6,7 +6,7 @@ The note is what the human typed after the command. Record it, do not act on it,
 
 2. **Write the note down verbatim**, exactly as the human typed it. Change nothing: no spelling or grammar fixes, no rewording, no added context, no clause in parentheses, no reasoning or solution, and never split one note into several.
 
-3. **Append it** as a list item under a `## Notes` heading, after the notes already there. Keep the order they were taken in.
+3. **Append it** as a list item under a `## Notes` heading, after the notes already there. Keep the order they were taken in. Leave the `## Categories` section at the top of the file as it is.
 
 4. **Say one line back**: that it is noted. Nothing else. Do not summarise the note, do not restate it, and do not offer to act on it.
 
