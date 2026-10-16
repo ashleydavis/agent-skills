@@ -6,7 +6,9 @@ Action every categorised note in `docs/notes.md`, according to its category.
 
 3. **Find where each action points**, before doing anything: the plan, document or file it names. If a plan is meant and there is more than one in `docs/plans/new/`, ask which. If anything an action names is missing or ambiguous, ask one clear question naming the choices, and wait. Never guess where a note goes.
 
-4. **Action each note by its category's action.**
+4. **Action the notes one at a time, with the human's approval on each.** Never work on more than one note at once and never start the next one on your own. For each note in turn: show it with its number and the total, say in a few lines what you will do for it, and wait for the human to approve. Then do that note alone, verify it (step 6), remove it from the notes file (step 5), report what changed in one or two lines, and stop until the human says to go on. If they say to change the approach, change it and ask again before doing anything.
+
+   Each note is actioned by its category's action:
    - A note that changes the code, the configuration or the documents is done with tests where the project's rules ask for them, following the project's own rules for how the work is done.
    - A note that goes into a plan becomes one step, unless two notes are the same job, in which case they become one step and both notes say so. A step says what is wrong, what to build, what tests it needs and what "done" means, in the same form as the plan's existing steps. If the plan is broken into step files, the step is a new step file and a line in the plan's checklist.
    - A note that goes into any other document becomes one entry, in the human's own terms, in the section it belongs to. If the document has a status or a phase convention, follow it.
@@ -15,4 +17,4 @@ Action every categorised note in `docs/notes.md`, according to its category.
 
 6. **Verify** whatever the notes changed in code or configuration, by whatever the project uses: compile, lint, tests. Report failures rather than working around them.
 
-7. **Report**, in one short list: what was done, where each moved note went, what was left, and anything you had to ask about.
+7. **Report**, once the last note is done, in one short list: what was done, where each moved note went, what was left, and anything you had to ask about.
