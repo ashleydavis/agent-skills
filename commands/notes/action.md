@@ -8,6 +8,8 @@ Action every categorised note in `docs/notes.md`, according to its category.
 
 4. **Action the notes one at a time, with the human's approval on each.** Never work on more than one note at once and never start the next one on your own. For each note in turn: show it with its number and the total, say in a few lines what you will do for it, and wait for the human to approve. Then do that note alone, verify it (step 6), remove it from the notes file (step 5), report what changed in one or two lines, and stop until the human says to go on. If they say to change the approach, change it and ask again before doing anything.
 
+   **Stop after every note.** Once a note is actioned, dropped or moved, end your turn with the one or two line report. Do not show the next note, do not read, search or research anything for it, and do not propose what you would do with it. A note the human drops counts as actioned: remove it, report it, stop. Only when the human says to go on do you show the next note. Finishing one note is never permission to start the next.
+
    Each note is actioned by its category's action:
    - A note that changes the code, the configuration or the documents is done with tests where the project's rules ask for them, following the project's own rules for how the work is done.
    - A note that goes into a plan becomes one step, unless two notes are the same job, in which case they become one step and both notes say so. A step says what is wrong, what to build, what tests it needs and what "done" means, in the same form as the plan's existing steps. If the plan is broken into step files, the step is a new step file and a line in the plan's checklist.
