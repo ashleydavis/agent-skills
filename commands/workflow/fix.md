@@ -78,6 +78,8 @@ gh run list --limit 60 --json databaseId,conclusion,createdAt,displayTitle
 
 ### 4. Make the worktree
 
+Make the worktree only once a fix is known to be needed: a run of the current commit has finished with a failing job, or has a job already failed, and you have read that failure. A failure on an older commit, or a run still in progress with nothing failed yet, is not that. If the run of the current commit passes, no worktree is made.
+
 Read the project's instructions for how worktrees are made here, because some projects require a form other than the default, and follow that. Otherwise:
 
 ```bash
