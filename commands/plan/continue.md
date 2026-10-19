@@ -45,7 +45,7 @@ Once the plan is chosen, do not ask the user any questions and do not stop for a
 
 8. **Record what was done** — when the plan has step files, replace the empty `## Summary` placeholder at the bottom of the step file with a concise account of what was actually done: files changed, key decisions, anything that diverged from the step's instructions, and anything deferred. When it has no step files, record it under the step in the plan file. Never create a step file.
 
-9. **Mark the step complete** — when the plan has steps, change the `- [ ]` for this step to `- [x]` in the plan's checklist. Do not tick an item that is not actually done: tick it only when the check under "Finished is proved, not claimed" passes in full. There is no way out of this: a step that looks impossible as written is a step whose missing pieces you build, and the step is not reported or left until it is done and ticked.
+9. **Mark the step complete** — when the plan has steps, change the `- [ ]` for this step to `- [x]` in the plan's checklist. Do not tick an item that is not actually done: tick it only when the check under "Finished is proved, not claimed" passes in full. Do not tick a step until every function the work added or changed, copied code included, has a unit test, and you checked this rather than assumed it. There is no way out of this: a step that looks impossible as written is a step whose missing pieces you build, and the step is not reported or left until it is done and ticked.
 
 10. **Clear the handover you used** — delete the `## Handover` section you read at the start (in the step file, the plan file, or both), because it describes a state the work has now moved past. If you stop before the step is done, leave it and tell the user to run `/plan:handover`.
 
