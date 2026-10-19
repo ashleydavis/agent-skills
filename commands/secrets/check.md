@@ -35,6 +35,7 @@ Check the current work for secrets, sensitive data and company-specific details 
    - Real production data pasted into a test fixture, a log excerpt or a bug report.
    - Internal hostnames, private IP ranges, cloud account ids, ARNs, resource ids, bucket names, internal URLs.
    - Security details that help an attacker: exact versions of internal services, network layout, a list of what is unprotected.
+   - Absolute home-directory paths that name the user, such as `/home/<user>/...` or `/Users/<user>/...`. A path starting with `~` is fine and is not a finding.
 
 5. **Look for company-specific details, and judge them against the destination.** These are fine internally and a problem in public:
 
