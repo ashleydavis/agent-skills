@@ -112,7 +112,6 @@ Two things to watch for, because both hide the real cause:
 - Fix the cause, not the symptom. A wait added to dodge a race leaves the race in the product for a user to hit.
 - If you cannot fix the cause because it is upstream (a compiler crash, a package feed), say so plainly to the human in that message, and work around it in the smallest way that does not hide anything. A retry that only retries the crash, and still fails an ordinary failure on the first attempt, is a workaround worth having.
 - Every function you add or change needs a unit test, following whatever this project's instructions say about what is and is not unit tested.
-- Watch each new test fail once, as you write it: write the test, see it go red (break the fix if it would pass already), put the fix back, see it go green, then move on. That one red is part of writing that test and happens only then. Once a test has passed, never go back to make it fail: no breaking code afterwards, no mutation runs over tests already written. A test you did not watch fail as you wrote it stays that way; say so in the report.
 - Run the project's full test command before committing. If a pre-commit hook runs it anyway, a failure here just saves you the round trip.
 
 ### 7. Commit and push
