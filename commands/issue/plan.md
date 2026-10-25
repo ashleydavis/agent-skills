@@ -11,6 +11,8 @@ Given the root cause and the chosen proposed fix from this conversation, produce
      2. `bun run test` — if it fails, fix the failing tests before continuing
      3. `bun run test:cli` — if it fails, fix the failures before continuing
 
+   The plan must be executable from start to finish with no human intervention: settle every question, decision and permission now. Check each step against the rules in force for anything the agent may do only on the human's word (committing, pushing, merging, tagging or releasing, deleting files, changing git configuration and the like) and for anything outside the agent's reach (a release, a tag, another person's change). Ask the human now and write the answer into the plan, or restructure the step.
+
 3. **Save the plan** — write it as a markdown file to `docs/plans/new/` using a short descriptive filename (e.g. `docs/plans/new/fix-credential-lookup.md`).
 
 4. **Report** — state the filename where the plan was saved.

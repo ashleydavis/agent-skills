@@ -13,6 +13,8 @@ Create a new plan and save it to `docs/plans/`.
 
 3. **Research** — explore the relevant parts of the codebase to understand the current structure, affected files, and any existing patterns that the plan should follow. Use file reads, grep, and directory listings as needed.
 
+    **Resolve everything now.** The plan must be executable from start to finish with no human intervention, apart from the documentation review stop when the human chose it in step 2. Every question, decision and permission is settled while the plan is written, never left for implementation. Check every step against the rules in force (the project's and the global `CLAUDE.md`/`AGENTS.md` and the rule documents they name) for anything the executing agent may not do without the human's word in the message it acts on: committing, pushing, merging, tagging or releasing, deleting files, changing git configuration, approving workflow runs, touching credentials and the like. A step must not wait on anything outside the agent's reach either, such as a release, a tag or another person's change. For each one, ask the human now and write their answer into the plan, or restructure the step so it needs nothing it cannot have. Ask only what cannot be settled from the request, the code or the rules.
+
 4. **Draft the plan** — produce a complete plan using the structure below. Be specific: name actual files, functions, types, and interfaces. Steps should be small enough to implement one at a time. **Write all steps as instructions for an AI agent to execute, not a human** — steps should describe precise code changes, file edits, and tool actions, not manual UI interactions or things a person would do. Plans may include interface, class, and function signatures where helpful. Do not include actual implementation code unless describing a particularly difficult algorithm. Requirements should be described as text or bullet points, not code.
 
     **Documentation steps.** The answer given in step 2 decides these, not your own reading of whether the change touches a document.
@@ -43,7 +45,7 @@ Create a new plan and save it to `docs/plans/`.
 <Concrete, observable checks the AI agent can run after implementation. Must always include: the code compiles (or type-checks / builds cleanly for the language), all unit tests pass, and all smoke/e2e tests pass.>
 
 ## Notes
-<Decisions, trade-offs, open questions, or constraints discovered during research>
+<Decisions, trade-offs and constraints discovered during research, including the human's answers given while the plan was written. No open questions: every one is resolved before the plan is saved.>
 ```
 
 5. **Choose a filename** — derive a short kebab-case name from the plan subject (e.g. `plan-add-user-auth.md`). If a file with that name already exists in `docs/plans/new/`, choose a different name.
@@ -55,6 +57,7 @@ Create a new plan and save it to `docs/plans/`.
 ## Hard stops
 
 - Never use em dashes in the plan. Use a period, comma, colon, or parentheses instead.
+- Never save a plan with a step the executing agent cannot finish alone (see "Resolve everything now"), or with an open question.
 
 ## Next
 

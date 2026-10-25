@@ -14,6 +14,8 @@ Check each of the following and report findings under labelled headings:
 
 **Docs** — If the change has a documented surface, is the first step write documentation (with a stop for human approval before later steps), and is the last step update documentation to match the final code? If the change has no documented surface, are both documentation steps absent? Are remaining plan steps required to be revised if the human revises the documentation?
 
+**Human intervention** — Can the plan be executed from start to finish with no human intervention, apart from a documentation review stop the human chose? List every open question, every step needing something the rules in force let the agent do only on the human's word (committing, pushing, merging, tagging or releasing, deleting files, changing git configuration and the like), and every step waiting on something outside the agent's reach (a release, a tag, another person's change).
+
 **Security** — Are there injection risks, auth gaps, secrets handling issues, or other OWASP-class problems introduced by the plan?
 
 For each heading, list findings as bullet points. If nothing was found for a category, write "None identified." Do not suggest fixes — only report findings.

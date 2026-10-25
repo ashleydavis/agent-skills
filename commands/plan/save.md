@@ -25,14 +25,17 @@ Save the current plan to a markdown file in `docs/plans/new/`.
 <Concrete checks to confirm after implementation is complete>
 
 ## Notes
-<Any decisions, trade-offs, or open questions>
+<Any decisions and trade-offs, including the human's answers. No open questions.>
 ```
+
+Before writing the file, make sure the plan can be executed from start to finish with no human intervention, apart from a documentation review stop the human chose: no open question, no step needing anything the rules in force let the agent do only on the human's word (committing, pushing, merging, tagging or releasing, deleting files, changing git configuration and the like), and no step waiting on anything outside the agent's reach (a release, a tag, another person's change). Ask the human now about each one and write the answer into the plan, or restructure the step.
 
 4. **Report** — print the path of the saved file.
 
 ## Hard stops
 
 - Never use em dashes in the plan. Use a period, comma, colon, or parentheses instead.
+- Never save a plan with a step the executing agent cannot finish alone, or with an open question.
 
 ## Next
 
