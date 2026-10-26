@@ -4,7 +4,7 @@ Implement the current plan.
 
 **Stay inside the step.** A failure in code or tests this work did not change is not part of it. If it passes on the next run, record it in one line in the report and carry on, and do not investigate it, run tests only to reproduce it, or fix it. A failure is yours only if it is in what the work changed, or if it still fails on the final full run.
 
-0. **Choose the plan** — if a specific plan is obvious from the conversation context, use that. If `docs/plans/new/` holds exactly one plan, use that one without asking, and say which plan it is in one line. Otherwise list the files in `docs/plans/new/` and present them as a numbered list of file names, newest first by modification time. Do not open or read any plan to build the list. Do not truncate the list: the user cannot choose a plan you did not show them. Wait for the user's selection before continuing.
+0. **Choose the plan** — if a specific plan is obvious from the conversation context, use that. If `docs/plans/new/` holds exactly one plan, use that one without asking, and say which plan it is in one line. Otherwise list the file names in `docs/plans/new/`, newest first, as a numbered menu and wait for the user's choice. Read nothing in the repo before they choose: you need to know nothing about the plans to list them. Once they have chosen, read that plan only.
 
 1. **Choose working location** — ask this right after the plan is chosen, before the goal is printed, because the goal forbids questions once it is set. Present the user with:
    ```

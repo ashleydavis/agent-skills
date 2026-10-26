@@ -1,6 +1,6 @@
 Check the current plan for overengineering and propose ways to simplify it.
 
-Use the plan from the current conversation. If there is none and `docs/plans/new/` holds exactly one plan, use that one without asking, and say which plan it is in one line. Otherwise read the most recent 5 files in `docs/plans/new/` and ask the user which to use.
+Use the plan from the current conversation. If there is none and `docs/plans/new/` holds exactly one plan, use that one without asking, and say which plan it is in one line. Otherwise list the file names in `docs/plans/new/`, newest first, as a numbered menu and wait for the user's choice. Read nothing in the repo before they choose: you need to know nothing about the plans to list them. Once they have chosen, read that plan only.
 
 Analyse the plan for overengineering. Look for:
 
