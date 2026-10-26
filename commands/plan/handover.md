@@ -42,6 +42,8 @@ Do not commit, push, merge or delete anything unless the human has told you to i
 
 Remove throwaway files you created that no longer serve anything. Keep anything the next agent needs, and say in the notes what it is for.
 
+Do any deleting last, after the notes are written, because the human may reject the command and the rest of the handover must not wait on it. Keep the delete command simple enough to understand at a glance: when nothing in the project's `tmp/` is needed, delete the whole directory with one `rm -rf tmp`; when something in it is, leave it and say in the notes what to keep. A long command that names file after file will be rejected.
+
 **Step 5: Say you are done, briefly**
 
 One or two lines: which file's `## Handover` section you wrote the notes in, and the single most important thing the next agent should know. Nothing else. The notes are the handover, not this message.
