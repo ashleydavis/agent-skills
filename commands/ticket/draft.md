@@ -66,7 +66,7 @@ These are decided here, not at publish time. `/ticket:publish` only enforces the
 
 - Never create or edit anything in Jira from this command.
 - Never state a line number, function name or behaviour you have not read in the source. If it comes from the report, attribute it to the report.
-- Never leave a TBC unmarked, and never invent a project key, epic or assignee to fill one in.
+- Never leave a TBC unmarked, and never invent a project key, epic or assignee to fill one in. A ticket does not have to be assigned: an assignee nobody has named is written as "Unassigned", not TBC.
 - Never pick a non-Story issue type on your own.
 - Never finish a draft without story points and acceptance criteria.
 - Never put secrets, credentials, internal hostnames or account ids in the draft.

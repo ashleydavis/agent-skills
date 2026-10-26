@@ -10,7 +10,7 @@ The defaults (Story, lowest priority, story points and acceptance criteria prese
 
 1. **Find the draft.** Prefer the one produced or discussed in this conversation. Otherwise look in the current ticket working directory for a `*-ticket-draft.md`. If several match, list them and ask which one. Never guess.
 
-2. **Read it in full**, including the Notes section. Anything still marked TBC is a blocker: list every one and ask the human to resolve them before going further. Do not fill them in yourself.
+2. **Read it in full**, including the Notes section. Anything still marked TBC is a blocker: list every one and ask the human to resolve them before going further. Do not fill them in yourself. The assignee is the exception: a ticket does not have to be assigned, so an assignee that is TBC, blank or not decided means create the issue unassigned.
 
 3. **Resolve the target.** Get the `cloudId` (try the site hostname first, fall back to `getAccessibleAtlassianResources`). Take the project key and issue type from the draft's Fields section and call `getJiraProjectIssueTypesMetadata` to confirm that issue type exists in the project.
 
@@ -20,7 +20,7 @@ The defaults (Story, lowest priority, story points and acceptance criteria prese
    - Confirm story points and acceptance criteria both have values, whether or not the project marks them required.
    - Check the draft's `customfield_*` ids against the metadata rather than trusting them, and confirm the field the description body is going to is actually on this issue type's screen.
    - Anything without its own parameter on `createJiraIssue` goes in `additional_fields`, keyed by field id or name: priority, labels, components, story points, and every custom field.
-   - Resolve the assignee with `lookupJiraAccountId` and use the account id.
+   - If the draft names an assignee, resolve it with `lookupJiraAccountId` and use the account id. Otherwise leave the issue unassigned.
 
 5. **Build the description.** Take the draft's body sections in order, and **remove**:
 
