@@ -64,3 +64,4 @@ Everything else proceeds without asking.
 - Never assume the body landed somewhere a reader will see it. Confirm the field is on the issue type's screen.
 - Never post bare or backtick-wrapped URLs. Always `[label](url)`.
 - Never publish a local file that will stay local. Related work and the description may only link `https://` URLs a reader can open from Jira, except a local draft that is about to be published — and that path must be replaced with the live URL as soon as it exists.
+- Never publish a "still to do", "next steps" or "TODO" section, or any other list of remaining work, unless the human explicitly listed those steps for the ticket.
