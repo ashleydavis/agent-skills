@@ -2,7 +2,7 @@ Fix every breach of the global coding rules, using subagents. Running this comma
 
 What to fix is given after the command as paths. With none, fix every file changed on the current branch against the trunk, plus every uncommitted and untracked file (read with read-only git commands only).
 
-1. **Pick the rules.** Read the project's root marker files (`package.json`, `tsconfig.json`, `bun.lock`, `build.zig`, `build.zig.zon`). From the rules files of the agent-config repository (https://github.com/ashleydavis/agent-config, read from the local clone), choose every one that applies: `rules/general.md` always; `rules/writing.md` always (comments, displayed text, docs); `rules/typescript.md` for TypeScript; `rules/bun.md` for a Bun project; `rules/react.md` for React; `rules/zig.md` for Zig. Add the project's own `CLAUDE.md` and `AGENTS.md`.
+1. **Pick the rules.** Read the project's root marker files (`package.json`, `tsconfig.json`, `bun.lock`, `build.zig`, `build.zig.zon`). From the rules files in `~/agent-config/rules/`, choose every one that applies: `rules/general.md` always; `rules/writing.md` always (comments, displayed text, docs); `rules/typescript.md` for TypeScript; `rules/bun.md` for a Bun project; `rules/react.md` for React; `rules/zig.md` for Zig. Add the project's own `CLAUDE.md` and `AGENTS.md`.
 
 2. **Split the files.** List every file to fix. Split them into groups of at most eight, keeping a source file with its test file. No file is in two groups.
 

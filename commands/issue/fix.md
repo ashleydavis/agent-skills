@@ -1,5 +1,9 @@
 Given the root cause, proposed fix, and implementation plan from this conversation, implement the fix and verify it.
 
+**BEFORE ANYTHING ELSE, ONCE THE PLAN IS CHOSEN: CHECK THAT THE PLAN (OR THE PART OF THE PLAN) TO BE IMPLEMENTED HAS NO STOPS, NO QUESTIONS AND NO PARTS THAT REQUIRE A HUMAN. IF IT HAS ANY OF THOSE, EXIT IMMEDIATELY SAYING: THIS PLAN CANNOT BE COMPLETED WITHOUT A HUMAN, THE PLAN NEEDS FIXING**
+
+External actions (commit, push, release, tag, publish, running a workflow) are done only when the plan stamps them "requested explicitly by the human", and only in its "Release" step. Deletions are done only in its "Clean up" step, last. Test by the platform rules and testing ladder in `~/agent-config/rules/testing.md`.
+
 0. **Choose working location** — present the user with:
    ```
    1. Main working copy

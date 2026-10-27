@@ -1,5 +1,7 @@
 Create a new plan and save it to `docs/plans/`.
 
+Follow `~/agent-config/rules/planning.md`.
+
 **Important:** You are drafting this plan for an AI agent (Claude) to execute later, not for a human. Do not write steps a human would follow. Write steps as precise AI actions: file edits, function changes, tool calls, and code modifications with exact file paths and names.
 
 1. **Gather intent** — if the user has described the feature or change in this conversation, use that. Otherwise ask: "What do you want to plan?" Wait for their answer before continuing.
@@ -11,7 +13,7 @@ Create a new plan and save it to `docs/plans/`.
 
     Ask it once and do not answer it yourself. A review stop makes the plan unexecutable until the human comes back to it, so whether to pay that cost is theirs to decide, not something to infer from the change touching a document.
 
-3. **Research** — explore the relevant parts of the codebase to understand the current structure, affected files, and any existing patterns that the plan should follow. Use file reads, grep, and directory listings as needed.
+3. **Research** — explore the relevant parts of the codebase to understand the current structure, affected files, and any existing patterns that the plan should follow. Use file reads, grep, and directory listings as needed. Check every mechanism the plan relies on (how a package is installed, how a port is chosen and the like) against the code or by running it. For everything the plan removes or changes, find the existing tests and scripts that depend on it.
 
     **Resolve everything now.** The plan must be executable from start to finish with no human intervention, apart from the documentation review stop when the human chose it in step 2. Every question, decision and permission is settled while the plan is written, never left for implementation. Check every step against the rules in force (the project's and the global `CLAUDE.md`/`AGENTS.md` and the rule documents they name) for anything the executing agent may not do without the human's word in the message it acts on: committing, pushing, merging, tagging or releasing, deleting files, changing git configuration, approving workflow runs, touching credentials and the like. A step must not wait on anything outside the agent's reach either, such as a release, a tag or another person's change. For each one, ask the human now and write their answer into the plan, or restructure the step so it needs nothing it cannot have. Ask only what cannot be settled from the request, the code or the rules.
 
@@ -33,7 +35,7 @@ Create a new plan and save it to `docs/plans/`.
 <Leave empty — populated later by plan:check>
 
 ## Steps
-<Numbered list of concrete implementation steps, each naming the file and function to change. Where the human asked for a documentation review, step 1 is write documentation (then STOP and wait for their approval; revise later steps if they revise the docs) and the last step updates it to match the final code. Where they did not, step 1 is the first implementation step, nothing in the plan stops, and the last step writes the documentation. Each step that produces code must require that the code compiles (or type-checks / builds cleanly for the language) and that tests pass before it is complete: every new or changed function gets a unit test, and behaviour gets an e2e/smoke test where possible. Exception: React components, contexts, and hooks are not unit tested but must be covered by an e2e test.>
+<Numbered list of concrete implementation steps, each naming the file and function to change. Where the human asked for a documentation review, step 1 is write documentation (then STOP and wait for their approval; revise later steps if they revise the docs) and the last step updates it to match the final code. Where they did not, step 1 is the first implementation step, nothing in the plan stops, and the last implementation step writes the documentation. After it come "Release" (only actions stamped "requested explicitly by the human") and then "Clean up" (every deletion), each only when it has something in it. Each step that produces code must require that the code compiles (or type-checks / builds cleanly for the language) and that tests pass before it is complete: every new or changed function gets a unit test, and behaviour gets an e2e/smoke test where possible. Exception: React components, contexts, and hooks are not unit tested but must be covered by an e2e test.>
 
 ## Unit Tests
 <List of unit tests to write or update — one per new or changed function. Every function must have a unit test. Exception: React components, contexts, and hooks are not unit tested (cover them with end-to-end tests instead).>
@@ -42,7 +44,7 @@ Create a new plan and save it to `docs/plans/`.
 <List of end-to-end checks, preferably captured as automated tests in a shell script. Where possible every behaviour should be covered by an end-to-end or smoke test. React components, contexts, and hooks must be covered here since they are not unit tested.>
 
 ## Verify
-<Concrete, observable checks the AI agent can run after implementation. Must always include: the code compiles (or type-checks / builds cleanly for the language), all unit tests pass, and all smoke/e2e tests pass.>
+<Concrete, observable checks the AI agent can run after implementation. Must always include: the code compiles (or type-checks / builds cleanly for the language), all unit tests pass, and all smoke/e2e tests pass. Only checks that run on this machine; any that cannot are named as CI-only.>
 
 ## Notes
 <Decisions, trade-offs and constraints discovered during research, including the human's answers given while the plan was written. No open questions: every one is resolved before the plan is saved.>
@@ -58,6 +60,11 @@ Create a new plan and save it to `docs/plans/`.
 
 - Never use em dashes in the plan. Use a period, comma, colon, or parentheses instead.
 - Never save a plan with a step the executing agent cannot finish alone (see "Resolve everything now"), or with an open question.
+- Never write anything in the plan that tells the agent what it cannot do, or to report, wait or stop. Rewrite the step instead.
+- A dependency across repositories is taken locally (a path or workspace link), and the plan says exactly how. Never a release or tag made part way through.
+- **NEVER PUT ANYTHING EXTERNAL IN A PLAN (COMMIT, PUSH, RELEASE, TAG, PUBLISH, RUNNING A WORKFLOW, ANY OTHER CALL TO AN OUTSIDE SYSTEM) UNLESS THE HUMAN EXPLICITLY ASKED FOR IT, OR INVOKED A COMMAND THAT NAMES THAT ACTION.** Each one that is allowed is stamped "requested explicitly by the human" and goes in a "Release" step, second to last.
+- **NEVER PUT A DELETION (`rm`, deleting a file, a directory, a branch, temporary or real) IN THE BODY OF THE PLAN.** Every deletion goes in a "Clean up" step, the very last step, after every edit, step, test and check, and after "Release".
+- Before saving, walk the steps in order and confirm the agent has everything each one needs at that point.
 
 ## Next
 

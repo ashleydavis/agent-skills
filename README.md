@@ -21,6 +21,8 @@ skl -g add ashleydavis/agent-skills --ns me
 
 Skills and commands then show up in Cursor and Claude under `me`. For example, in Claude, type `/me:huh` or `/me:plan:create`.
 
+Some commands read rule files from [agent-config](https://github.com/ashleydavis/agent-config) and assume it is checked out at `~/agent-config`.
+
 ## Layout
 
 ```
