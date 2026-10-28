@@ -1,0 +1,60 @@
+---
+description: List the Claude sessions that ran in the current directory, its subdirectories and its worktrees in the last X hours, with the command to resume each.
+argument-hint: <hours>
+---
+
+List the Claude sessions that ran under the current directory in the last X hours and print the command to resume each one. Listing only: change nothing and write no file.
+
+## Steps
+
+1. **Get X.** X is the number of hours given after the command (`/claude:resume-sessions 8`). If none was given, ask for it in one line and wait for the answer.
+
+2. **Find the sessions.** Run this from the current directory with `HOURS` set to X. It reads session transcripts under `~/.claude/projects/` and only reads them. Running this command is the human's permission to do that.
+
+   ```sh
+   HOURS=<X>; root=$(pwd -P)
+   find ~/.claude/projects -mindepth 2 -maxdepth 2 -name '*.jsonl' -mmin -$((HOURS * 60)) | while read -r f; do
+     cwd=$(grep -m1 -o '"cwd":"[^"]*"' "$f" | cut -d'"' -f4)
+     [ -n "$cwd" ] || continue
+     keep=
+     case "$cwd/" in "$root"/*) keep=1 ;; esac
+     if [ -z "$keep" ] && [ -d "$cwd" ]; then
+       common=$(git -C "$cwd" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
+       case "$common/" in "$root"/*) keep=1 ;; esac
+     fi
+     [ -n "$keep" ] || continue
+     worktrees=$(grep -o '"cwd":"[^"]*"' "$f" | cut -d'"' -f4 | sort -u | while read -r d; do
+       [ -d "$d" ] || continue
+       gitdir=$(git -C "$d" rev-parse --path-format=absolute --git-dir 2>/dev/null) || continue
+       [ "$gitdir" != "$(git -C "$d" rev-parse --path-format=absolute --git-common-dir)" ] && git -C "$d" rev-parse --show-toplevel
+     done | sort -u | paste -sd, -)
+     name=$(grep -o '"customTitle":"[^"]*"' "$f" | tail -1 | cut -d'"' -f4)
+     printf '%s\t%s\t%s\t%s\t%s\n' "$(stat -c %Y "$f")" "$cwd" "$(basename "$f" .jsonl)" "${name:-unnamed}" "${worktrees:--}"
+   done | sort -k2,2 -k1,1nr | while IFS="$(printf '\t')" read -r t cwd id name worktrees; do
+     printf '%s | %s | %s | %s | %s\n' "$(date -d @"$t" '+%F %H:%M')" "$cwd" "$name" "$id" "$worktrees"
+   done
+   ```
+
+   Each line is: last active, working directory, name, UUID, worktrees.
+
+   - The working directory is the one the session started in. `claude --resume` finds the session only from there.
+   - A session counts when its working directory is the current directory or under it, or is a git worktree whose repository is under it. That covers worktrees kept outside the tree.
+   - The name is the one set with `/rename`, or `unnamed` if none was set.
+   - Worktrees are every git worktree the session worked in, comma separated, or `-` for none. A worktree that has since been deleted is not listed.
+   - "In the last X hours" means the transcript changed in that time.
+
+3. **Print the result.** One bullet per session, in the order the script gives. Mark the current session as "this session".
+
+   ````
+   - **<name>** (last active <YYYY-MM-DD HH:MM>)
+     - Working directory: `<working directory>`
+     - Worktrees: `<path>`, `<path>`
+     ```
+     claude --resume <uuid>
+     ```
+   ````
+
+   - Leave out the Worktrees line when there are none.
+   - Write the resume command bare: no `mise exec --` and no `cd` in front.
+   - If nothing was found, say so in one line, naming X.
+   - Add nothing else: no summary and no advice on which session to resume.
