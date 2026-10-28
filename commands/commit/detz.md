@@ -14,7 +14,7 @@ Then produce two things:
 
 **Commit description** - what changed, why, and any decision a later reader could not work out from the diff. There is no length target: write only what the change needs and stop. A one-line change gets a one-line description, and a description that says nothing the subject line did not is omitted entirely. Do not list every file in the commit. This goes in the body of the commit, separated from the subject by a blank line.
 
-Leave out, in every case: anything restating a file that is in the commit (the reader has it), any explanation of how a tool or format works, background on why the general practice is good, and any sentence that would be equally true of some other commit. If a paragraph could be deleted without the reader losing something they needed, delete it.
+Leave out, in every case: open todos, future work, open items, decisions still to be made and test plans (a commit records what was done, not what is left); anything restating a file that is in the commit (the reader has it), any explanation of how a tool or format works, background on why the general practice is good, and any sentence that would be equally true of some other commit. If a paragraph could be deleted without the reader losing something they needed, delete it.
 
 Describe the change as it stands in this repository, not its history elsewhere. Never mention another repository, project or directory the work came from, and never say a change was copied, moved, ported or brought in from anywhere. Nobody reading this repository's history can see that other place, and it may not exist by the time they read it. The exception is when the human asks for the other repository to be named in that request.
 

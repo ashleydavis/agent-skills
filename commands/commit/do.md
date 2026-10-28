@@ -7,7 +7,7 @@ Steps:
 2. Do not stage or unstage anything, unless explicitly requested by the human. Run `git status` to see what is staged, then follow the case that applies:
    1. **Some or all files are staged.** Commit only the staged files, as they are, with the agreed message and description. Do not run `git add`. Leave unstaged and untracked files alone. Never ask whether to stage or commit them. Name them in one line in the report.
    2. **No files are staged.** Do not commit yet. Ask the human: "Do you want me to stage the changed files and commit them?" If they say no, stop. If they say yes, stage the files they asked for (all changed files unless they name some) with `git add`, then commit them as in case 1. Staging happens only after that yes, in that message.
-3. Commit with the message and description.
+3. Commit with the message and description. Before committing, take out any open todo, future work, open item, decision still to be made or test plan: a commit records what was done, not what is left.
 
 Use a HEREDOC to pass the full commit message so formatting is preserved.
 
