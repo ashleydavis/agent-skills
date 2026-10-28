@@ -1,15 +1,15 @@
 ---
 description: List the Claude sessions that ran in the current directory, its subdirectories and its worktrees in the last X hours, with the command to resume each.
-argument-hint: <hours>
+argument-hint: [hours, default 1]
 ---
 
 List the Claude sessions that ran under the current directory in the last X hours and print the command to resume each one. Listing only: change nothing and write no file.
 
 ## Steps
 
-1. **Get X.** X is the number of hours given after the command (`/claude:resume-sessions 8`). If none was given, ask for it in one line and wait for the answer.
+1. **Get X.** X is the number of hours given after the command (`/claude:resume-sessions 8`). If none was given, X is 1.
 
-2. **Find the sessions.** Run this from the current directory with `HOURS` set to X. It reads session transcripts under `~/.claude/projects/` and only reads them. Running this command is the human's permission to do that.
+2. **Find the sessions.** First tell the human in one line what you are searching: "Searching for sessions under `<current directory>`, its subdirectories and worktrees, active in the last X hours." Then run this from the current directory with `HOURS` set to X. It reads session transcripts under `~/.claude/projects/` and only reads them. Running this command is the human's permission to do that.
 
    ```sh
    HOURS=<X>; root=$(pwd -P)
@@ -57,4 +57,5 @@ List the Claude sessions that ran under the current directory in the last X hour
    - Leave out the Worktrees line when there are none.
    - Write the resume command bare: no `mise exec --` and no `cd` in front.
    - If nothing was found, say so in one line, naming X.
+   - End with one line saying how to search further back: "To search more hours, run `/claude:resume-sessions <hours>`."
    - Add nothing else: no summary and no advice on which session to resume.
