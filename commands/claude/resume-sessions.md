@@ -43,24 +43,22 @@ List the Claude sessions that ran under the current directory in the last X hour
    - Worktrees are every git worktree the session worked in, comma separated, or `-` for none. A worktree that has since been deleted is not listed.
    - "In the last X hours" means the transcript changed in that time.
 
-3. **Print the result.** One section per session, in the order the script gives, with a horizontal rule between sessions:
+3. **Print the result.** One section per session, in the order the script gives:
 
    ````
-   ### <name>
-   - Last active: <HH:MM>
-   - Directory: `<directory>`
-   - Worktrees: none
+   - **<name>**
+     - Last active: <HH:MM>
+     - Directory: `<directory>`
+     - Worktrees: none
 
    ```
    claude --resume <uuid>
    ```
-
-   ---
    ````
 
+   - No headings and no horizontal rules: the terminal puts blank lines around them.
    - Keep the bullets together with no blank lines between them.
-   - Leave out the rule after the last session.
-   - Add " (this session)" to the heading of the current session.
+   - Add " (this session)" after the name of the current session.
    - Show the date before the time only when it is not today.
    - Write paths relative to the current directory, which itself is `./`.
    - When the session used worktrees, write `Worktrees:` followed by a nested list with one path per line instead of `none`.
