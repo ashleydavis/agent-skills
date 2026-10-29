@@ -35,7 +35,7 @@ Spawn one sub agent (use the Agent tool) per remaining item, all at once, so the
 
 1. Make its own todo list from the steps below to track its progress.
 2. Decide whether the item can be tested without human involvement. Before writing any code, work out how the result will be verified automatically (e.g. unit tests, integration tests, a script). If there is no clear way to test it without a human in the loop, do not start the item: stop and report back that the item was skipped because it cannot be verified automatically, explaining why. Do not create a worktree or make changes for an untestable item. An item that is finished but untested wastes the work, because its worktree will be discarded.
-3. Create your own worktree without a new branch by running `git worktree add --detach <path> HEAD` (pick a unique path, for example `.claude/worktrees/<short-slug>`), then do all your work inside it. Do not create, switch to, or rename any branch.
+3. Create your own worktree without a new branch by running `git worktree add --detach <path> HEAD` (pick a unique path, for example `.claude/worktrees/<short-slug>`). If the worktree contains a `mise.toml`, run `mise trust` inside it without asking (it trusts a copy of a file already trusted in the main checkout). Then do all your work inside it. Do not create, switch to, or rename any branch.
 4. Make the changes needed to resolve the item.
 5. Write whatever tests are needed and make sure they work.
 6. Re-read the project's `CLAUDE.md` and check that all of its rules were followed. Fix any rule violations found.

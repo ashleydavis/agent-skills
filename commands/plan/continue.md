@@ -28,7 +28,7 @@ Once the plan is chosen, do not ask the user any questions and do not stop for a
 
    After printing it, stop. Do nothing else until the user has set the goal and told you to go on. From then on, stopping is banned until the step is done.
 
-2. **Read the plan and its handover notes** — read the chosen plan file. If it has a `## Handover` section, read it first: it holds the notes the previous agent left for whoever picks the work up (decisions, traps, what is part done). Treat what it says as what the previous agent believed, and check anything you rely on.
+2. **Read the plan and its handover notes** — read the chosen plan file. If it has a `## Handover` section, read it first: it holds the notes the previous agent left for whoever picks the work up (decisions, traps, what is part done). Treat what it says as what the previous agent believed, and check anything you rely on. A setting it gives (a worker count, a timeout, a skipped check) was chosen for the conditions of that session: check those conditions now before you use it, and drop it when they no longer hold.
 
 3. **Check for open issues** — look for a section headed `Issues` or `Open issues`. Only unchecked items (`- [ ]`) inside that section block the work: if any exist, stop and report them to the user. Unchecked items in any other section are progress tracking and never count. Never count `- [ ]` across the whole file.
 

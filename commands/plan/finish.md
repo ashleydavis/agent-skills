@@ -31,7 +31,7 @@ Start the plan if it has not been started, or resume it if it is part done, and 
 
    After printing it, stop. Do nothing else until the user has set the goal and told you to go on. From then on, stopping is banned until the plan is done.
 
-3. **Read the plan and its handover notes** — read the chosen plan file. If it has a `## Handover` section, read it first: it holds the notes the previous agent left for whoever picks the work up (decisions, traps, what is part done). Treat what it says as what the previous agent believed, and check anything you rely on.
+3. **Read the plan and its handover notes** — read the chosen plan file. If it has a `## Handover` section, read it first: it holds the notes the previous agent left for whoever picks the work up (decisions, traps, what is part done). Treat what it says as what the previous agent believed, and check anything you rely on. A setting it gives (a worker count, a timeout, a skipped check) was chosen for the conditions of that session: check those conditions now before you use it, and drop it when they no longer hold.
 
 4. **Check for open issues** — look for a section headed `Issues` or `Open issues`. Only unchecked items (`- [ ]`) inside that section count: those are decisions the plan is waiting on, and they are the one thing that ends this command early, because the plan cannot be finished without them. If any exist, report them and stop. Unchecked items in any other section are progress tracking and never count. Never count `- [ ]` across the whole file.
 

@@ -87,7 +87,7 @@ git branch --show-current
 git worktree add -b fix-ci-<something> <worktrees-dir>/fix-ci-<something> <current-branch>
 ```
 
-Then enter it with `EnterWorktree` using the `path` parameter. Run whatever this project needs before anything will build there: installing dependencies, trusting a pinned toolchain, generating code. Find those steps in the project's setup docs rather than assuming.
+Then enter it with `EnterWorktree` using the `path` parameter. If the worktree contains a `mise.toml`, run `mise trust` inside it straight away without asking (it trusts a copy of a file already trusted in the main checkout), and run every command there through the worktree's own mise, never through the main checkout's. Run whatever this project needs before anything will build there: installing dependencies, trusting a pinned toolchain, generating code. Find those steps in the project's setup docs rather than assuming.
 
 ### 5. Take one failure and find its cause
 
