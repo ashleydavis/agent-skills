@@ -16,7 +16,7 @@ The job is not done when you have made a fix. It is done when the workflow has p
 
 So this is a loop, and you stay in it:
 
-- Read a failure, find its cause, fix it, push, and wait for the run.
+- Wait until every run of the current commit has finished. Read each failure, find its cause and prepare its fix in the working tree as failures come in, then commit the fixes (one per problem) and push them together, and wait for the runs.
 - Every red run puts you back to the start of the loop with a new failure to read.
 - Every new commit needs a green run of its own, because the run has to be of the code that will stay.
 - Keep going until a run is green. Do not stop and hand back a fix that has not been proved, and do not stop because the run that failed was "only" an outside service or "not really" your problem. Whatever made it red is in the loop with you.
@@ -26,7 +26,9 @@ The one thing that ends the loop early is genuinely needing the human: a decisio
 ## Rules for this work
 
 - All work happens in a git worktree. Never change the main checkout, and never commit to the branch it is on.
-- You may commit and push from the worktree as often as you need while the workflow is failing. Pushing is how you get a workflow run.
+- You may commit and push from the worktree while the workflow is failing. Pushing is how you get a workflow run.
+- Do not commit or push anything while any workflow run of the current commit is still running. Every push starts every workflow again, so a push while runs are going burns GitHub minutes on runs nobody will read. Prepare fixes in the working tree as failures come in, uncommitted, and commit and push them once every run has finished.
+- Fix only what failed. Never add a change to how the workflows run that the human did not ask for, such as a step that cancels the run when a job fails, however useful it looks. That is a workaround, and it needs the human's approval first.
 - That authorisation ends the moment the workflow has passed. After the green run you do not commit, push, dispatch another run or touch git state in any other way, whatever else you find. Anything further needs the human to say so in a message of their own.
 - One problem, one commit. Do not bundle two fixes together, however small the second one is. When a run later goes red, you need to be able to say which change did what.
 - Every fix is the smallest change that addresses the cause you found. Do not tidy up around it, do not rename things, do not "improve" code you happened to read on the way.
@@ -60,6 +62,7 @@ gh run view <run-id> --json jobs --jq '.jobs[] | select(.conclusion == "failure"
 gh run view --job <job-id> --log-failed
 ```
 
+- Do nothing to fix a run until it has failed: the run has finished and GitHub shows its conclusion as failure. A job that failed inside a run still going is not a failed workflow, so wait for the run to finish before you make a worktree, edit, commit or push.
 - A run's logs are only readable once it has finished. If it is still going, wait for it.
 - Get to the actual failing line, not the job that reported it. A job fails on a step, a step fails on a test, and an end-to-end test reports where it gave up waiting rather than where things went wrong.
 - Read the surrounding log, not just the error. Where a failing test dumps the tail of the application's own log, the order of events in that dump is usually what tells you the cause.
@@ -78,7 +81,7 @@ gh run list --limit 60 --json databaseId,conclusion,createdAt,displayTitle
 
 ### 4. Make the worktree
 
-Make the worktree only once a fix is known to be needed: a run of the current commit has finished with a failing job, or has a job already failed, and you have read that failure. A failure on an older commit, or a run still in progress with nothing failed yet, is not that. If the run of the current commit passes, no worktree is made.
+Make the worktree only once a fix is known to be needed: a run of the current commit has finished with the conclusion failure, and you have read that failure. A failure on an older commit, a run still in progress, and a run still in progress with a job that has already failed are none of them that. If the run of the current commit passes, no worktree is made.
 
 Read the project's instructions for how worktrees are made here, because some projects require a form other than the default, and follow that. Otherwise:
 
@@ -116,8 +119,9 @@ Two things to watch for, because both hide the real cause:
 
 ### 7. Commit and push
 
+- Only once every workflow run of the current commit has finished.
 - One commit per problem, with a message that explains the failure, the cause, and the fix.
-- Push. Each push starts a run.
+- Push every commit in one push. Each push starts every workflow again.
 
 ### 8. Get a green run
 
