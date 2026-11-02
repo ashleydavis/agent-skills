@@ -12,11 +12,7 @@ Steps:
 
 4. Note the branch name of the worktree (from `git worktree list --porcelain`).
 
-5. Rebase the worktree branch onto the current branch (this is run from the worktree):
-   ```
-   git -C <worktree-path> rebase <current-branch>
-   ```
-   If the rebase produces conflicts, resolve them by editing the conflicted files to produce a correct result, then stage the resolved files and continue with `git -C <worktree-path> rebase --continue`. Always attempt to resolve conflicts yourself — do not stop and ask the user.
+5. Bring the current branch into the worktree by running `/worktree:update` for the chosen worktree and following all of its steps. It rebases the worktree branch onto the current branch, falls back to a merge only where a rebase cannot be done, resolves every conflict itself and reruns the tests. If it leaves the worktree broken, stop and report it rather than merging.
 
 6. Fast-forward the current branch to include the rebased commits. **IMPORTANT**: the shell may be anchored to the worktree path — always use `-C` with the main repo path to ensure this runs against the correct checkout:
    ```
