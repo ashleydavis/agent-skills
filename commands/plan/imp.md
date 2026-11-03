@@ -1,6 +1,6 @@
 Implement the current plan.
 
-**BEFORE ANYTHING ELSE, ONCE THE PLAN IS CHOSEN: CHECK THAT THE PLAN (OR THE PART OF THE PLAN) TO BE IMPLEMENTED HAS NO STOPS, NO QUESTIONS AND NO PARTS THAT REQUIRE A HUMAN. IF IT HAS ANY OF THOSE, EXIT IMMEDIATELY SAYING: THIS PLAN CANNOT BE COMPLETED WITHOUT A HUMAN, THE PLAN NEEDS FIXING**
+**BEFORE ANYTHING ELSE, ONCE THE PLAN IS CHOSEN: CHECK THAT THE PLAN (OR THE PART OF THE PLAN) TO BE IMPLEMENTED HAS NO STOPS, NO QUESTIONS AND NO PARTS THAT REQUIRE A HUMAN. THE ONE ALLOWED STOP IS AFTER THE WRITE DOCUMENTATION STEP, FOR THE HUMAN TO REVIEW THE DOCUMENTATION. IF IT HAS ANY OTHER, EXIT IMMEDIATELY SAYING: THIS PLAN CANNOT BE COMPLETED WITHOUT A HUMAN, THE PLAN NEEDS FIXING**
 
 External actions (commit, push, release, tag, publish, running a workflow) are done only when the plan stamps them "requested explicitly by the human", and only in its "Release" step. Deletions are done only in its "Clean up" step, last. Test by the platform rules and testing ladder in `~/agent-config/rules/testing.md`.
 
@@ -35,7 +35,7 @@ External actions (commit, push, release, tag, publish, running a workflow) are d
 
 5. **Create a todo list** — use TodoWrite to break the plan into discrete tasks, then work through them one by one, marking each complete as you go.
 
-6. **Documentation stop** — if the plan's first step is write documentation, do that step and then STOP. Do not start later steps. Do not write tests, verify, or move the plan. Tell the human the documentation is ready for review and wait for them to approve it. If they revise the documentation, revise the remaining plan steps to match, then wait for them to say to continue. Only after that approval may you implement later steps. The last step, when present, updates the documentation to match the final code.
+6. **Documentation stop** — if the plan has a write documentation step, do every step up to and including it and then STOP. Do not start later steps. Do not write tests, verify, or move the plan. Tell the human the documentation is ready for review and wait for them to approve it. If they revise the documentation, revise the remaining plan steps to match, then wait for them to say to continue. Only after that approval may you implement later steps. The last step, when present, updates the documentation to match the final code.
 
 7. **Write tests** — add or update unit tests and smoke tests for every new or changed function as described in the step or plan.
 

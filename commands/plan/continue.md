@@ -1,6 +1,6 @@
 Continue the current plan from where it left off.
 
-**BEFORE ANYTHING ELSE, ONCE THE PLAN IS CHOSEN: CHECK THAT THE PLAN (OR THE PART OF THE PLAN) TO BE IMPLEMENTED HAS NO STOPS, NO QUESTIONS AND NO PARTS THAT REQUIRE A HUMAN. IF IT HAS ANY OF THOSE, EXIT IMMEDIATELY SAYING: THIS PLAN CANNOT BE COMPLETED WITHOUT A HUMAN, THE PLAN NEEDS FIXING**
+**BEFORE ANYTHING ELSE, ONCE THE PLAN IS CHOSEN: CHECK THAT THE PLAN (OR THE PART OF THE PLAN) TO BE IMPLEMENTED HAS NO STOPS, NO QUESTIONS AND NO PARTS THAT REQUIRE A HUMAN. THE ONE ALLOWED STOP IS AFTER THE WRITE DOCUMENTATION STEP, FOR THE HUMAN TO REVIEW THE DOCUMENTATION. IF IT HAS ANY OTHER, EXIT IMMEDIATELY SAYING: THIS PLAN CANNOT BE COMPLETED WITHOUT A HUMAN, THE PLAN NEEDS FIXING**
 
 External actions (commit, push, release, tag, publish, running a workflow) are done only when the plan stamps them "requested explicitly by the human", and only in its "Release" step. Deletions are done only in its "Clean up" step, last. Test by the platform rules and testing ladder in `~/agent-config/rules/testing.md`.
 
@@ -56,7 +56,7 @@ Once the plan is chosen, do not ask the user any questions and do not stop for a
 
 12. **Report and stop** — this is the only place this command stops. Summarise what was done, name the test command you ran and say what it reported, flag anything that was skipped or deferred, and tell the user which step (if any) is next. Do not start the next step.
 
-    **Documentation stop.** If the step just completed was "Write documentation" (the first step of a plan that needs docs), tell the human the documentation is ready for review and wait for them to approve it. If they revise the documentation, revise the remaining plan steps to match, then wait for them to say to continue. Only after that approval may `/plan:continue` be run again. When the last step is "Update documentation", it revises the docs from step 1 to match the final code.
+    **Documentation stop.** If the step just completed was "Write documentation", tell the human the documentation is ready for review and wait for them to approve it. If they revise the documentation, revise the remaining plan steps to match, then wait for them to say to continue. Only after that approval may `/plan:continue` be run again. When the last step is "Update documentation", it revises the docs from the "Write documentation" step to match the final code.
 
 ## Next
 
