@@ -21,13 +21,23 @@ External actions (commit, push, release, tag, publish, running a workflow) are d
 
    Understand the consequences, because YOU have repeatedly broken this rule: if you make ANY change to the main repo when you were supposed to be on the worktree, those changes will be summarily reverted without asking you and without consulting you. Your work will be thrown away. And if you keep violating this rule and continue making changes to the main repo, your process will be summarily terminated. Reverted changes and a terminated process is the guaranteed outcome of working in the main repo when the worktree was chosen. Use the worktree.
 
-2. **Print the goal and stop** — do this right after the working location is set up, before reading anything. Print the goal in a fenced block, with one line asking the user to set it. Use no tool in that message. Never say you printed it unless you did. The text is exactly this, with the plan's name in place of "the plan":
+2. **Print the goal and stop** — do this right after the working location is set up. Read only the plan's list of steps, to find whether it has a write documentation step. Print the goal in a fenced block, with one line asking the user to set it. Use no tool in that message. Never say you printed it unless you did.
+
+   **When the plan has a write documentation step**, print the first goal, which ends at the documentation stop. The text is exactly this, with the plan's name in place of `<plan>` and the documentation step's number and title in place of `<N>` and `<title>`:
+
+   ```
+   Do <plan> up to and including step <N>, <title>. You are finished only when all of these are shown in the transcript after your last edit: step <N> and every step before it shows as `- [x]` in the plan file; each of those steps has a filled summary and no `## Handover`, in its step file when the plan has step files and otherwise under that step in the plan file; the human has been told the documentation is ready for review. Never create a step file. Do not start any step after step <N>. Ask no questions before then. When something blocks you, solve it, and if it needs a decision, make it yourself and record it in the summary.
+   ```
+
+   The second goal, below, is printed at the documentation stop (step 6).
+
+   **When the plan has no write documentation step**, print this goal, with the plan's name in place of "the plan":
 
    ```
    Do the plan. You are finished only when all of these are shown in the transcript after your last edit: the tests ran and passed; the plan file shows every step as `- [x]` and is in `docs/plans/done/`; every step has a filled summary and no `## Handover`, in its step file when the plan has step files and otherwise under that step in the plan file. Never create a step file. Never stop before then. Run all tests related to code that was changed, there is no need to run all tests unless all code has changed. Do not force all tests to run. Do not use the --force argument on test scripts. A test command that exits with code 0 has passed, and that includes a run that reports it had nothing to run because nothing changed since the last passing run. Ask no questions. When something blocks you, solve it, and if it needs a decision, make it yourself and record it in the summary.
    ```
 
-   After printing it, stop. Do nothing else until the user has set the goal and told you to go on. From then on, stopping is banned until the plan is done.
+   After printing it, stop. Do nothing else until the user has set the goal and told you to go on. From then on, stopping is banned until the goal is met.
 
 3. **Read the plan** — read the chosen plan file from `docs/plans/new/`. If it has a `## Handover` section, read it first: it holds the notes the previous agent left for whoever picks the work up (decisions, traps, what is part done). Treat what it says as what the previous agent believed, and check anything you rely on.
 
@@ -35,7 +45,7 @@ External actions (commit, push, release, tag, publish, running a workflow) are d
 
 5. **Create a todo list** — use TodoWrite to break the plan into discrete tasks, then work through them one by one, marking each complete as you go.
 
-6. **Documentation stop** — if the plan has a write documentation step, do every step up to and including it and then STOP. Do not start later steps. Do not write tests, verify, or move the plan. Tell the human the documentation is ready for review and wait for them to approve it. If they revise the documentation, revise the remaining plan steps to match, then wait for them to say to continue. Only after that approval may you implement later steps. The last step, when present, updates the documentation to match the final code.
+6. **Documentation stop** — if the plan has a write documentation step, do every step up to and including it and then STOP. Do not start later steps. Do not write tests, verify, or move the plan. Tell the human the documentation is ready for review and wait for them to approve it. If they revise the documentation, revise the remaining plan steps to match. When they approve, print the second goal (the no-documentation-step goal from step 2) in a fenced block, with one line asking them to set it, and wait for them to say to continue. Only then may you implement later steps. The last step, when present, updates the documentation to match the final code.
 
 7. **Write tests** — add or update unit tests and smoke tests for every new or changed function as described in the step or plan.
 
