@@ -1,6 +1,6 @@
 Implement the current plan.
 
-**BEFORE ANYTHING ELSE, ONCE THE PLAN IS CHOSEN: CHECK THAT THE PLAN (OR THE PART OF THE PLAN) TO BE IMPLEMENTED HAS NO STOPS, NO QUESTIONS AND NO PARTS THAT REQUIRE A HUMAN. THE ONE ALLOWED STOP IS AFTER THE WRITE DOCUMENTATION STEP, FOR THE HUMAN TO REVIEW THE DOCUMENTATION. IF IT HAS ANY OTHER, EXIT IMMEDIATELY SAYING: THIS PLAN CANNOT BE COMPLETED WITHOUT A HUMAN, THE PLAN NEEDS FIXING**
+**BEFORE ANYTHING ELSE, ONCE THE PLAN IS CHOSEN: CHECK THAT THE PLAN (OR THE PART OF THE PLAN) TO BE IMPLEMENTED HAS NO STOPS, NO QUESTIONS AND NO PARTS THAT REQUIRE A HUMAN. THE ONE ALLOWED STOP IS A DOCUMENTATION REVIEW STOP, FOR THE HUMAN TO REVIEW THE DOCUMENTATION. IF IT HAS ANY OTHER, EXIT IMMEDIATELY SAYING: THIS PLAN CANNOT BE COMPLETED WITHOUT A HUMAN, THE PLAN NEEDS FIXING**
 
 External actions (commit, push, release, tag, publish, running a workflow) are done only when the plan stamps them "requested explicitly by the human", and only in its "Release" step. Deletions are done only in its "Clean up" step, last. Test by the platform rules and testing ladder in `~/agent-config/rules/testing.md`.
 
@@ -21,9 +21,9 @@ External actions (commit, push, release, tag, publish, running a workflow) are d
 
    Understand the consequences, because YOU have repeatedly broken this rule: if you make ANY change to the main repo when you were supposed to be on the worktree, those changes will be summarily reverted without asking you and without consulting you. Your work will be thrown away. And if you keep violating this rule and continue making changes to the main repo, your process will be summarily terminated. Reverted changes and a terminated process is the guaranteed outcome of working in the main repo when the worktree was chosen. Use the worktree.
 
-2. **Print the goal and stop** — do this right after the working location is set up. Read only the plan's list of steps, to find whether it has a write documentation step. Print the goal in a fenced block, with one line asking the user to set it. Use no tool in that message. Never say you printed it unless you did.
+2. **Print the goal and stop** — do this right after the working location is set up. Read only the plan's list of steps, to find whether it has a documentation review stop: a step that writes documentation and tells you to stop for the human's review. A step that writes documentation without saying to stop is an ordinary step, not a review stop, wherever it sits in the plan. Print the goal in a fenced block, with one line asking the user to set it. Use no tool in that message. Never say you printed it unless you did.
 
-   **When the plan has a write documentation step**, print the first goal, which ends at the documentation stop. The text is exactly this, with the plan's name in place of `<plan>` and the documentation step's number and title in place of `<N>` and `<title>`:
+   **When the plan has a documentation review stop**, print the first goal, which ends at the documentation stop. The text is exactly this, with the plan's name in place of `<plan>` and the documentation step's number and title in place of `<N>` and `<title>`:
 
    ```
    Do <plan> up to and including step <N>, <title>. You are finished only when all of these are shown in the transcript after your last edit: step <N> and every step before it shows as `- [x]` in the plan file; each of those steps has a filled summary and no `## Handover`, in its step file when the plan has step files and otherwise under that step in the plan file; the human has been told the documentation is ready for review. Never create a step file. Do not start any step after step <N>. Ask no questions before then. When something blocks you, solve it, and if it needs a decision, make it yourself and record it in the summary.
@@ -31,7 +31,7 @@ External actions (commit, push, release, tag, publish, running a workflow) are d
 
    The second goal, below, is printed at the documentation stop (step 6).
 
-   **When the plan has no write documentation step**, print this goal, with the plan's name in place of "the plan":
+   **When the plan has no documentation review stop**, print this goal, with the plan's name in place of "the plan":
 
    ```
    Do the plan. You are finished only when all of these are shown in the transcript after your last edit: the tests ran and passed; the plan file shows every step as `- [x]` and is in `docs/plans/done/`; every step has a filled summary and no `## Handover`, in its step file when the plan has step files and otherwise under that step in the plan file. Never create a step file. Never stop before then. Run all tests related to code that was changed, there is no need to run all tests unless all code has changed. Do not force all tests to run. Do not use the --force argument on test scripts. A test command that exits with code 0 has passed, and that includes a run that reports it had nothing to run because nothing changed since the last passing run. Ask no questions. When something blocks you, solve it, and if it needs a decision, make it yourself and record it in the summary.
@@ -45,7 +45,7 @@ External actions (commit, push, release, tag, publish, running a workflow) are d
 
 5. **Create a todo list** — use TodoWrite to break the plan into discrete tasks, then work through them one by one, marking each complete as you go.
 
-6. **Documentation stop** — if the plan has a write documentation step, do every step up to and including it and then STOP. Do not start later steps. Do not write tests, verify, or move the plan. Tell the human the documentation is ready for review and wait for them to approve it. If they revise the documentation, revise the remaining plan steps to match. When they approve, print the second goal (the no-documentation-step goal from step 2) in a fenced block, with one line asking them to set it, and wait for them to say to continue. Only then may you implement later steps. The last step, when present, updates the documentation to match the final code.
+6. **Documentation stop** — if the plan has a documentation review stop, do every step up to and including it and then STOP. Do not start later steps. Do not write tests, verify, or move the plan. Tell the human the documentation is ready for review and wait for them to approve it. If they revise the documentation, revise the remaining plan steps to match. When they approve, print the second goal (the no-review-stop goal from step 2) in a fenced block, with one line asking them to set it, and wait for them to say to continue. Only then may you implement later steps. The last step, when present, updates the documentation to match the final code.
 
 7. **Write tests** — add or update unit tests and smoke tests for every new or changed function as described in the step or plan.
 
@@ -58,5 +58,5 @@ External actions (commit, push, release, tag, publish, running a workflow) are d
 ## Next
 
 Recommend the developer run:
-- After a write-documentation step, wait for the human to approve the docs (and revise remaining plan steps if they changed the docs) before continuing implementation.
+- After a documentation review stop, wait for the human to approve the docs (and revise remaining plan steps if they changed the docs) before continuing implementation.
 - `/commit:detz`: once checks pass, produce a commit message.
