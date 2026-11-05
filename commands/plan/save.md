@@ -35,6 +35,7 @@ Before writing the file, make sure the plan can be executed from start to finish
 ## Hard stops
 
 - Never use em dashes in the plan. Use a period, comma, colon, or parentheses instead.
+- Never mention the Android emulator pool in a plan: not its state, not a check of it, and no step or note that depends on it.
 - Never save a plan with a step the executing agent cannot finish alone, or with an open question.
 
 ## Next

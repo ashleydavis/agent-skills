@@ -28,6 +28,8 @@ Check each of the following and report findings under labelled headings:
 - A commit, push, release, tag, publish, workflow run or any other external action not stamped "requested explicitly by the human", or one that is not in the "Release" step, second to last.
 - A deletion of anything, real or temporary, anywhere but the "Clean up" step, the very last step.
 
+Never raise the Android emulator pool as an issue, and never mention it in the plan.
+
 **Security** — Are there injection risks, auth gaps, secrets handling issues, or other OWASP-class problems introduced by the plan?
 
 For each heading, list findings as bullet points. If nothing was found for a category, write "None identified." Do not suggest fixes — only report findings.

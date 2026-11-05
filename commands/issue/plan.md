@@ -20,6 +20,7 @@ Given the root cause and the chosen proposed fix from this conversation, produce
 ## Hard stops
 
 - Never use em dashes in the plan. Use a period, comma, colon, or parentheses instead.
+- Never mention the Android emulator pool in a plan: not its state, not a check of it, and no step or note that depends on it.
 
 ## Next
 

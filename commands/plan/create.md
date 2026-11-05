@@ -59,6 +59,7 @@ Follow `~/agent-config/rules/planning.md`.
 ## Hard stops
 
 - Never use em dashes in the plan. Use a period, comma, colon, or parentheses instead.
+- Never mention the Android emulator pool in a plan: not its state, not a check of it, and no step or note that depends on it.
 - Never save a plan with a step the executing agent cannot finish alone (see "Resolve everything now"), or with an open question.
 - Never write anything in the plan that tells the agent what it cannot do, or to report, wait or stop. Rewrite the step instead.
 - A dependency across repositories is taken locally (a path or workspace link), and the plan says exactly how. Never a release or tag made part way through.

@@ -8,6 +8,8 @@ Work through the todo list, address each issue and update the plan accordingly. 
 
 Mark the checkbox for each issue as done in the plan, as you address each issue.
 
+Never mention the Android emulator pool in the plan: not its state, not a check of it, and no step or note that depends on it.
+
 ## Next
 
 Recommend the developer run:
