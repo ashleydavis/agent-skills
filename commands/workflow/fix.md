@@ -1,10 +1,21 @@
 ---
-description: Fix the failing CI workflow run at the link given. Works in a worktree, one problem per commit, and proves the fixes by getting the workflow green on the final commit.
+description: Fix the failing CI workflow at the link given, or every recently failing workflow when given the repo's Actions link. Works in a worktree, one problem per commit, and proves the fixes by getting each workflow green on the final commit.
 ---
 
-# Fix a failing workflow run
+# Fix failing workflows
 
-A CI workflow run has failed. The human gives you the link to it: `$ARGUMENTS`. Find out why it failed, fix the cause, and prove the fix by running the workflow again until it passes.
+The human gives you a link: `$ARGUMENTS`. Find out why the workflows it covers failed, fix the causes, and prove the fixes by running the workflows again until they pass.
+
+## Which workflows are in scope
+
+The link decides it:
+
+- **A link to one workflow** (a run, a job in a run, or a workflow's own page such as `.../actions/workflows/<file>.yml`): only that workflow is in scope. Fix only its failures.
+- **The repo's Actions link** (`.../actions` with no workflow or run after it): every workflow whose most recent run on the current branch failed is in scope. List them with `gh run list --branch <branch> --limit 100 --json databaseId,workflowName,conclusion,headSha,createdAt`, take the newest run of each workflow, and keep the ones that failed. Show the human the list in step 1.
+
+A workflow outside scope is not yours. Do not fix a failure that appears only there, and do not wait for its runs. A push still starts it, and a shared fix may turn it green as well; report that, but do not claim it as proof.
+
+Where the rest of this command says "the workflow", read it as every workflow in scope.
 
 The run may have failed for a reason that is always there, or for one that only shows up now and again. You will not know which until you have read it, so do not assume either.
 
@@ -12,7 +23,7 @@ The commands below are for GitHub Actions through the `gh` CLI. If this project'
 
 ## When this is finished
 
-The job is not done when you have made a fix. It is done when the workflow has passed **once** on the commit that holds the fixes. Do not run it again to make sure: one green run is the proof, unless the human names a larger number of runs.
+The job is not done when you have made a fix. It is done when every workflow in scope has passed **once** on the commit that holds the fixes. Do not run it again to make sure: one green run is the proof, unless the human names a larger number of runs.
 
 So this is a loop, and you stay in it:
 
@@ -29,7 +40,7 @@ The one thing that ends the loop early is genuinely needing the human: a decisio
 - You may commit and push from the worktree while the workflow is failing. Pushing is how you get a workflow run.
 - Do not commit or push anything while any workflow run of the current commit is still running. Every push starts every workflow again, so a push while runs are going burns GitHub minutes on runs nobody will read. Prepare fixes in the working tree as failures come in, uncommitted, and commit and push them once every run has finished.
 - Fix only what failed. Never add a change to how the workflows run that the human did not ask for, such as a step that cancels the run when a job fails, however useful it looks. That is a workaround, and it needs the human's approval first.
-- That authorisation ends the moment the workflow has passed. After the green run you do not commit, push, dispatch another run or touch git state in any other way, whatever else you find. Anything further needs the human to say so in a message of their own.
+- That authorisation ends the moment every workflow in scope has passed. After the green run you do not commit, push, dispatch another run or touch git state in any other way, whatever else you find. Anything further needs the human to say so in a message of their own.
 - One problem, one commit. Do not bundle two fixes together, however small the second one is. When a run later goes red, you need to be able to say which change did what.
 - Every fix is the smallest change that addresses the cause you found. Do not tidy up around it, do not rename things, do not "improve" code you happened to read on the way.
 - Comment every change with why it was needed and what it fixes. Name the failure: which job, which test, what the log said. A future reader has no access to the run you were looking at, so the comment is the only record of why the code is written that way.
@@ -44,17 +55,19 @@ The one thing that ends the loop early is genuinely needing the human: a decisio
 
 ### 1. Print the goal for the human to set
 
-Before anything else, print this to the human, on its own, ready to copy:
+Before anything else, work out the workflows in scope (see "Which workflows are in scope"). Then print this to the human, on its own, ready to copy, with `<workflows>` replaced by the names of the workflows in scope:
 
 ```
-/goal Get the workflow passing. Changes are only allowed on the worktree. DO NOT STOP. DO NOT ASK QUESTIONS. You may only stop once the workflow has passed from the worktree.
+/goal Get these workflows passing: <workflows>. Changes are only allowed on the worktree. DO NOT STOP. DO NOT ASK QUESTIONS. You may only stop once every one of them has passed from the worktree.
 ```
 
 Tell them that setting it keeps you working through every failure to the end instead of handing back after the first fix, and that without it you will stop the first time you think you are done. If they named a number of runs that must pass in a row, say it in the text.
 
 Then stop and end your turn. Do nothing else until the human has entered the goal. Start step 2 only once the goal is set.
 
-### 2. Read the run you were given
+### 2. Read the failed runs
+
+Read the newest failed run of each workflow in scope. Several workflows often fail for one cause, so read them all before fixing any.
 
 ```bash
 gh run view <run-id> --json status,conclusion,jobs
@@ -129,7 +142,7 @@ A full workflow run is usually long, so this is mostly waiting. Do not poll it b
 
 - Run something that waits for the run the push started and says when it finishes and which jobs failed, with the `Monitor` tool, so the outcome arrives as a notification and you can work in between.
 - Do not start more runs of a workflow that is already green on the commit. A run that passes ends the work for that workflow.
-- If the project has more than one workflow, each one needs its own green run on the final commit.
+- Each workflow in scope needs its own green run on the final commit. Workflows outside scope do not, and their results do not hold you in the loop.
 
 ### 9. When a run goes red again, go round again
 
@@ -138,7 +151,7 @@ This is the loop, and most of the work happens on the second and third time roun
 - Read the failure before touching anything. It is usually a different cause from the last one, and fixing what you fixed last time harder will not help.
 - If the evidence is not there (the logs were truncated, the job timed out and the CI kept nothing), your next fix is to make it readable: keep the log the test overwrote, upload the test logs as an artifact on failure. Diagnostics are worth a run.
 - Go back to step 4 with the new cause, fix it, push, and wait for the next run.
-- Repeat until the workflow has passed. Report only then.
+- Repeat until every workflow in scope has passed. Report only then.
 
 ## Things that will waste your time if you do not know them
 
@@ -151,6 +164,6 @@ This is the loop, and most of the work happens on the second and third time roun
 
 ## Finish
 
-- Tell the human which run passed and on which commit. Your authorisation to commit and push is rescinded from that point, so nothing is committed or pushed after this report.
+- Tell the human which run of each workflow in scope passed and on which commit. Your authorisation to commit and push is rescinded from that point, so nothing is committed or pushed after this report.
 - List each fix in one line: what failed, and what you changed.
 - Say plainly which failures you could not explain, and what you did about them. A bug you found while looking for a cause is not the same as the cause, and must not be reported as one.
