@@ -52,7 +52,7 @@ Before anything else, print this to the human, on its own, ready to copy:
 
 Tell them that setting it keeps you working through every failure to the end instead of handing back after the first fix, and that without it you will stop the first time you think you are done. If they named a number of runs that must pass in a row, say it in the text.
 
-Then carry on with the rest of the steps. Do not wait for them to set it.
+Then stop and end your turn. Do nothing else until the human has entered the goal. Start step 2 only once the goal is set.
 
 ### 2. Read the run you were given
 
