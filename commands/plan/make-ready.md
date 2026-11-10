@@ -6,7 +6,7 @@ Use the plan from the current conversation. If there is none and `docs/plans/new
 
 ## Steps
 
-1. **Read it as the implementer would.** Do this yourself, with no subagent:
+1. **Read it as the implementer would.**
     - Read the plan, then the project's `CLAUDE.md` and `AGENTS.md` files and every rule file they name.
     - Walk the steps in order as if implementing them, without writing anything. For each step, open every file, function, line, type, command, helper and test it names, and check that each one exists in the code, or is made by an earlier step of this plan or by a plan listed under Prerequisites.
     - For each step, list anything the implementer would need and could not find in the plan, the code or the docs: a name that does not exist, a value or behaviour the plan does not state, a choice the plan leaves open, a term it never defines, a reference to a conversation, a decision or "the other plan" with no file named, a "use whatever name it ends up with", a step that depends on a later step, and a command that cannot be run as written.
