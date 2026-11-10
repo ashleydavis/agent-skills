@@ -28,6 +28,9 @@ Follow `~/agent-config/rules/planning.md`.
 ```
 # <Plan Title>
 
+## Decisions not approved by a human
+<Simple bullet points, one short sentence each: every decision in this plan the human has not approved. "None" when there are none.>
+
 ## Overview
 <One paragraph describing the intent and why the change is needed>
 
