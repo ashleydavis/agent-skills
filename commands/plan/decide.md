@@ -13,9 +13,10 @@ Use the plan from the current conversation. If there is none and `docs/plans/new
     Never present the next decision until the current one has a verdict of approve, reject or change.
 
 3. **Apply each verdict to the plan before moving on.**
-    - **Approve:** remove the bullet from "Decisions not approved by a human" and record the decision under Notes as approved by the human.
+    - **Approve:** remove the bullet from "Decisions not approved by a human" and record the decision under Notes.
     - **Reject:** remove the bullet, rewrite every step, test and note that depended on the decision so the plan no longer makes it, and record under Notes that it was rejected. If the rejection leaves a gap the plan cannot fill without a new decision, add that new decision as a bullet in "Decisions not approved by a human" so it is walked through in this same run.
-    - **Change:** remove the bullet, rewrite every step, test and note that depended on it to follow the human's instruction, and record the instruction under Notes as approved by the human. A new decision the change forces goes back into "Decisions not approved by a human" for this same run.
+    - Never write "approved by the human" or any other approval label into a plan.
+    - **Change:** remove the bullet, rewrite every step, test and note that depended on it to follow the human's instruction, and record the instruction under Notes. A new decision the change forces goes back into "Decisions not approved by a human" for this same run.
 
 4. **Finish.** When the section is empty, replace its contents with "None". Report in one line how many decisions were approved, rejected and changed.
 

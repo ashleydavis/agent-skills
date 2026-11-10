@@ -29,7 +29,7 @@ Follow `~/agent-config/rules/planning.md`.
 # <Plan Title>
 
 ## Decisions not approved by a human
-<Simple bullet points, one short sentence each: every decision in this plan the human has not approved. "None" when there are none.>
+<Simple bullet points, one short sentence each, most important first. A decision goes here only if it changes what users see, the design or the public API, and the human has not approved it. Settle everything else yourself by research and put it in Notes. Never list an option the rules ban: drop it. Before listing a choice of library or approach, compare the alternatives against what the plan needs and pick the one that fits. "None" when there are none.>
 
 ## Overview
 <One paragraph describing the intent and why the change is needed>
