@@ -2,9 +2,7 @@
 
 Installs the slash commands in this repo into Claude and Cursor.
 
-It symlinks each entry in `commands/` into `~/.claude/commands` and `~/.cursor/commands`. For example, `commands/plan/create.md` becomes `/plan:create`.
-
-Each entry gets its own link, so commands from other packages can sit in the same directory.
+It symlinks `commands/` as `~/.claude/commands` and `~/.cursor/commands`. For example, `commands/plan/create.md` becomes `/plan:create`.
 
 ## Usage
 
@@ -16,9 +14,8 @@ Each entry gets its own link, so commands from other packages can sit in the sam
 
 ## What it does
 
-- Creates `~/.claude/commands` and `~/.cursor/commands` if they are missing. Each has to be a real directory, so the script stops if either is a link.
-- Removes links that point into this repo at an entry that has since been deleted or renamed.
-- Links each entry in `commands/`. An entry already linked to the same place is left as it is.
-- Stops with an error when a name is already taken by a file or by a link to somewhere else, so it overwrites no other package's command.
+- Links `~/.claude/commands` and `~/.cursor/commands` to `commands/`. A link already pointing there is left as it is.
+- Replaces a directory of per-entry links into `commands/` with the single directory link.
+- Stops with an error when the target is a link to somewhere else, or a directory holding anything other than links into `commands/`.
 
-Run it again after adding, renaming or removing a top-level entry in `commands/`. Changes inside an entry show up at once, because the link points at the repo.
+Changes in `commands/` show up at once, because the link points at the repo.
