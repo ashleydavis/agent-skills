@@ -7,6 +7,7 @@ The output of this command is a file, not a Jira issue. `/ticket:publish` is wha
 These are decided here, not at publish time. `/ticket:publish` only enforces them.
 
 - **Issue type is Story.** Always, unless the human says otherwise in this conversation. Do not choose Bug because the work fixes a defect. Bug is a different screen with its own required fields, and in some projects its own description-like custom field, which means a body sent to the normal description field is stored but never shown to a reader. If you think Bug genuinely fits better, ask. Do not just write it.
+- **Assignee is Unassigned.** Always, unless the human names an assignee in this conversation. Do not ask.
 - **Priority is the project's lowest.** Read the allowed priority names out of the metadata and take the bottom one rather than assuming what it is called. Only use something else if the human asked for it.
 - **Story points and acceptance criteria are always needed.** Both usually have their own custom fields. Ask the human for both. Do not leave either blank, do not invent them, and do not let them turn into a TBC that blocks publishing later.
 
@@ -23,7 +24,7 @@ These are decided here, not at publish time. `/ticket:publish` only enforces the
 
    Do not ask these one at a time. Ask for the lot, take whatever comes back, and only chase the pieces you actually need.
 
-2. **Read the dump, then ask what is missing.** Once you have the material, work out what you still cannot answer, and ask it all in one go. Always in that list: **story points** and **acceptance criteria**, plus who it is assigned to and whether the immediate problem is already worked around. Anything you can find in the code yourself, find it in the code yourself rather than asking.
+2. **Read the dump, then ask what is missing.** Once you have the material, work out what you still cannot answer, and ask it all in one go. Always in that list: **story points** and **acceptance criteria**, plus whether the immediate problem is already worked around. Never ask who it is assigned to: it is Unassigned unless the human names an assignee. Anything you can find in the code yourself, find it in the code yourself rather than asking.
 
 3. **Treat all of it as the report, not as the truth.** Note who reported it, who asked for what, and any ticket keys, PR links or change requests mentioned, they become the Related work section.
 
