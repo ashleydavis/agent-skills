@@ -17,7 +17,7 @@ Check each of the following and report findings under labelled headings:
 **Human intervention** — Can the plan be executed from start to finish with no human intervention, apart from the approval stop after a docs-first step when the plan has one? List every open question, every step needing something the rules in force let the agent do only on the human's word (committing, pushing, merging, tagging or releasing, deleting files, changing git configuration and the like), and every step waiting on something outside the agent's reach (a release, a tag, another person's change). 
 
 **THE PLAN FAILS THIS CHECK IF IT HAS ANY OF THE FOLLOWING. EACH ONE IS AN ISSUE THAT MUST BE FIXED BEFORE THE PLAN IS IMPLEMENTED:**
-- A stop, a question, or any step or note that requires a human.
+- A stop, a question, or any step or note that requires a human, other than the approval stop after a docs-first step.
 - A note telling the agent what it cannot do, or to report, wait or stop.
 - A dependency on a release, tag, push or anything else outside the agent's reach. Dependencies across repositories must be taken locally.
 - A mechanism the plan relies on that was not checked against the code or by running it.
