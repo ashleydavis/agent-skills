@@ -32,7 +32,7 @@ Never raise the Android emulator pool as an issue, and never mention it in the p
 
 For each heading, list findings as bullet points. If nothing was found for a category, write "None identified." Do not suggest fixes — only report findings.
 
-Make a numbered list of issues and put them at the top of the plan under an "Issues" section. Each issue should have a checked box so we can check them off as we work through and address them.
+Append the numbered issues to the plan's existing "Issues" section, continuing its numbering after the last item. Add a new "Issues" section at the top only when the plan has none. Each new issue has an unchecked box so we can check them off as we work through and address them. Do not modify any existing text, including existing issues, their numbering or their checked boxes, and add nothing else to the plan.
 
 
 ## Next
