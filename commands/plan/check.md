@@ -6,7 +6,7 @@ Use the plan from the current conversation. If there is none and `docs/plans/new
 
 Check each of the following and report findings under labelled headings:
 
-**Missing** — Are there steps that are implied but not stated? Dependencies not accounted for? Edge cases ignored? Is there a Self Review step after Verify and before Clean up, and does the "Review" section carry the checklist items from `~/agent-config/rules/review-checklist.md`?
+**Missing** — Are there steps that are implied but not stated? Dependencies not accounted for? Edge cases ignored? Is there an "Acceptance criteria" section? Is there a Self Review step after Verify and before Clean up, and does the "Review" section carry the checklist items from `~/agent-config/rules/review-checklist.md`?
 
 **Inconsistencies** — Do any steps contradict each other? Are names, types, or interfaces used inconsistently across steps?
 
@@ -17,6 +17,7 @@ Check each of the following and report findings under labelled headings:
 **Human intervention** — Can the plan be executed from start to finish with no human intervention, apart from the approval stop after a docs-first step when the plan has one? List every open question, every step needing something the rules in force let the agent do only on the human's word (committing, pushing, merging, tagging or releasing, deleting files, changing git configuration and the like), and every step waiting on something outside the agent's reach (a release, a tag, another person's change). 
 
 **THE PLAN FAILS THIS CHECK IF IT HAS ANY OF THE FOLLOWING. EACH ONE IS AN ISSUE THAT MUST BE FIXED BEFORE THE PLAN IS IMPLEMENTED:**
+- No "Acceptance criteria" section.
 - A stop, a question, or any step or note that requires a human, other than the approval stop after a docs-first step.
 - A note telling the agent what it cannot do, or to report, wait or stop.
 - A dependency on a release, tag, push or anything else outside the agent's reach. Dependencies across repositories must be taken locally.
