@@ -13,7 +13,7 @@ Use the plan from the current conversation. If there is none and `docs/plans/new
     - List every place where the plan contradicts itself, the code or the rules.
     - Skip anything that is only style. A choice the human has made, in the conversation or recorded in the plan's Notes, is not a finding.
 2. **Confirm each finding** against the plan, the code and the rules before changing anything. Drop any that is wrong.
-3. **Fix every confirmed finding in the plan.** Research the code to settle each one, then rewrite the steps, tests, Verify and Notes so the gap is gone: give the missing name, value, command, file or behaviour, correct the line numbers and resolve the contradiction. Follow the template and rules of `/plan:create`.
+3. **Fix every confirmed finding in the plan.** Research the code to settle each one, then rewrite the steps, tests, Verify, Review and Notes so the gap is gone: give the missing name, value, command, file or behaviour, correct the line numbers and resolve the contradiction. Follow the template and rules of `/plan:create`. The order is Verify, then Self Review, then Clean up, then External actions. The Self Review checks the "Review" checklist copied from `~/agent-config/rules/review-checklist.md`.
     - Never log a finding in the Issues section or leave it for later.
     - Never shrink the plan's scope to close a gap: keep every repository, platform, feature and test it covers. Find the way to do it, or name a check that this machine cannot run as CI-only.
     - When a fix needs a decision that changes what users see, the design or the public API, and research cannot settle it, add one short bullet to "Decisions not approved by a human" and write the plan around the choice you recommend.

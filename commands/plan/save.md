@@ -9,11 +9,22 @@ Save the current plan to a markdown file in `docs/plans/new/`.
 ```
 # <Plan Title>
 
+## Decisions not approved by a human
+<Simple bullet points. "None" when there are none.>
+
+## Acceptance criteria
+<Short, simple, achievable and actionable. A few bullets.>
+
 ## Overview
 <One paragraph describing the intent>
 
+## Issues
+<Leave empty. Populated later by plan:check.>
+
 ## Steps
-<Numbered list of implementation steps. When the change needs documentation, step 1 is write documentation (then STOP and wait for human approval; revise later steps if the human revises the docs) and the last step is update documentation to match the final code.>
+<Numbered list of implementation steps. When the change needs documentation, step 1 is write documentation (then STOP and wait for human approval; revise later steps if the human revises the docs) and the last implementation step updates documentation to match the final code. After the implementation steps come "Verify", then "Self Review", then "Clean up", then "External actions", each only when it has something in it.>
+
+<"Verify" and "Self Review" are separate steps. Verify runs the plan's "Verify" section and saves the evidence in the project's `tmp/evidence/` directory. Self Review checks the evidence the earlier steps collected and checks the "Review" checklist. It does not collect evidence. It can uncheck incomplete steps and add missed steps before Verify. When it fails, restart from the first unchecked step. "Clean up" holds every deletion and comes just before "External actions", which holds only actions stamped "requested explicitly by the human".>
 
 ## Unit Tests
 <Unit tests to write or update>
@@ -22,7 +33,16 @@ Save the current plan to a markdown file in `docs/plans/new/`.
 <Smoke tests to write or update>
 
 ## Verify
-<Concrete checks to confirm after implementation is complete>
+<Concrete checks to confirm after implementation is complete. The "Verify" step runs them and saves the evidence in `tmp/evidence/`.>
+
+## Review
+<Write the checklist's items here, copied from `~/agent-config/rules/review-checklist.md`. The implementer fills this in the Self Review step.>
+
+## Reviewed
+<Write the checklist's items here, copied from `~/agent-config/rules/review-checklist.md`. The reviewer fills this when they review the plan.>
+
+## Review issues
+<The reviewer writes each finding here. Leave empty when the review passes.>
 
 ## Notes
 <Any decisions and trade-offs, including the human's answers. No open questions.>

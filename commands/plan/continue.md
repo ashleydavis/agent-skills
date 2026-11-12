@@ -2,7 +2,7 @@ Continue the current plan from where it left off.
 
 **BEFORE ANYTHING ELSE, ONCE THE PLAN IS CHOSEN: CHECK THAT THE PLAN (OR THE PART OF THE PLAN) TO BE IMPLEMENTED HAS NO STOPS, NO QUESTIONS AND NO PARTS THAT REQUIRE A HUMAN. THE ONE ALLOWED STOP IS AFTER THE WRITE DOCUMENTATION STEP, FOR THE HUMAN TO REVIEW THE DOCUMENTATION. IF IT HAS ANY OTHER, EXIT IMMEDIATELY SAYING: THIS PLAN CANNOT BE COMPLETED WITHOUT A HUMAN, THE PLAN NEEDS FIXING**
 
-External actions (commit, push, release, tag, publish, running a workflow) are done only when the plan stamps them "requested explicitly by the human", and only in its "Release" step. Deletions are done only in its "Clean up" step, last. Test by the platform rules and testing ladder in `~/agent-config/rules/testing.md`.
+External actions (commit, push, release, tag, publish, running a workflow) are done only when the plan stamps them "requested explicitly by the human", and only in its "External actions" step, last. Deletions are done only in its "Clean up" step, just before it. Test by the platform rules and testing ladder in `~/agent-config/rules/testing.md`.
 
 This works for a plan that has been broken into step files (via `/plan:break`), for a plan with a checklist of steps in the plan file, and for a plan with no steps at all. A plan that has steps gets exactly one step done, and then this command stops. A plan with no steps gets the next piece of work done, as far as the plan and its handover notes make clear, and then stops.
 
@@ -44,17 +44,29 @@ Once the plan is chosen, do not ask the user any questions and do not stop for a
 
 6. **Write tests** — add or update unit tests and smoke tests for every new or changed function as described in the step or plan.
 
-7. **Verify** — once all tasks are done, run the tests and read the result. Run all tests related to code that was changed, there is no need to run all tests unless all code has changed. Do not force all tests to run. Do not use the --force argument on test scripts. A test command that exits with code 0 has passed, and that includes a run that reports it had nothing to run because nothing changed since the last passing run. If it is longer than your command limit, start it in the background and wait for it inside the turn. Any failure is yours to fix, whoever wrote the code: fix the cause, then run the tests again, and repeat until they pass. A suite that cannot run on this machine is named in the report with the reason, and never counted as passing. After this step, any further edit means running it again.
+7. **Verify** — once all tasks are done, run the tests and read the result. Run all tests related to code that was changed, there is no need to run all tests unless all code has changed.
 
-8. **Record what was done** — when the plan has step files, replace the empty `## Summary` placeholder at the bottom of the step file with a concise account of what was actually done: files changed, key decisions, anything that diverged from the step's instructions, and anything deferred. When it has no step files, record it under the step in the plan file. Never create a step file.
+   Do not force all tests to run. Do not use the --force argument on test scripts.
 
-9. **Mark the step complete** — when the plan has steps, change the `- [ ]` for this step to `- [x]` in the plan's checklist. Do not tick an item that is not actually done: tick it only when the check under "Finished is proved, not claimed" passes in full. Do not tick a step until every function the work added or changed, copied code included, has a unit test, and you checked this rather than assumed it. There is no way out of this: a step that looks impossible as written is a step whose missing pieces you build, and the step is not reported or left until it is done and ticked.
+   A test command that exits with code 0 has passed, and that includes a run that reports it had nothing to run because nothing changed since the last passing run. If it is longer than your command limit, start it in the background and wait for it inside the turn.
 
-10. **Clear the handover you used** — delete the `## Handover` section you read at the start (in the step file, the plan file, or both), because it describes a state the work has now moved past. If you stop before the step is done, leave it and tell the user to run `/plan:handover`.
+   Any failure is yours to fix, whoever wrote the code: fix the cause, then run the tests again, and repeat until they pass. A suite that cannot run on this machine is named in the report with the reason, and never counted as passing. After this step, any further edit means running it again.
 
-11. **If this was the last step, move the plan** — if every item in the checklist is now `- [x]`, move the plan file and its steps directory from `docs/plans/new/` to `docs/plans/done/`. Otherwise leave the plan in `new/`.
+   Save the evidence: the compile output to `tmp/evidence/compile`, the test output to `tmp/evidence/tests` and the acceptance evidence, screenshots included for GUI apps, to `tmp/evidence/acceptance`.
 
-12. **Report and stop** — this is the only place this command stops. Summarise what was done, name the test command you ran and say what it reported, flag anything that was skipped or deferred, and tell the user which step (if any) is next. Do not start the next step.
+8. **Self Review** — when the step is the plan's Self Review step, check the evidence the earlier steps collected and check that every "Review" checklist item was met. It does not collect evidence. The checklist is in `~/agent-config/rules/review-checklist.md`. Tick a box only when the check is confirmed.
+
+   Self Review can uncheck previously checked steps that are incomplete, including "Verify", and add new steps for things missed, before Verify. When Self Review fails, restart from the first unchecked step. Do not skip the step or move the plan.
+
+9. **Record what was done** — when the plan has step files, replace the empty `## Summary` placeholder at the bottom of the step file with a concise account of what was actually done: files changed, key decisions, anything that diverged from the step's instructions, and anything deferred. When it has no step files, record it under the step in the plan file. Never create a step file.
+
+10. **Mark the step complete** — when the plan has steps, change the `- [ ]` for this step to `- [x]` in the plan's checklist. Do not tick an item that is not actually done: tick it only when the check under "Finished is proved, not claimed" passes in full. Do not tick a step until every function the work added or changed, copied code included, has a unit test, and you checked this rather than assumed it. There is no way out of this: a step that looks impossible as written is a step whose missing pieces you build, and the step is not reported or left until it is done and ticked.
+
+11. **Clear the handover you used** — delete the `## Handover` section you read at the start (in the step file, the plan file, or both), because it describes a state the work has now moved past. If you stop before the step is done, leave it and tell the user to run `/plan:handover`.
+
+12. **If this was the last step, move the plan** — if every item in the checklist is now `- [x]`, move the plan file and its steps directory from `docs/plans/new/` to `docs/plans/done/`. Otherwise leave the plan in `new/`.
+
+13. **Report and stop** — this is the only place this command stops. Summarise what was done, name the test command you ran and say what it reported, flag anything that was skipped or deferred, and tell the user which step (if any) is next. Do not start the next step.
 
     **Documentation stop.** If the step just completed was "Write documentation", tell the human the documentation is ready for review and wait for them to approve it. If they revise the documentation, revise the remaining plan steps to match, then wait for them to say to continue. Only after that approval may `/plan:continue` be run again. When the last step is "Update documentation", it revises the docs from the "Write documentation" step to match the final code.
 

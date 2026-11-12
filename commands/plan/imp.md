@@ -2,7 +2,7 @@ Implement the current plan.
 
 **BEFORE ANYTHING ELSE, ONCE THE PLAN IS CHOSEN: CHECK THAT THE PLAN (OR THE PART OF THE PLAN) TO BE IMPLEMENTED HAS NO STOPS, NO QUESTIONS AND NO PARTS THAT REQUIRE A HUMAN. THE ONE ALLOWED STOP IS A DOCUMENTATION REVIEW STOP, FOR THE HUMAN TO REVIEW THE DOCUMENTATION. IF IT HAS ANY OTHER, EXIT IMMEDIATELY SAYING: THIS PLAN CANNOT BE COMPLETED WITHOUT A HUMAN, THE PLAN NEEDS FIXING**
 
-External actions (commit, push, release, tag, publish, running a workflow) are done only when the plan stamps them "requested explicitly by the human", and only in its "Release" step. Deletions are done only in its "Clean up" step, last. Test by the platform rules and testing ladder in `~/agent-config/rules/testing.md`.
+External actions (commit, push, release, tag, publish, running a workflow) are done only when the plan stamps them "requested explicitly by the human", and only in its "External actions" step, last. Deletions are done only in its "Clean up" step, just before it. Test by the platform rules and testing ladder in `~/agent-config/rules/testing.md`.
 
 **The plan is not yours to change.** You are authorised to edit the plan file only to tick a step, record what was done under that step, and delete the handover you used. You may not add, remove, move, reword, split or reduce any step, any item of a step or any acceptance criterion, and you may not move work out of a step to another one. If a step looks too big, impossible or in conflict with something else, the step stands as written: do all of it. If you think the plan itself is wrong, say so in the report and leave it unchanged.
 
@@ -45,15 +45,27 @@ External actions (commit, push, release, tag, publish, running a workflow) are d
 
 5. **Create a todo list** — use TodoWrite to break the plan into discrete tasks, then work through them one by one, marking each complete as you go.
 
-6. **Documentation stop** — if the plan has a documentation review stop, do every step up to and including it and then STOP. Do not start later steps. Do not write tests, verify, or move the plan. Tell the human the documentation is ready for review and wait for them to approve it. If they revise the documentation, revise the remaining plan steps to match. When they approve, print the second goal (the no-review-stop goal from step 2) in a fenced block, with one line asking them to set it, and wait for them to say to continue. Only then may you implement later steps. The last step, when present, updates the documentation to match the final code.
+6. **Documentation stop** — if the plan has a documentation review stop, do every step up to and including it and then STOP. Do not start later steps. Do not write tests, verify, or move the plan. Tell the human the documentation is ready for review and wait for them to approve it. If they revise the documentation, revise the remaining plan steps to match. When they approve, print the second goal (the no-review-stop goal from step 2) in a fenced block, with one line asking them to set it, and wait for them to say to continue. Only then may you implement later steps. The last implementation step, when present, updates the documentation to match the final code, before Verify and Self Review.
 
 7. **Write tests** — add or update unit tests and smoke tests for every new or changed function as described in the step or plan.
 
-8. **Verify** — once all steps are done, run the tests and read the result. Run all tests related to code that was changed, there is no need to run all tests unless all code has changed. Do not force all tests to run. Do not use the --force argument on test scripts. A test command that exits with code 0 has passed, and that includes a run that reports it had nothing to run because nothing changed since the last passing run. Any failure is yours to fix: fix the cause and run the tests again until they pass. Do not tick a step until every function the work added or changed, copied code included, has a unit test, and you checked this rather than assumed it. Any later edit means running it again.
+8. **Verify** — once all steps are done, run the tests and read the result. Run all tests related to code that was changed, there is no need to run all tests unless all code has changed.
 
-9. **Move the plan** — move the plan file (and the plans "steps" directory if it has one) from `docs/plans/new/` to `docs/plans/done/`.
+   Do not force all tests to run. Do not use the --force argument on test scripts.
 
-10. **Report** — summarise what was implemented and flag anything that was skipped or deferred.
+   A test command that exits with code 0 has passed, and that includes a run that reports it had nothing to run because nothing changed since the last passing run.
+
+   Any failure is yours to fix: fix the cause and run the tests again until they pass. Do not tick a step until every function the work added or changed, copied code included, has a unit test, and you checked this rather than assumed it. Any later edit means running it again.
+
+   Save the evidence: the compile output to `tmp/evidence/compile`, the test output to `tmp/evidence/tests` and the acceptance evidence, screenshots included for GUI apps, to `tmp/evidence/acceptance`.
+
+9. **Self Review** — when the plan has a "Review" section, run its Self Review step. It checks the evidence the earlier steps collected and checks that every "Review" checklist item was met. It does not collect evidence. The checklist is in `~/agent-config/rules/review-checklist.md`. Tick a box only when the check is confirmed.
+
+   Self Review can uncheck previously checked steps that are incomplete, including "Verify", and add new steps for things missed, before Verify. When Self Review fails, restart from the first unchecked step. Do not skip the step or move the plan.
+
+10. **Move the plan** — move the plan file (and the plans "steps" directory if it has one) from `docs/plans/new/` to `docs/plans/done/`.
+
+11. **Report** — summarise what was implemented and flag anything that was skipped or deferred.
 
 ## Next
 

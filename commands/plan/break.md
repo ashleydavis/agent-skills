@@ -17,9 +17,11 @@ Use the plan from the current conversation. If there is none and `docs/plans/new
    - End each step with: "The code must compile and all tests (unit and smoke/e2e) must pass before marking this step complete."
    - Save the step to its own markdown file at `docs/plans/<plan-name-without-extension>/<N>-<short-slug>.md`, where `<N>` is the 1-based step number and `<short-slug>` is a kebab-case summary of the step (e.g. `2-add-auth-middleware.md`).
 
-4. If the first step was "Write documentation", the **last step** is "Update documentation": revise the documentation written in step 1 to reflect the final state of the code, including anything that changed during implementation. Save it to `docs/plans/<plan-name-without-extension>/<N>-update-documentation.md`. Skip this step when the first step was skipped.
+4. If the first step was "Write documentation", the "Update documentation" step is the last implementation step: revise the documentation written in step 1 to reflect the final state of the code, including anything that changed during implementation. Save it to `docs/plans/<plan-name-without-extension>/<N>-update-documentation.md`. Skip this step when the first step was skipped.
 
-5. Every step file (first, middle, and last) must end with an empty `## Summary` section to be filled in when the step is implemented, recording what was actually done. Format:
+5. After the implementation steps come "Verify", "Self Review", "Clean up" and "External actions", each only when it has something in it. "Verify" runs the plan's "Verify" section and saves the evidence in `tmp/evidence/`. "Self Review" checks the evidence the earlier steps collected and the "Review" checklist, and does not collect evidence. "Clean up" holds every deletion. "External actions" holds only actions stamped "requested explicitly by the human". Save Self Review to `docs/plans/<plan-name-without-extension>/<N>-self-review.md`, and copy the checklist items from `~/agent-config/rules/review-checklist.md` into the "Review" section.
+
+6. Every step file (first, middle, and last) must end with an empty `## Summary` section to be filled in when the step is implemented, recording what was actually done. Format:
 
 ```
 ## Summary
@@ -27,7 +29,7 @@ Use the plan from the current conversation. If there is none and `docs/plans/new
 _To be completed when this step is implemented._
 ```
 
-6. Prepend a numbered implementation steps checklist to the **top** of the original plan file. Format:
+7. Prepend a numbered implementation steps checklist to the **top** of the original plan file. Format:
 
 ```
 ## Implementation Steps
@@ -39,7 +41,7 @@ _To be completed when this step is implemented._
 
 Each checkbox lets the user mark the step complete as they work through it.
 
-7. Report back with the list of files created and a one-line summary of each step.
+8. Report back with the list of files created and a one-line summary of each step.
 
 ## Next
 

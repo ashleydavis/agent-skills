@@ -2,7 +2,7 @@ Finish all the remaining steps of the current plan and complete the plan.
 
 **BEFORE ANYTHING ELSE, ONCE THE PLAN IS CHOSEN: CHECK THAT THE PLAN (OR THE PART OF THE PLAN) TO BE IMPLEMENTED HAS NO STOPS, NO QUESTIONS AND NO PARTS THAT REQUIRE A HUMAN. THE ONE ALLOWED STOP IS AFTER THE WRITE DOCUMENTATION STEP, FOR THE HUMAN TO REVIEW THE DOCUMENTATION, AND THIS COMMAND DOES NOT STOP THERE: IT WRITES THE DOCUMENTATION AND CARRIES ON. IF IT HAS ANY OTHER, EXIT IMMEDIATELY SAYING: THIS PLAN CANNOT BE COMPLETED WITHOUT A HUMAN, THE PLAN NEEDS FIXING**
 
-External actions (commit, push, release, tag, publish, running a workflow) are done only when the plan stamps them "requested explicitly by the human", and only in its "Release" step. Deletions are done only in its "Clean up" step, last. Test by the platform rules and testing ladder in `~/agent-config/rules/testing.md`.
+External actions (commit, push, release, tag, publish, running a workflow) are done only when the plan stamps them "requested explicitly by the human", and only in its "External actions" step, last. Deletions are done only in its "Clean up" step, just before it. Test by the platform rules and testing ladder in `~/agent-config/rules/testing.md`.
 
 Start the plan if it has not been started, or resume it if it is part done, and carry on to the plan's final step. Once the user has set the goal (step 2), ask no questions and do not stop until the plan is complete, whatever the reason. A failing test, a build error or a hard step is work to do, not a reason to stop.
 
@@ -46,11 +46,21 @@ Start the plan if it has not been started, or resume it if it is part done, and 
    - When it has a step file (e.g. `docs/plans/<plan-name>/<N>-<slug>.md`), read it, and read its `## Handover` section first if it has one.
    - Use TodoWrite to break it into discrete tasks and work through them one by one, marking each complete as you go. Work in the location chosen in step 1.
    - Add or update unit tests and smoke tests for every new or changed function as described in the step or plan.
-   - Run the tests. Run all tests related to code that was changed, there is no need to run all tests unless all code has changed. Do not force all tests to run. Do not use the --force argument on test scripts. A test command that exits with code 0 has passed, and that includes a run that reports it had nothing to run because nothing changed since the last passing run. If they fail, find the cause, fix it and run the tests again, until they pass. A step is not done while it fails.
+   - Run the tests. Run all tests related to code that was changed, there is no need to run all tests unless all code has changed. Do not force all tests to run. Do not use the --force argument on test scripts. A test command that exits with code 0 has passed, and that includes a run that reports it had nothing to run because nothing changed since the last passing run. If they fail, find the cause, fix it and run the tests again, until they pass. A step is not done while it fails. Save the evidence as the work is done: the compile output to `tmp/evidence/compile`, the test output to `tmp/evidence/tests` and the acceptance evidence, screenshots included for GUI apps, to `tmp/evidence/acceptance`.
    - Record it. When the plan has step files, replace the empty `## Summary` placeholder at the bottom of the step file with a concise account of what was actually done: files changed, key decisions, anything that diverged from the step's instructions, and anything deferred. When it has no step files, record it under the step in the plan file. Never create a step file. When the plan has steps, change the `- [ ]` for the step to `- [x]`. Do not tick an item that is not actually done. Do not tick a step until every function the work added or changed, copied code included, has a unit test, and you checked this rather than assumed it.
    - Delete the `## Handover` section you read for this step (in the step file, the plan file, or both), because it describes a state the work has now moved past.
 
-7. **Complete the plan** — when nothing remains and every item in the checklist is `- [x]`, run the tests once more over the whole change, and fix whatever they report. Run all tests related to code that was changed, there is no need to run all tests unless all code has changed. Do not force all tests to run. Do not use the --force argument on test scripts. A test command that exits with code 0 has passed, and that includes a run that reports it had nothing to run because nothing changed since the last passing run. Then move the plan file and its steps directory from `docs/plans/new/` to `docs/plans/done/`.
+7. **Complete the plan** — when nothing remains and every item in the checklist is `- [x]`, run the tests once more over the whole change, and fix whatever they report.
+
+   Run all tests related to code that was changed, there is no need to run all tests unless all code has changed. Do not force all tests to run. Do not use the --force argument on test scripts.
+
+   A test command that exits with code 0 has passed, and that includes a run that reports it had nothing to run because nothing changed since the last passing run.
+
+   Save the evidence: the compile output to `tmp/evidence/compile`, the test output to `tmp/evidence/tests` and the acceptance evidence, screenshots included for GUI apps, to `tmp/evidence/acceptance`.
+
+   When the plan has a "Review" section, run its Self Review step. It checks the evidence the earlier steps collected and checks that every "Review" checklist item was met. It does not collect evidence. The checklist is in `~/agent-config/rules/review-checklist.md`. Tick a box only when the check is confirmed. If it fails, it unchecks the incomplete steps and may add steps before Verify; restart from the first unchecked step.
+
+   Then move the plan file and its steps directory from `docs/plans/new/` to `docs/plans/done/`.
 
 8. **Report** — only now, summarise what was done across the whole plan, flag anything that was skipped or deferred and why, and say that the plan has been moved to `docs/plans/done/`.
 

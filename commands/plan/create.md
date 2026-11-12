@@ -31,6 +31,9 @@ Follow `~/agent-config/rules/planning.md`.
 ## Decisions not approved by a human
 <Simple bullet points, one short sentence each, most important first. A decision goes here only if it changes what users see, the design or the public API, and the human has not approved it. Settle everything else yourself by research and put it in Notes. Never list an option the rules ban: drop it. Before listing a choice of library or approach, compare the alternatives against what the plan needs and pick the one that fits. "None" when there are none.>
 
+## Acceptance criteria
+<Short, simple, achievable and actionable. A few bullets. What must be true for the work to be accepted.>
+
 ## Overview
 <One paragraph describing the intent and why the change is needed>
 
@@ -38,7 +41,15 @@ Follow `~/agent-config/rules/planning.md`.
 <Leave empty — populated later by plan:check>
 
 ## Steps
-<Numbered list of concrete implementation steps, each naming the file and function to change. Where the human asked for a documentation review, step 1 is write documentation (then STOP and wait for their approval; revise later steps if they revise the docs) and the last step updates it to match the final code. Where they did not, step 1 is the first implementation step, nothing in the plan stops, and the last implementation step writes the documentation. After it come "Release" (only actions stamped "requested explicitly by the human") and then "Clean up" (every deletion), each only when it has something in it. Each step that produces code must require that the code compiles (or type-checks / builds cleanly for the language) and that tests pass before it is complete: every new or changed function gets a unit test, and behaviour gets an e2e/smoke test where possible. Exception: React components, contexts, and hooks are not unit tested but must be covered by an e2e test.>
+<Numbered list of concrete implementation steps, each naming the file and function to change.>
+
+<Where the human asked for a documentation review, step 1 is write documentation (then STOP and wait for their approval; revise later steps if they revise the docs) and the last implementation step updates it to match the final code. Where they did not, step 1 is the first implementation step, nothing in the plan stops, and the last implementation step writes the documentation. Either way that documentation step comes before Verify and Self Review.>
+
+<After the implementation steps come "Verify", then "Self Review", then "Clean up" (every deletion), then "External actions" (only actions stamped "requested explicitly by the human"), each only when it has something in it.>
+
+<"Verify" and "Self Review" are separate steps, in that order. The "Verify" step runs the plan's "Verify" section: the tests and checks, and it saves the evidence in the project's `tmp/evidence/` directory. The "Self Review" step is the review step, before "Clean up" and "External actions". It checks the evidence the earlier steps collected and checks that every "Review" checklist item was met. It does not collect evidence. It has the power to uncheck previously checked steps that are incomplete, including "Verify", and to add new steps for things missed, before Verify. When Self Review fails, the implementer restarts from the first unchecked step.>
+
+<Each step that produces code must require that the code compiles (or type-checks / builds cleanly for the language) and that tests pass before it is complete: every new or changed function gets a unit test, and behaviour gets an e2e/smoke test where possible. Exception: React components, contexts, and hooks are not unit tested but must be covered by an e2e test. Each such step saves its evidence as the work is done: the compile output to `tmp/evidence/compile`, the test output to `tmp/evidence/tests` and the acceptance evidence, screenshots included for GUI apps, to `tmp/evidence/acceptance`.>
 
 ## Unit Tests
 <List of unit tests to write or update — one per new or changed function. Every function must have a unit test. Exception: React components, contexts, and hooks are not unit tested (cover them with end-to-end tests instead).>
@@ -47,7 +58,16 @@ Follow `~/agent-config/rules/planning.md`.
 <List of end-to-end checks, preferably captured as automated tests in a shell script. Where possible every behaviour should be covered by an end-to-end or smoke test. React components, contexts, and hooks must be covered here since they are not unit tested.>
 
 ## Verify
-<Concrete, observable checks the AI agent can run after implementation. Must always include: the code compiles (or type-checks / builds cleanly for the language), all unit tests pass, and all smoke/e2e tests pass. Only checks that run on this machine; any that cannot are named as CI-only.>
+<Concrete, observable checks the AI agent can run after implementation. Must always include: the code compiles (or type-checks / builds cleanly for the language), all unit tests pass, and all smoke/e2e tests pass. Only checks that run on this machine; any that cannot are named as CI-only. The plan's "Verify" step runs these checks and saves the evidence in the project's `tmp/evidence/` directory.>
+
+## Review
+<Write the checklist's items here, copied from `~/agent-config/rules/review-checklist.md`. The implementer fills this checklist in the plan's Self Review step. That step checks the evidence the earlier steps collected and does not collect evidence itself. It can uncheck incomplete steps and add missed steps before Verify. Tick a box only when the check is confirmed.>
+
+## Reviewed
+<Write the checklist's items here, copied from `~/agent-config/rules/review-checklist.md`. The reviewer fills this checklist when they review the plan. Tick a box only when the check is confirmed from scratch. Put `- [-]` in place of a box for an item that is not met, and write the finding in "Review issues".>
+
+## Review issues
+<The reviewer writes each finding here, nested under the Review checklist item it belongs to. Leave empty when the review passes.>
 
 ## Notes
 <Decisions, trade-offs and constraints discovered during research, including the human's answers given while the plan was written. No open questions: every one is resolved before the plan is saved.>
@@ -66,8 +86,8 @@ Follow `~/agent-config/rules/planning.md`.
 - Never save a plan with a step the executing agent cannot finish alone (see "Resolve everything now"), or with an open question.
 - Never write anything in the plan that tells the agent what it cannot do, or to report, wait or stop. Rewrite the step instead.
 - A dependency across repositories is taken locally (a path or workspace link), and the plan says exactly how. Never a release or tag made part way through.
-- **NEVER PUT ANYTHING EXTERNAL IN A PLAN (COMMIT, PUSH, RELEASE, TAG, PUBLISH, RUNNING A WORKFLOW, ANY OTHER CALL TO AN OUTSIDE SYSTEM) UNLESS THE HUMAN EXPLICITLY ASKED FOR IT, OR INVOKED A COMMAND THAT NAMES THAT ACTION.** Each one that is allowed is stamped "requested explicitly by the human" and goes in a "Release" step, second to last.
-- **NEVER PUT A DELETION (`rm`, deleting a file, a directory, a branch, temporary or real) IN THE BODY OF THE PLAN.** Every deletion goes in a "Clean up" step, the very last step, after every edit, step, test and check, and after "Release".
+- **NEVER PUT ANYTHING EXTERNAL IN A PLAN (COMMIT, PUSH, RELEASE, TAG, PUBLISH, RUNNING A WORKFLOW, ANY OTHER CALL TO AN OUTSIDE SYSTEM) UNLESS THE HUMAN EXPLICITLY ASKED FOR IT, OR INVOKED A COMMAND THAT NAMES THAT ACTION.** Each one that is allowed is stamped "requested explicitly by the human" and goes in an "External actions" step, last.
+- **NEVER PUT A DELETION (`rm`, deleting a file, a directory, a branch, temporary or real) IN THE BODY OF THE PLAN.** Every deletion goes in a "Clean up" step, after every edit, step, test and check, and just before "External actions".
 - Before saving, walk the steps in order and confirm the agent has everything each one needs at that point.
 
 ## Next
