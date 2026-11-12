@@ -8,7 +8,7 @@ Work through the todo list, address each issue and update the plan accordingly. 
 
 Mark the checkbox for each issue as done in the plan, as you address each issue.
 
-Before fixing an issue, check that it is inside the plan's scope: the change the plan's Overview describes. Never fix an issue outside it, and never change the plan, the code or anything else to deal with it. Mark it `[-]` in place of its checkbox and write, indented under it, one or two lines saying why it is outside the plan's scope.
+Before fixing an issue, check that it is inside the plan's scope: the change the plan's Overview describes. Never fix an issue outside it, and change nothing but the plan's text to deal with it. Mark it `[-]` in place of its checkbox and write, indented under it, one or two lines saying why it is outside the plan's scope.
 
 The plan must have a Self Review step after Verify. When it is missing, add it. It checks the evidence the earlier steps collected and the "Review" checklist, and it does not collect evidence. The "Review" section carries the checklist items from `~/agent-config/rules/review-checklist.md`. The order is Verify, then Self Review, then Clean up, then External actions.
 
