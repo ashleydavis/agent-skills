@@ -40,7 +40,7 @@ Once the plan is chosen, do not ask the user any questions and do not stop for a
 
    This must be the step named in the goal. If it is not (the plan changed since step 1), do the step the goal names. Say which step or piece of work you are doing before you start it, on one line in exactly this form: `Doing step <N>: <title>` (for a plan with no steps, `Doing: <what>`). Do not ask the user to confirm it.
 
-5. **Create a todo list** — use TodoWrite to break the step or piece of work into discrete tasks, then work through them one by one, marking each complete as you go. Work in the directory and branch the session is already in. Do not create a worktree.
+5. **Create a todo list** — use TodoWrite to break the step or piece of work into discrete tasks, then work through them one by one, marking each complete as you go. Work in the directory and branch the session is already in. Do not create a worktree. When the plan touches more than one repository, work only in the worktree of each repository it touches: a plan that names a checkout does not override a worktree the session is already using, and an edit whose repository root is a main checkout is wrong.
 
 6. **Write tests** — add or update unit tests and smoke tests for every new or changed function as described in the step or plan.
 

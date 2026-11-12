@@ -4,7 +4,7 @@ This command depends on `/plan:imp`. Use the plan from the current conversation,
 
 **Refuse to run unless a worktree is selected.** Run `git worktree list --porcelain`. If the current directory is not one of the worktree paths in its output, say "This command runs only on a worktree. Choose the worktree when `/plan:imp` asks for the working location." and stop. Change nothing.
 
-1. **Implement the plan.** Run `/plan:imp` for the plan. The plan's steps are its instructions, including its Self Review step. When the plan has a documentation review stop, `/plan:imp` stops there, the human approves the documentation, and the command carries on.
+1. **Implement the plan.** Run `/plan:imp` for the plan. The plan's steps are its instructions, including its Self Review step. When the plan has a documentation review stop, `/plan:imp` stops there, the human approves the documentation, and the command carries on. Every repository the plan touches must be on a worktree, not a main checkout; if one is not, create that worktree before implementing.
 
 2. **Check the tests.** Run the plan's "Verify" section. The commit is allowed only when every test command the plan names exits with code 0. A test the plan's "Verify" section names as CI-only cannot run on this machine; it is not a failure here.
 
