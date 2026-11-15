@@ -4,6 +4,8 @@ description: Fix the failing CI workflow at the link given, or every recently fa
 
 # Fix failing workflows
 
+What counts as evidence, and what does not, is in `~/agent-config/rules/evidence.md`. Read it before collecting, judging or reporting evidence.
+
 The human gives you a link: `$ARGUMENTS`. Find out why the workflows it covers failed, fix the causes, and prove the fixes by running the workflows again until they pass.
 
 ## Which workflows are in scope

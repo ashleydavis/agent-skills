@@ -1,5 +1,7 @@
 Review a completed plan.
 
+What counts as evidence, and what does not, is in `~/agent-config/rules/evidence.md`. Read it before collecting, judging or reporting evidence.
+
 Use the plan from the current conversation. If there is none and `docs/plans/done/` holds exactly one plan, use that one without asking, and say which plan it is in one line. Otherwise list the file names in `docs/plans/done/` and `docs/plans/new/`, newest first, as a numbered menu and wait for the user's choice. Read nothing in the repo before they choose. Once they have chosen, read that plan only.
 
 The plan's "Review" section is near the end. It holds a "Review" checklist, a "Reviewed" checklist with the same items, and a "Review issues" section. The "Review" checklist is filled by the implementer's Self Review step. The "Reviewed" checklist is filled by this review. The "Review issues" section holds one bullet per finding, nested under the "Review" checklist item it belongs to.
