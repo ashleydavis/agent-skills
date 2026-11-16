@@ -25,4 +25,6 @@ External actions (commit, push, release, tag, publish, running a workflow) are d
 
 5. **Verify** — once all tasks are done, run `/verify` to confirm the full test suite and compile checks pass.
 
-6. **Report** — once all checks pass, summarise what was changed (files and functions) and confirm that compile, unit tests, and smoke tests all passed.
+   When the conversation before this command showed the failure through a test (a unit, smoke, e2e or manual test), run that exact test, as it is written, on the fixed code and show it passing. Same test, same commands, same paths, same steps: a similar command or a different database path does not count. If the test's own steps build from a checkout that does not have the fix, build from the one that does and run every other step as written. The fix is not verified until that test passes.
+
+6. **Report** — once all checks pass, summarise what was changed (files and functions) and confirm that compile, unit tests, and smoke tests all passed, and that the test that showed the failure now passes.
