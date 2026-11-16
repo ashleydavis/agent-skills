@@ -4,6 +4,8 @@ What counts as evidence, and what does not, is in `~/agent-config/rules/evidence
 
 This command works only on this machine. It never pushes. For a failure that happens only in a CI workflow, use `/workflow:root-cause`.
 
+Work only on what shows the failure: the failing test, app, feature, CLI command and code path. Never compile, test or run anything unrelated to it (other platforms, other suites, the full test run, other apps). Doing so wastes time on purpose.
+
 0. **Make the experiment worktree**: every experiment happens in a new worktree on a new branch made for them. It is temporary: it will be removed without being merged. Read the project's instructions for how worktrees are made there and follow them. Otherwise: (1) run `git branch --show-current` to get the current branch, (2) run `git worktree add -b root-cause-<name> .claude/worktrees/root-cause-<name> <current-branch>`, (3) use `EnterWorktree` with the `path` parameter to enter it (if the session is held to another worktree, `ExitWorktree` releases it first), (4) if the worktree contains a `mise.toml`, run `mise trust` inside it without asking and run its commands through `mise exec --`, then install the project's dependencies inside it before proceeding.
 
    **Work inside that worktree for the entire task. This is not optional.** Every experiment, every file edit, every command must happen inside the worktree, never in the main repo or any other worktree. It is NOT acceptable to make changes anywhere else, not even a small edit, a temporary log, a quick fix, or "just this once". Before you edit or run anything, confirm your working directory is the worktree path. If you ever notice you are elsewhere, stop immediately and move to the worktree.

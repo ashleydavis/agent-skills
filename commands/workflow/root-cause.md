@@ -25,6 +25,7 @@ Tell the human that setting it keeps you working until the cause is proven. Then
 - Make no fix. Change only what you need to reproduce the failure, prove its cause and capture the evidence. Every such change stays on the experiment branch.
 - Never guess. A cause is a claim until an experiment shows it. Say "I think" or "the evidence suggests" until then.
 - Do not waste time or CI minutes. An experiment does the least that answers its question and nothing more.
+- Work only on what shows the failure: the failing job, test, app, feature and code path. Never compile, test or run anything unrelated to it (other platforms, other suites, the full test run, other apps). Doing so wastes time on purpose.
 - Document every experiment with commits on the experiment branch (see "The commit log" below).
 - For a failure that also happens on this machine, `/issue:root-cause` does the same locally and never pushes.
 
@@ -58,8 +59,9 @@ Read the project's instructions for how worktrees are made there and follow them
 
 - Put each experiment in a workflow of its own on the experiment branch, and delete every other workflow on that branch, so a push runs the experiment and nothing else. Cancel any other run a push still starts.
 - An experiment runs only what answers its question: one job, the build it needs, the one failing test, run as many times as the question needs. Build once, run many times. Build only the target the test uses.
+- Gut the experiment workflow of every command, action, step and job the experiment does not need. Copy from the real workflow only the steps the failing test cannot run without, and cut anything that does not help find or prove the root cause.
 - Give `actions/checkout` full commit hashes; a short one fails.
-- A job's log can be read only once the job has finished. When the step you need has run, cancel the rest of the run and read the log.
+- Cancel the run as soon as the experiment has given its result. Letting a run go on longer than the result needs wastes time on purpose. A job's log can be read only once the job has finished, so when the step you need has run, cancel the rest of the run and read the log.
 - Make the evidence readable from the log: timestamps on the lines that matter, the tool's own tracing (such as `G_DBUS_DEBUG`, `strace`, `adb logcat`), the environment printed before the test.
 - To find the commit that broke it, bisect between the last good commit and the first bad one, testing several commits in parallel per round when a round is slow. First check that the experiment fails on a commit known to be bad; a reproducer that passes there cannot bisect.
 
