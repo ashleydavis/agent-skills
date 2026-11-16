@@ -40,7 +40,7 @@ The commit log on the experiment branch is the record of the investigation. The 
 
 ## 2. Make the experiment worktree
 
-Read the project's instructions for how worktrees are made there and follow them. Otherwise branch from the commit that failed: `git worktree add -b root-cause-<something> <worktrees-dir>/root-cause-<something> <failed-commit>`, then enter it. If the session is held to another worktree, `ExitWorktree` releases it. Run whatever the project needs before it builds (trust its `mise.toml`, install dependencies).
+However it is made, the worktree's directory name and its branch both start with `tmp-root-cause-`, so they are known as temporary and `/worktree:clean-tmp` removes them, along with the branch on the remote. Read the project's instructions for how worktrees are made there and follow them. Otherwise branch from the commit that failed: `git worktree add -b tmp-root-cause-<something> <worktrees-dir>/tmp-root-cause-<something> <failed-commit>`, then enter it. If the session is held to another worktree, `ExitWorktree` releases it. Run whatever the project needs before it builds (trust its `mise.toml`, install dependencies).
 
 ## 3. Read the failure
 
