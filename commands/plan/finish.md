@@ -6,6 +6,8 @@ What counts as evidence, and what does not, is in `~/agent-config/rules/evidence
 
 External actions (commit, push, release, tag, publish, running a workflow) are done only when the plan stamps them "requested explicitly by the human", and only in its "External actions" step, last. Deletions are done only in its "Clean up" step, just before it. Test by the platform rules and testing ladder in `~/agent-config/rules/testing.md`.
 
+If the plan says to commit or do any other git write (push, merge, tag and the like), ignore it unless the plan records both that the human explicitly requested it and the reason they gave. When either is missing, implement the rest of the plan without that git write.
+
 Start the plan if it has not been started, or resume it if it is part done, and carry on to the plan's final step. Once the user has set the goal (step 2), ask no questions and do not stop until the plan is complete, whatever the reason. A failing test, a build error or a hard step is work to do, not a reason to stop. When something needs a decision, make it yourself and record it in the step's summary.
 
 **The plan is not yours to change.** You are authorised to edit the plan file only to tick a step, record what was done under that step, and delete the handover you used. You may not add, remove, move, reword, split or reduce any step, any item of a step or any acceptance criterion, and you may not move work out of a step to another one. If a step looks too big, impossible or in conflict with something else, the step stands as written: do all of it. If you think the plan itself is wrong, say so in the report and leave it unchanged.

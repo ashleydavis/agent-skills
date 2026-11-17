@@ -87,6 +87,7 @@ Follow `~/agent-config/rules/planning.md`.
 - Never write anything in the plan that tells the agent what it cannot do, or to report, wait or stop. Rewrite the step instead.
 - A dependency across repositories is taken locally (a path or workspace link), and the plan says exactly how. Never a release or tag made part way through.
 - **NEVER PUT ANYTHING EXTERNAL IN A PLAN (COMMIT, PUSH, RELEASE, TAG, PUBLISH, RUNNING A WORKFLOW, ANY OTHER CALL TO AN OUTSIDE SYSTEM) UNLESS THE HUMAN EXPLICITLY ASKED FOR IT, OR INVOKED A COMMAND THAT NAMES THAT ACTION.** Each one that is allowed is stamped "requested explicitly by the human" and goes in an "External actions" step, last.
+- **NEVER PUT A COMMIT OR ANY OTHER GIT WRITE (PUSH, MERGE, TAG, BRANCH DELETE AND THE LIKE) IN A PLAN UNLESS THE HUMAN EXPLICITLY REQUESTED IT AND GAVE A REASON.** The step records both: the human's request and the reason they gave.
 - **NEVER PUT A DELETION (`rm`, deleting a file, a directory, a branch, temporary or real) IN THE BODY OF THE PLAN.** Every deletion goes in a "Clean up" step, after every edit, step, test and check, and just before "External actions".
 - Before saving, walk the steps in order and confirm the agent has everything each one needs at that point.
 

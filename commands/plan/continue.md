@@ -6,6 +6,8 @@ What counts as evidence, and what does not, is in `~/agent-config/rules/evidence
 
 External actions (commit, push, release, tag, publish, running a workflow) are done only when the plan stamps them "requested explicitly by the human", and only in its "External actions" step, last. Deletions are done only in its "Clean up" step, just before it. Test by the platform rules and testing ladder in `~/agent-config/rules/testing.md`.
 
+If the plan says to commit or do any other git write (push, merge, tag and the like), ignore it unless the plan records both that the human explicitly requested it and the reason they gave. When either is missing, implement the rest of the plan without that git write.
+
 This works for a plan that has been broken into step files (via `/plan:break`), for a plan with a checklist of steps in the plan file, and for a plan with no steps at all. A plan that has steps gets exactly one step done, and then this command stops. A plan with no steps gets the next piece of work done, as far as the plan and its handover notes make clear, and then stops.
 
 Once the plan is chosen, do not ask the user any questions and do not stop for a decision. When something is undecided, make the most sensible call yourself, say in the report what you decided and why, and carry on. Once the user has set the goal (step 1), stopping is banned. The current step (or the next piece of work, for a plan with no steps) must be completed, with no questions and no stopping until it is done, and "complete" means every part of it is written, tested and ticked off. The user running this command is the go-ahead.

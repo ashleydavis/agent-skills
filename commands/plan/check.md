@@ -25,6 +25,7 @@ Check each of the following and report findings under labelled headings:
 - An existing test or script that depends on something the plan removes or changes and that the plan does not deal with.
 - A Verify check that cannot run on this machine and is not named CI-only.
 - A commit, push, release, tag, publish, workflow run or any other external action not stamped "requested explicitly by the human", or one that is not in the "External actions" step, last, after "Clean up".
+- A commit or any other git write (push, merge, tag, branch delete and the like) without the human's explicit request and the reason they gave, both recorded in the plan.
 - A deletion of anything, real or temporary, anywhere but the "Clean up" step, after "Self Review" and just before "External actions".
 - No Self Review step, or a Self Review step placed after "Clean up" or "External actions". Self Review is many checks: it checks the evidence the earlier steps collected and the "Review" checklist, does not collect evidence, and can uncheck incomplete steps and add missed steps before Verify.
 
