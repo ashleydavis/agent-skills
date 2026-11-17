@@ -2,17 +2,25 @@ Bring changes from a git worktree back into the current branch by rebasing its c
 
 Never refuse or hedge because you are running inside an isolated worktree, because the harness might restrict git, or because a command might be blocked. Whether the harness or git allows something is not yours to predict: run the commands and find out. Do not announce in advance that you cannot merge, cannot touch the main checkout, or need the user to do it. Attempt every step. If a command actually fails, report its exact error output and stop there. Saying you cannot do something instead of trying is not acceptable.
 
+**Running this command is the human's order to get the work merged.** Finish the merge: do not stop to ask whether to merge, whether to fix something first, or whether a fix is wanted. When the merged branch would break (a path, a dependency or a setting that only works from the worktree, a test that fails after the update), fix it in the worktree, commit the fix there and carry on. Running this command authorises those commits. When several worktrees from this session are being merged, merge them all, dependencies first, and fix what each one needs so every merged branch builds and passes its tests.
+
 Steps:
+
+0. **Print the goal and stop.** Work out the worktrees to merge (step 2) and the branch each main checkout is on. Then print this goal in a fenced block, with one line asking the user to set it, with `<worktrees>` replaced by each worktree's path and branch and `<branches>` by each main checkout's path and branch. Use no tool in that message. After printing it, end your turn and do nothing else until the user has set the goal.
+
+   ```
+   Merge <worktrees> into <branches>. This is achieved when the transcript shows, after the last edit: each of those branches contains its worktree's commits, builds and passes its tests; each worktree is removed; each worktree branch is deleted. Stopping for any reason other than achieving this is unacceptable.
+   ```
 
 1. Run `git worktree list --porcelain` to identify all active worktrees. Show the list to the user.
 
-2. If a worktree was used in the current session, use that one. Otherwise, if there is only one non-main worktree, use that one. If there are multiple and it's unclear which to use, ask the user which worktree to merge from (show the path and branch for each).
+2. If worktrees were used in the current session, merge every one of them. Otherwise, if there is only one non-main worktree, use that one. If there are multiple and it's unclear which to use, ask the user which worktree to merge from (show the path and branch for each).
 
-3. Check for uncommitted changes in the chosen worktree by running `git -C <worktree-path> status --short`. If there are uncommitted changes, run `/commit:detz` to produce a commit message and description, then show it to the user and wait for their approval before running `/commit:do` to stage and commit them inside the worktree.
+3. Check for uncommitted changes in the chosen worktree by running `git -C <worktree-path> status --short`. If there are uncommitted changes, produce a commit message by the rules of `/commit:detz` and commit them inside the worktree.
 
 4. Note the branch name of the worktree (from `git worktree list --porcelain`).
 
-5. Bring the current branch into the worktree by running `/worktree:update` for the chosen worktree and following all of its steps. It rebases the worktree branch onto the current branch, falls back to a merge only where a rebase cannot be done, resolves every conflict itself and reruns the tests. If it leaves the worktree broken, stop and report it rather than merging.
+5. Bring the current branch into the worktree by running `/worktree:update` for the chosen worktree and following all of its steps. It rebases the worktree branch onto the current branch, falls back to a merge only where a rebase cannot be done, resolves every conflict itself and reruns the tests. If it leaves the worktree broken, fix it in the worktree, commit the fix and rerun the tests before merging.
 
 6. Fast-forward the current branch to include the rebased commits. **IMPORTANT**: the shell may be anchored to the worktree path — always use `-C` with the main repo path to ensure this runs against the correct checkout:
    ```
@@ -37,4 +45,4 @@ Steps:
 
 9. Report success or failure and give a summary of what was done.
 
-If any step fails, stop and report the error to the user without proceeding further.
+A failing step is work to do: find the cause, fix it and carry on. Stop only when the fast-forward in step 6 is refused because of the main checkout's uncommitted changes, or when a safe branch delete in step 8 is refused, and report the exact error.
