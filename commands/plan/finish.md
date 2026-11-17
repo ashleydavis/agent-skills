@@ -6,7 +6,7 @@ What counts as evidence, and what does not, is in `~/agent-config/rules/evidence
 
 External actions (commit, push, release, tag, publish, running a workflow) are done only when the plan stamps them "requested explicitly by the human", and only in its "External actions" step, last. Deletions are done only in its "Clean up" step, just before it. Test by the platform rules and testing ladder in `~/agent-config/rules/testing.md`.
 
-Start the plan if it has not been started, or resume it if it is part done, and carry on to the plan's final step. Once the user has set the goal (step 2), ask no questions and do not stop until the plan is complete, whatever the reason. A failing test, a build error or a hard step is work to do, not a reason to stop.
+Start the plan if it has not been started, or resume it if it is part done, and carry on to the plan's final step. Once the user has set the goal (step 2), ask no questions and do not stop until the plan is complete, whatever the reason. A failing test, a build error or a hard step is work to do, not a reason to stop. When something needs a decision, make it yourself and record it in the step's summary.
 
 **The plan is not yours to change.** You are authorised to edit the plan file only to tick a step, record what was done under that step, and delete the handover you used. You may not add, remove, move, reword, split or reduce any step, any item of a step or any acceptance criterion, and you may not move work out of a step to another one. If a step looks too big, impossible or in conflict with something else, the step stands as written: do all of it. If you think the plan itself is wrong, say so in the report and leave it unchanged.
 
@@ -28,11 +28,7 @@ Start the plan if it has not been started, or resume it if it is part done, and 
 2. **Print the goal and stop** — do this right after the working location is set up, before reading anything. Print the goal in a fenced block, with one line asking the user to set it. Use no tool in that message. Never say you printed it unless you did. The text is exactly this, with the plan's name in place of "the plan":
 
    ```
-   Do the plan. You are finished only when all of these are shown in the transcript after your last edit: the tests ran and passed (a plan or documentation edit after the tests ran does not make them stale; re-run the tests only after a change to code, a test, a build file, a config file or a test script); the plan file shows every step as `- [x]` and is in `docs/plans/done/`; every step has a filled summary and no `## Handover`, in its step file when the plan has step files and otherwise under that step in the plan file. Never create a step file. Never stop before then.
-
-   Run all tests related to code that was changed, there is no need to run all tests unless all code has changed. Do not force all tests to run. Do not use the --force argument on test scripts. A test command that exits with code 0 has passed, and that includes a run that reports it had nothing to run because nothing changed since the last passing run.
-
-   Ask no questions. When something blocks you, solve it, and if it needs a decision, make it yourself and record it in the summary.
+   Complete the plan. This is achieved when the transcript shows, after the last edit: the tests of the changed code passed, with no change to code, a test, a build file, a config file or a test script since; every step is `- [x]` in the plan file, with a filled summary and no `## Handover`; the plan file is in `docs/plans/done/`. Stopping for any reason other than achieving this is unacceptable.
    ```
 
    After printing it, stop. Do nothing else until the user has set the goal and told you to go on. From then on, stopping is banned until the plan is done.

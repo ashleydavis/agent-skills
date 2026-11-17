@@ -11,7 +11,7 @@ Given the root cause, proposed fix, and implementation plan from this conversati
    **Then print the goal and stop.** Print this to the human, on its own, ready to copy, with `<fix>` replaced by a short description of the fix being implemented and `<location>` by the checkout's path:
 
    ```
-   Implement <fix> in <location> and verify it. Changes are only allowed in <location>. Use git read-only: never run a git command that writes. DO NOT STOP. DO NOT ASK QUESTIONS. You may only stop once the fix is implemented, compile, unit tests and smoke tests pass, and the test that showed the failure passes on the fixed code.
+   Implement <fix> in <location> and verify it. This is achieved when the fix is implemented, the compile, unit tests and smoke tests pass and the test that showed the failure passes on the fixed code. Stopping for any reason other than achieving this is unacceptable.
    ```
 
    Tell them that setting it keeps you working to the end instead of handing back after the first change, and that without it you will stop the first time you think you are done. Then end your turn. Do nothing else until the human has set the goal. Start step 1 only once the goal is set.

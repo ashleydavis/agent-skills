@@ -9,7 +9,7 @@ Work only on what shows the failure: the failing test, app, feature, CLI command
 **Print the goal and stop.** Before anything else, name the failure from `$ARGUMENTS` and the conversation (when it cannot be named, ask the one question in step 1 first). Then print this for the human to set, ready to copy, with `<failure>` replaced by a short description of the failure:
 
 ```
-Find the root cause of <failure>. DO NOT STOP until the root cause is found, proven, and its evidence is saved in the experiment copy. Use git read-only: never run a git command that writes. It is not acceptable to stop for any reason until the root cause is proven and the evidence shows it.
+Find the root cause of <failure>. This is achieved when the root cause is proven and its evidence is saved in the experiment copy. Stopping for any reason other than achieving this is unacceptable.
 ```
 
 Tell the human that setting it keeps you working until the cause is proven. Then end your turn. Do no other work, not even making the experiment copy, until the human has set the goal.

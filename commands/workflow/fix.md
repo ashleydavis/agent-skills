@@ -60,7 +60,7 @@ The one thing that ends the loop early is genuinely needing the human: a decisio
 Before anything else, work out the workflows in scope (see "Which workflows are in scope"). Then print this to the human, on its own, ready to copy, with `<workflows>` replaced by the names of the workflows in scope:
 
 ```
-/goal Get these workflows passing: <workflows>. Changes are only allowed on the worktree. DO NOT STOP. DO NOT ASK QUESTIONS. You may only stop once every one of them has passed from the worktree.
+/goal Get these workflows passing: <workflows>. This is achieved when every one of them has passed from the worktree. Stopping for any reason other than achieving this is unacceptable.
 ```
 
 Tell them that setting it keeps you working through every failure to the end instead of handing back after the first fix, and that without it you will stop the first time you think you are done. If they named a number of runs that must pass in a row, say it in the text.

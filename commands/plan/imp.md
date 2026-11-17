@@ -10,6 +10,8 @@ External actions (commit, push, release, tag, publish, running a workflow) are d
 
 **Stay inside the step.** A failure in code or tests this work did not change is not part of it. If it passes on the next run, record it in one line in the report and carry on, and do not investigate it, run tests only to reproduce it, or fix it. A failure is yours only if it is in what the work changed, or if it still fails on the final full run.
 
+Once the goal is set, ask no questions. When something blocks you, solve it, and when it needs a decision, make it yourself and record it in the step's summary. Record each step's summary in its step file when the plan has step files, and otherwise under the step in the plan file. Never create a step file.
+
 0. **Choose the plan** — if a specific plan is obvious from the conversation context, use that. If `docs/plans/new/` holds exactly one plan, use that one without asking, and say which plan it is in one line. Otherwise list the file names in `docs/plans/new/`, newest first, as a numbered menu and wait for the user's choice. Read nothing in the repo before they choose: you need to know nothing about the plans to list them. Once they have chosen, read that plan only.
 
 1. **Choose working location** — ask this right after the plan is chosen, before the goal is printed, because the goal forbids questions once it is set. Present the user with:
@@ -28,7 +30,7 @@ External actions (commit, push, release, tag, publish, running a workflow) are d
    **When the plan has a documentation review stop**, print the first goal, which ends at the documentation stop. The text is exactly this, with the plan's name in place of `<plan>` and the documentation step's number and title in place of `<N>` and `<title>`:
 
    ```
-   Do <plan> up to and including step <N>, <title>. You are finished only when all of these are shown in the transcript after your last edit: step <N> and every step before it shows as `- [x]` in the plan file; each of those steps has a filled summary and no `## Handover`, in its step file when the plan has step files and otherwise under that step in the plan file; the human has been told the documentation is ready for review. Never create a step file. Do not start any step after step <N>. Ask no questions before then. When something blocks you, solve it, and if it needs a decision, make it yourself and record it in the summary.
+   Complete <plan> up to and including step <N>, <title>. This is achieved when the transcript shows, after the last edit: step <N> and every step before it are `- [x]` in the plan file, each with a filled summary and no `## Handover`; the human has been told the documentation is ready for review. Stopping for any reason other than achieving this is unacceptable.
    ```
 
    The second goal, below, is printed at the documentation stop (step 6).
@@ -36,11 +38,7 @@ External actions (commit, push, release, tag, publish, running a workflow) are d
    **When the plan has no documentation review stop**, print this goal, with the plan's name in place of "the plan":
 
    ```
-   Do the plan. You are finished only when all of these are shown in the transcript after your last edit: the tests ran and passed (a plan or documentation edit after the tests ran does not make them stale; re-run the tests only after a change to code, a test, a build file, a config file or a test script); the plan file shows every step as `- [x]` and is in `docs/plans/done/`; every step has a filled summary and no `## Handover`, in its step file when the plan has step files and otherwise under that step in the plan file. Never create a step file. Never stop before then.
-
-   Run all tests related to code that was changed, there is no need to run all tests unless all code has changed. Do not force all tests to run. Do not use the --force argument on test scripts. A test command that exits with code 0 has passed, and that includes a run that reports it had nothing to run because nothing changed since the last passing run.
-
-   Ask no questions. When something blocks you, solve it, and if it needs a decision, make it yourself and record it in the summary.
+   Complete the plan. This is achieved when the transcript shows, after the last edit: the tests of the changed code passed, with no change to code, a test, a build file, a config file or a test script since; every step is `- [x]` in the plan file, with a filled summary and no `## Handover`; the plan file is in `docs/plans/done/`. Stopping for any reason other than achieving this is unacceptable.
    ```
 
    After printing it, stop. Do nothing else until the user has set the goal and told you to go on. From then on, stopping is banned until the goal is met.

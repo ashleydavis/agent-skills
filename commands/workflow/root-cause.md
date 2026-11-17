@@ -13,7 +13,7 @@ The human gives you a failed workflow: `$ARGUMENTS` (a run, a job in a run, or a
 Read the failed run just far enough to name it (workflow, run, failing job). Then print this for the human to set, ready to copy, with `<run>` replaced by the run's link and `<job>` by the failing job:
 
 ```
-/goal Find the root cause of the failure of <job> in <run>. DO NOT STOP until the root cause is found, proven, and its evidence is committed into the experiment worktree. It is not acceptable to stop for any reason until the root cause is proven and the evidence shows it.
+/goal Find the root cause of the failure of <job> in <run>. This is achieved when the root cause is proven and its evidence is committed into the experiment worktree. Stopping for any reason other than achieving this is unacceptable.
 ```
 
 Tell the human that setting it keeps you working until the cause is proven. Then end your turn. Do no other work until the human has set the goal.
