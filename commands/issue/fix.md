@@ -2,18 +2,19 @@ Given the root cause, proposed fix, and implementation plan from this conversati
 
 **BEFORE ANYTHING ELSE, ONCE THE PLAN IS CHOSEN: CHECK THAT THE PLAN (OR THE PART OF THE PLAN) TO BE IMPLEMENTED HAS NO STOPS, NO QUESTIONS AND NO PARTS THAT REQUIRE A HUMAN. THE ONE ALLOWED STOP IS AFTER THE WRITE DOCUMENTATION STEP, FOR THE HUMAN TO REVIEW THE DOCUMENTATION, AND THIS COMMAND DOES NOT STOP THERE: IT WRITES THE DOCUMENTATION AND CARRIES ON. IF IT HAS ANY OTHER, EXIT IMMEDIATELY SAYING: THIS PLAN CANNOT BE COMPLETED WITHOUT A HUMAN, THE PLAN NEEDS FIXING**
 
-External actions (commit, push, release, tag, publish, running a workflow) are done only when the plan stamps them "requested explicitly by the human", and only in its "Release" step. Deletions are done only in its "Clean up" step, last. Test by the platform rules and testing ladder in `~/agent-config/rules/testing.md`.
+**This command is not authorized to run any git command that writes**: no commit, stage, push, tag, branch, worktree, stash, checkout, reset or any other command that changes git state, anywhere, whatever the plan says. Git may be used read-only (`status`, `log`, `show`, `diff`, `blame` and the like). Other external actions (release, publish, running a workflow) are done only when the plan stamps them "requested explicitly by the human", and only in its "Release" step. Deletions are done only in its "Clean up" step, last. Test by the platform rules and testing ladder in `~/agent-config/rules/testing.md`.
 
-0. **Choose working location** — present the user with:
+0. **Working location** — work in the checkout the session is in now (the main working copy, or the worktree the human has already made and the session is in). Never make a worktree or branch: that writes to git. If the checkout contains a `mise.toml`, run its commands through `mise exec --`.
+
+   **Work inside that checkout for the entire task. This is not optional.** Every file edit and every command must happen there, never in another checkout or worktree. Before you edit or run anything, confirm your working directory is that checkout. If you ever notice you are elsewhere, stop immediately and move back.
+
+   **Then print the goal and stop.** Print this to the human, on its own, ready to copy, with `<fix>` replaced by a short description of the fix being implemented and `<location>` by the checkout's path:
+
    ```
-   1. Main working copy
-   2. Git worktree
+   Implement <fix> in <location> and verify it. Changes are only allowed in <location>. Use git read-only: never run a git command that writes. DO NOT STOP. DO NOT ASK QUESTIONS. You may only stop once the fix is implemented, compile, unit tests and smoke tests pass, and the test that showed the failure passes on the fixed code.
    ```
-   Wait for the user to reply with 1 or 2. If they choose 2: (1) run `git branch --show-current` to get the current branch, (2) run `git worktree add -b <new-branch> .claude/worktrees/<name> <current-branch>` to create the worktree branching from the current branch, (3) use `EnterWorktree` with the `path` parameter to enter it, (4) if the worktree contains a `mise.toml`, run `mise trust` inside it without asking (it trusts a copy of a file already trusted in the main checkout) and run its commands through `mise exec --`, then run `bun install '*'` inside it before proceeding.
 
-   **If the user chose the worktree (option 2) you MUST actually work inside that worktree for the entire task. This is not optional.** Every file edit, every command, every commit must happen inside the worktree, never in the main repo. It is NOT acceptable to make changes to the main working copy when the user chose the worktree, not even a small edit, a quick fix, a test tweak, or "just this once". Before you edit or run anything, confirm your working directory is the worktree path. If you ever notice you are in the main repo, stop immediately and move to the worktree.
-
-   Understand the consequences, because YOU have repeatedly broken this rule: if you make ANY change to the main repo when you were supposed to be on the worktree, those changes will be summarily reverted without asking you and without consulting you. Your work will be thrown away. And if you keep violating this rule and continue making changes to the main repo, your process will be summarily terminated. Reverted changes and a terminated process is the guaranteed outcome of working in the main repo when the worktree was chosen. Use the worktree.
+   Tell them that setting it keeps you working to the end instead of handing back after the first change, and that without it you will stop the first time you think you are done. Then end your turn. Do nothing else until the human has set the goal. Start step 1 only once the goal is set.
 
 1. **Read the plan** — find the plan in context or read the most recent file from `docs/plans/new/`.
 
