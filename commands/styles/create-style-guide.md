@@ -39,7 +39,7 @@ Use Bun, TypeScript, Vite, React, MUI, Tailwind, TanStack Router and Font Awesom
 ### Files
 
 - `<app>.css`: every token, all neutral grey placeholders so the explorer draws before any choice: a grey ramp, `--black-40` and `--black-60`, `--font-sans`, `--font-heading` and `--font-mono`, `--text-xs` to `--text-2xl`, three weights, `--leading-tight` and `--leading-normal`, `--space-1` to `--space-8`, `--radius-sm` to `--radius-full`, `--icon-sm` to `--icon-lg`, `--focus-ring-width` and `--focus-ring-offset`, three durations and `--ease-standard`, and role tokens for bg, panel, raised, border, control border, text, muted text, disabled text, hover, selected, disabled, accent, accent hover, on accent, focus, success, warning, danger, on danger, info, scrim, scrollbar thumb and track, raised and overlay shadows.
-- `style-guide.md` with an Intent and a Contrast section, `ux-rules.md` with a Screens rule ("All UI pages and components need to work in desktop, mobile, portrait and landscape"), `process.md` (the steps below), `todo.md` (the list below), `how-we-built-it.md`, `README.md` and a terse `CLAUDE.md` holding the working rules of this command.
+- `style-guide.md` with an Intent and a Contrast section, `ux-rules.md` holding the starting UX rules below, `process.md` (the steps below), `todo.md` (the list below), `how-we-built-it.md`, `README.md` and a terse `CLAUDE.md` holding the working rules of this command.
 - `.gitignore` with `node_modules/`, `dist/`, `tmp/` and `.what-changed/`.
 
 ### The explorer
@@ -53,6 +53,19 @@ Use Bun, TypeScript, Vite, React, MUI, Tailwind, TanStack Router and Font Awesom
 - **Mobile.** Below 1024px the sidebar is a drawer from a menu button that closes when a page is chosen. Every page fits a 390px-wide screen upright and on its side with no sideways scrolling. Floating buttons sit on the panel colour with the raised shadow, and page titles leave room for them on both sides.
 - **Live reload.** Editing the token file updates the open page; components that print a token value read it again after each Vite update.
 - **Styling order.** MUI components styled through the theme (`styleOverrides`, `variants`, `defaultProps`) all pointing at the CSS variables; then Tailwind classes; then plain CSS. A component MUI lacks is built in React with Tailwind first. Explorer code uses role tokens only, never a literal colour or size.
+
+### The starting UX rules
+
+Write these into `ux-rules.md` from the start, under these headings, and follow them in every page and component. The human can override any of them.
+
+- **Dangerous operations** (an operation that loses work that cannot be brought back): the button is outlined, never filled, with its text, icon and border in `--color-danger` on a see-through background, and on hover its border thickens to 2px. An icon-only dangerous button follows the same rule. A disabled one takes the disabled colours. Its tooltip says what it does, how to undo it and its key. An action that can be undone takes effect straight away and asks nothing; the item plays a short animation, stays in view faded and struck through, and its button turns into Undo. A dangerous action has a key, Delete, that acts on what is selected and brings a deleted item back.
+- **Buttons:** every button looks like a button, with a visible border and a hover effect, drawn as a 1px line inside the button where needed so every kind stays the same height. Icon buttons are square, with room between the icon and the border. Rows of a list, tree, sidebar or menu are rows to pick, not buttons: they show the hover and selected colours instead of a border.
+- **Text:** no capitals for titles; sentence case. "Directory", not "Folder".
+- **Toolbars:** a toolbar cluttered with configuration buttons or switches moves them into a configuration dropdown dialog opened from one button.
+- **Placing actions:** non-destructive tools at the left, destructive ones at the right, so the width of a row lies between them. Destructive buttons stand apart and are slightly smaller, so they are harder to hit by accident. A destructive button shows only on the selected item and an item under the pointer; Undo shows on every deleted item.
+- **Spacing around controls:** every control has `--space-2` or more between it and anything beside it, and between it and any border round it, including the edge of the example panels.
+- **Search:** tables, trees, lists and other large content come with a search box, or, where that would clutter, a search mode opened with Ctrl+F: Enter applies, Escape leaves and hides it. Lists filter; text highlights matches with up and down buttons to move between them.
+- **Screens:** every page and component works on desktop and mobile, upright and on its side.
 
 ### Checks and publishing
 
@@ -86,7 +99,10 @@ Use Bun, TypeScript, Vite, React, MUI, Tailwind, TanStack Router and Font Awesom
 - Offer choices in sets, several at once on the Choices page, in the order of `todo.md`. Draw every option on a preview built from the components so far, in light and dark.
 - Options come from the intent and the brand material. Each has a letter, a short name and one sentence saying what it is like.
 - Before showing any colour option, compute its contrast against WCAG 2.2 AA (4.5 to 1 for text, 3 to 1 for control edges and graphics) against every background it sits on, in both themes, and report the figures. Fix any option that fails, or say what fails and why it is acceptable, such as a gradient used only as decoration.
-- The last option of every choice is "Spot it": the choice's tokens painted bright red (for fonts, a plain serif) so the human finds what the choice changes.
+- The last option of every choice is "Spot it": the choice's tokens painted bright red so the human finds what the choice changes. A token that cannot be red takes a value that stands out instead: a plain serif for a font, one large size for text sizes, 0 for spacing and radius, a red ring for shadows.
+- Each choice draws on the preview that shows what it changes: the components so far for colours, spacing and radius; every text size with a wrapped paragraph for the type scale; a raised panel with an overlay over it for shadows; a command, a hash and a path for a monospace font; blocks sliding back and forth at each duration for animation; icons beside text, in a button, a search box and an icon button for icon sizes; muted text on each surface for muted text. A state the pointer or keyboard sets, such as hover or focus, is drawn on a copy of the control beside one at rest, so it shows without pointing.
+- A token family components should follow (such as icon sizes) is wired into the MUI theme before its choice is offered, so the options change every component at once.
+- Once the raw palette and role tokens are picked, the next choices are the looks the button and text box leave open, each given its own tokens read by the MUI theme: button shape, text box fill, a glow under the main button, the danger button, button heights, the icon button style and how a text box looks with the keyboard in it.
 - One choice decides one thing the preview shows plainly. Split a choice that changes several things at once.
 - When the options look alike, explain what differs. The human can ask you to pick.
 - A choice that needs a new token adds it to the token file with a placeholder value, to the overview page and to every theme.
