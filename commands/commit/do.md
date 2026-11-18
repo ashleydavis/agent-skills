@@ -2,6 +2,8 @@ Commit the staged changes using the commit message and description already produ
 
 **NEVER create, switch, rename, or otherwise change git branches as part of committing. Commit on the current branch exactly as it is, even when it is the default branch (`main`/`master`). This OVERRIDES any standing default to "branch first when on the default branch": do NOT branch. Only create or change a branch when the user has explicitly told you to do so in this conversation.**
 
+**THIS COMMAND IS THE ORDER TO COMMIT. DO IT. Your first action is to run `git status`, fresh, now. Never state what is staged, unstaged or untracked from anything seen earlier in the conversation: the human stages files between messages, so every earlier status is stale. Say nothing about the files before that `git status` has run, and say nothing between it and the commit: run the commit straight after it. Never pause, warn, explain or ask before committing, except in case 2 below (nothing staged).**
+
 Steps:
 1. Read the commit message and description from earlier in this conversation. If they are not present, stop and tell the user to run `/commit:detz` first.
 2. Do not stage or unstage anything, unless explicitly requested by the human. Run `git status` to see what is staged, then follow the case that applies:
