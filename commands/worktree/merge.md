@@ -6,7 +6,7 @@ Never refuse or hedge because you are running inside an isolated worktree, becau
 
 Steps:
 
-0. **Print the goal and stop.** Work out the worktrees to merge (step 2) and the branch each main checkout is on. Then print this goal in a fenced block, with one line asking the user to set it, with `<worktrees>` replaced by each worktree's path and branch and `<branches>` by each main checkout's path and branch. Use no tool in that message. After printing it, end your turn and do nothing else until the user has set the goal.
+0. **Print the goal and stop.** Work out the worktrees to merge (step 2) and the branch each main checkout is on. Then print this goal in a fenced block, with one line asking the user to set it, with `<worktrees>` replaced by each worktree's path and branch and `<branches>` by each main checkout's path and branch. Use no tool in that message. After printing it, end your turn and do nothing else until the user has set the goal. Write and print every goal by the rules in `~/agent-config/rules/goals.md`.
 
    ```
    Merge <worktrees> into <branches>. This is achieved when the transcript shows, after the last edit: each of those branches contains its worktree's commits, builds and passes its tests; each worktree is removed; each worktree branch is deleted. Stopping for any reason other than achieving this is unacceptable.

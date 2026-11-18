@@ -8,7 +8,7 @@ Given the root cause, proposed fix, and implementation plan from this conversati
 
    **Work inside that checkout for the entire task. This is not optional.** Every file edit and every command must happen there, never in another checkout or worktree. Before you edit or run anything, confirm your working directory is that checkout. If you ever notice you are elsewhere, stop immediately and move back.
 
-   **Then print the goal and stop.** Print this to the human, on its own, ready to copy, with `<fix>` replaced by a short description of the fix being implemented and `<location>` by the checkout's path:
+   **Then print the goal and stop.** Print this to the human, on its own, ready to copy, with `<fix>` replaced by a short description of the fix being implemented and `<location>` by the checkout's path: Write and print every goal by the rules in `~/agent-config/rules/goals.md`.
 
    ```
    Implement <fix> in <location> and verify it. This is achieved when the fix is implemented, the compile, unit tests and smoke tests pass and the test that showed the failure passes on the fixed code. Stopping for any reason other than achieving this is unacceptable.
