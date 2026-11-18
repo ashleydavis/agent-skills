@@ -57,13 +57,13 @@ The one thing that ends the loop early is genuinely needing the human: a decisio
 
 ### 1. Print the goal for the human to set
 
-Before anything else, work out the workflows in scope (see "Which workflows are in scope"). Then print this to the human, on its own, ready to copy, with `<workflows>` replaced by the names of the workflows in scope: Write and print every goal by the rules in `~/agent-config/rules/goals.md`.
+Before anything else, work out the workflows in scope (see "Which workflows are in scope"). Write and print every goal by the rules in `~/agent-config/rules/goals.md`. Then print this to the human, on its own, ready to copy, with `<workflows>` replaced by the names of the workflows in scope:
 
 ```
-Get these workflows passing: <workflows>. This is achieved when every one of them has passed from the worktree. Stopping for any reason other than achieving this is unacceptable.
+Get these workflows passing: <workflows>. This is achieved when the transcript shows, after the last edit: each of those workflows has a successful run on the worktree branch's newest pushed commit. Stopping for any reason other than achieving this is unacceptable.
 ```
 
-Tell them that setting it keeps you working through every failure to the end instead of handing back after the first fix, and that without it you will stop the first time you think you are done. If they named a number of runs that must pass in a row, say it in the text.
+Tell them that setting it keeps you working through every failure to the end instead of handing back after the first fix, and that without it you will stop the first time you think you are done. If they named a number of runs that must pass, write `<count> successful runs in a row` in place of `a successful run`.
 
 Then stop and end your turn. Do nothing else until the human has entered the goal. Start step 2 only once the goal is set.
 

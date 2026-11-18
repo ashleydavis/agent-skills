@@ -20,7 +20,7 @@ The plan's "Review" section is near the end. It holds a "Review" checklist, a "R
 
 7. **Check the project rules.** Read the project's `CLAUDE.md` and `AGENTS.md` and every rule file they name. Check the work's code against each one. A rule that is not followed is one finding.
 
-8. **Check the global rules.** Read `~/agent-config/rules/general.md`, `writing.md`, `planning.md`, `testing.md` and the rules for the languages in the work. Check the work's code against each one. A rule that is not followed is one finding.
+8. **Check the global rules.** Read `~/agent-config/rules/coding.md`, `writing.md`, `planning.md`, `testing.md` and the rules for the languages in the work. Check the work's code against each one. A rule that is not followed is one finding.
 
 9. **Report the verdict.**
     - **Every question is yes.** Tick every item in the "Reviewed" checklist `- [x]`. Write "None" in the "Review issues" section. Report that the plan passed.

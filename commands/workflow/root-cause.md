@@ -10,10 +10,10 @@ The human gives you a failed workflow: `$ARGUMENTS` (a run, a job in a run, or a
 
 ## 1. Print the goal and stop
 
-Read the failed run just far enough to name it (workflow, run, failing job). Then print this for the human to set, ready to copy, with `<run>` replaced by the run's link and `<job>` by the failing job: Write and print every goal by the rules in `~/agent-config/rules/goals.md`.
+Read the failed run just far enough to name it (workflow, run, failing job). Write and print every goal by the rules in `~/agent-config/rules/goals.md`. Then print this for the human to set, ready to copy, with `<run>` replaced by the run's link and `<job>` by the failing job:
 
 ```
-Find the root cause of the failure of <job> in <run>. This is achieved when the root cause is proven and its evidence is committed into the experiment worktree. Stopping for any reason other than achieving this is unacceptable.
+Find the root cause of the failure of <job> in <run>. This is achieved when the transcript shows, after the last edit: experiment runs with the suspected cause present, each failing, and with only that cause removed, each passing; `root-cause/README.md` committed on the experiment branch, naming the cause and those runs; those runs' logs committed under `root-cause/`; the experiment branch pushed. Stopping for any reason other than achieving this is unacceptable.
 ```
 
 Tell the human that setting it keeps you working until the cause is proven. Then end your turn. Do no other work until the human has set the goal.

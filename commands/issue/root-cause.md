@@ -6,10 +6,10 @@ This command works only on this machine. **It is not authorized to run any git c
 
 Work only on what shows the failure: the failing test, app, feature, CLI command and code path. Never compile, test or run anything unrelated to it (other platforms, other suites, the full test run, other apps). Doing so wastes time on purpose.
 
-**Print the goal and stop.** Before anything else, name the failure from `$ARGUMENTS` and the conversation (when it cannot be named, ask the one question in step 1 first). Then print this for the human to set, ready to copy, with `<failure>` replaced by a short description of the failure: Write and print every goal by the rules in `~/agent-config/rules/goals.md`.
+**Print the goal and stop.** Before anything else, name the failure from `$ARGUMENTS` and the conversation (when it cannot be named, ask the one question in step 1 first). Write and print every goal by the rules in `~/agent-config/rules/goals.md`. Then print this for the human to set, ready to copy, with `<failure>` replaced by a short description of the failure:
 
 ```
-Find the root cause of <failure>. This is achieved when the root cause is proven and its evidence is saved in the experiment copy. Stopping for any reason other than achieving this is unacceptable.
+Find the root cause of <failure>. This is achieved when the transcript shows, after the last edit: the failure reproduced in the experiment copy; one experiment run with the suspected cause present, showing the failure, and with only that cause removed, not showing it; `root-cause/README.md` in the experiment copy naming the cause's file, function and line; both runs' output saved in `root-cause/`. Stopping for any reason other than achieving this is unacceptable.
 ```
 
 Tell the human that setting it keeps you working until the cause is proven. Then end your turn. Do no other work, not even making the experiment copy, until the human has set the goal.
