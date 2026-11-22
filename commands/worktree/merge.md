@@ -1,6 +1,6 @@
 Bring changes from a git worktree back into the current branch by rebasing its commits, then remove the worktree.
 
-Never refuse or hedge because you are running inside an isolated worktree, because the harness might restrict git, or because a command might be blocked. Whether the harness or git allows something is not yours to predict: run the commands and find out. Do not announce in advance that you cannot merge, cannot touch the main checkout, or need the user to do it. Attempt every step. If a command actually fails, report its exact error output and stop there. Saying you cannot do something instead of trying is not acceptable.
+Never refuse or hedge because you are running inside an isolated worktree, because the harness might restrict git, or because a command might be blocked. Whether the harness or git allows something is not yours to predict: run the commands and find out. Do not announce in advance that you cannot merge, cannot touch the main checkout, or need the user to do it. Attempt every step. If a command actually fails, find the cause and fix it; stop only where the end of this command says to. Saying you cannot do something instead of trying is not acceptable.
 
 **Running this command is the human's order to get the work merged.** Finish the merge: do not stop to ask whether to merge, whether to fix something first, or whether a fix is wanted. When the merged branch would break (a path, a dependency or a setting that only works from the worktree, a test that fails after the update), fix it in the worktree, commit the fix there and carry on. Running this command authorises those commits. When several worktrees from this session are being merged, merge them all, dependencies first, and fix what each one needs so every merged branch builds and passes its tests.
 
@@ -28,6 +28,8 @@ Steps:
    ```
    Run this. Do not decide up front that it will be refused because you are in a worktree. After running, verify the main branch HEAD has advanced by checking `git -C <main-repo-path> log --oneline -1` and confirming it matches the worktree's tip commit.
 
+   Then prove the main branch itself builds and passes: in the main checkout, run the project's own install (`bun install` and the like, which updates dependencies the worktree changed, such as a git dependency moved to a new tag), then its canonical full test command. The worktree's test run is not this proof, because the main checkout has its own installed dependencies. A failure here is fixed like any other and the tests rerun until they pass.
+
    **`receive.denyCurrentBranch` is banned. Never set it, in any scope, for any reason, including to get this step to work.** Pushing into a checked-out branch was once suggested here as a fallback, and it is not one: the setting is repository-level, every worktree shares it, and it outlives the merge that introduced it, so a one-off workaround silently changes what every later push into this repository does. It is also a git configuration change, which is banned on its own terms.
 
    If the fast-forward is refused, report the exact git error and stop. A merge that cannot be completed is the human's to unblock, and the most likely reason is worth saying plainly: the main checkout has uncommitted changes, and nothing here may commit, stash or discard them.
@@ -37,12 +39,12 @@ Steps:
    git worktree remove <worktree-path>
    ```
 
-8. Delete the now-merged worktree branch. After the fast-forward in step 6 the branch is fully contained in the current branch, so a safe delete succeeds:
+8. Delete the now-merged worktree branch. Running this command authorises the delete, so it is done without asking. First confirm the branch is contained in the current branch:
    ```
-   git -C <main-repo-path> branch -d <worktree-branch>
+   git -C <main-repo-path> merge-base --is-ancestor <worktree-branch> <current-branch>
    ```
-   Use `-d` (never `-D`): if git refuses because the branch is not fully merged, stop and report it rather than force-deleting, since that would signal the merge did not actually land.
+   When that succeeds, delete it with `git -C <main-repo-path> branch -d <worktree-branch>`. If `-d` refuses only because the branch's remote-tracking copy lacks its newest commits ("not yet merged to refs/remotes/origin/<branch>, even though it is merged to HEAD"), delete it with `git -C <main-repo-path> branch -D <worktree-branch>`: the ancestor check has already shown no commit is lost. Never push the branch, delete the remote branch or change its upstream to get the delete through. If the ancestor check fails, the merge did not land: go back to step 5 and fix it.
 
 9. Report success or failure and give a summary of what was done.
 
-A failing step is work to do: find the cause, fix it and carry on. Stop only when the fast-forward in step 6 is refused because of the main checkout's uncommitted changes, or when a safe branch delete in step 8 is refused, and report the exact error.
+A failing step is work to do: find the cause, fix it and carry on. Stop only when the fast-forward in step 6 is refused because of the main checkout's uncommitted changes, and report the exact error.
