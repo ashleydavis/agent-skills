@@ -49,13 +49,14 @@ However it is made, the worktree's directory name and its branch both start with
 - Decide whether it is constant or intermittent. A failure in every run since a point is a break; one in some runs is intermittent and needs many runs per experiment to call a result (state the number before you start, such as "10 passes in a row is good, any failure is bad").
 - Compare the failed run with the last green run of the same job: the commit, the runner image (`Image:` and `Version:` at the top of each job's log), the tool versions the setup steps printed, and how long each test took. A change between them that is not in the code (a new runner image, a new package version) is often the cause.
 
-## 4. Reproduce it locally if you can
+## 4. Reproduce it locally first
 
-- Copy what the runner has, not what your machine has: its environment variables, the services it has and lacks, its OS image. A local run that passes proves nothing until it matches the runner in the respect that matters.
-- If it reproduces, find the cause locally: instrument, narrow, and repeat. Local runs are cheap.
+- Always try to reproduce the failure on this machine before running any experiment in the workflow. A local run takes seconds or minutes, and a workflow run takes far longer and costs CI minutes.
+- Copy what the runner has, not what your machine has: its environment variables, the services it has and lacks, its OS image, how many runs share a service, and starting from a fresh state where the runner does. A local run that passes proves nothing until it matches the runner in the respect that matters.
+- Once it reproduces, run every experiment locally: instrument, narrow, prove and repeat here. Push only to capture the evidence.
 - If it does not reproduce, say why it does not (what differs from the runner), then go to step 5.
 
-## 5. Otherwise, experiment in the workflow
+## 5. Only when it cannot be reproduced locally, experiment in the workflow
 
 - Put each experiment in a workflow of its own on the experiment branch, and delete every other workflow on that branch, so a push runs the experiment and nothing else. Cancel any other run a push still starts.
 - An experiment runs only what answers its question: one job, the build it needs, the one failing test, run as many times as the question needs. Build once, run many times. Build only the target the test uses.
